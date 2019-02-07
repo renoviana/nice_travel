@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "24867216922",
+    "firebase_url": "https://flutter-6f091.firebaseio.com",
+    "project_id": "flutter-6f091",
+    "storage_bucket": "flutter-6f091.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24867216922:android:11d6fef0c256b2ba",
+        "android_client_info": {
+          "package_name": "com.example.chapada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4u4bWAl8ACg2ct2kKtpj9r3B0EY8J_DE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24867216922:android:9a27a1a882fe4581",
+        "android_client_info": {
+          "package_name": "com.nicetravel.nicetravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24867216922-6m3sqlcvk26qpim0q635divfm165h0s2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicetravel.nicetravel",
+            "certificate_hash": "43762428689b3ad934dc7b4a2d5dfa9bca79e63c"
+          }
+        },
+        {
+          "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4u4bWAl8ACg2ct2kKtpj9r3B0EY8J_DE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
