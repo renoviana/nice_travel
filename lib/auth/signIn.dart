@@ -3,6 +3,7 @@ import 'package:nice_travel/ui/home.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -10,14 +11,18 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
   String _email, _password;
+
   GoogleSignIn googleAuth = new GoogleSignIn();
+  FacebookLogin facebookLogin = new FacebookLogin();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget emailInput(){
     return TextFormField(
       validator: (input) {
-        if (input.isEmpty) return 'Please type an email';
+        if (input.isEmpty) return 'Por favor digite um email';
       },
       onSaved: (input) => _email = input,
       decoration: InputDecoration(labelText: 'Email'),
@@ -60,6 +65,34 @@ class _SignInState extends State<SignIn> {
     );
   }
 
+
+  Widget facebookSignInButton(){
+    return RaisedButton(
+      child: Text("Login with Facebook"),
+      onPressed: (){
+        final facebookLogin = FacebookLogin().logInWithReadPermissions(['email','public_profile']).then((result){
+          switch (result.status) {
+            case FacebookLoginStatus.loggedIn:
+              AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
+              FirebaseAuth.instance.signInWithCredential(credential).then((FirebaseUser user){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(user: user,)));
+              });
+              break;
+            case FacebookLoginStatus.cancelledByUser:
+              break;
+            case FacebookLoginStatus.error:
+              break;
+          }
+        });
+
+
+
+      },
+    );
+  }
+
+
+
   Widget form() {
     return Form(
       key: _formKey,
@@ -71,7 +104,8 @@ class _SignInState extends State<SignIn> {
             onPressed: signIn,
             child: Text('Entrar'),
           ),
-          googleSignInButton()
+          googleSignInButton(),
+          facebookSignInButton()
         ],
       ),
     );

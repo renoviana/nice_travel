@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../auth/signIn.dart';
+
 class Home extends StatefulWidget {
   const Home({
     Key key,
@@ -14,6 +16,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+ signOut(){
+   FirebaseAuth.instance.signOut().then((value){
+     Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+   });
+ }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +30,13 @@ class _HomeState extends State<Home> {
         title: Text('Home'),
       ),
       body: Container(
-        child: Text(widget.user.email.toString()),
+        child: Column(
+          children: <Widget>[
+            Text('Nome:${widget.user.displayName}'),
+            Text('Email:${widget.user.email}'),
+            RaisedButton(onPressed: signOut)
+          ],
+        ),
       ),
     );
   }
