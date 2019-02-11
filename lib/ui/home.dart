@@ -4,10 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../auth/signIn.dart';
 
 class Home extends StatefulWidget {
-  const Home({
-    Key key,
-    @required this.user
-  }):super(key:key);
+  const Home({Key key, @required this.user}) : super(key: key);
 
   final FirebaseUser user;
 
@@ -16,12 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
- signOut(){
-   FirebaseAuth.instance.signOut().then((value){
-     Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
-   });
- }
+  signOut() {
+    FirebaseAuth.instance.signOut().then((value) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => SignIn()));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

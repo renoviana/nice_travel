@@ -11,7 +11,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
   String _email, _password;
 
   GoogleSignIn googleAuth = new GoogleSignIn();
@@ -19,7 +18,7 @@ class _SignInState extends State<SignIn> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Widget emailInput(){
+  Widget emailInput() {
     return TextFormField(
       validator: (input) {
         if (input.isEmpty) return 'Por favor digite um email';
@@ -29,7 +28,7 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Widget passwordInput(){
+  Widget passwordInput() {
     return TextFormField(
       validator: (input) {
         if (input.length < 8)
@@ -41,41 +40,51 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Widget googleSignInButton(){
+  Widget googleSignInButton() {
     return RaisedButton(
       child: Text("Login with Google"),
-      onPressed: (){
-        googleAuth.signIn().then((result){
-          result.authentication.then((googleKey){
-            AuthCredential credential = GoogleAuthProvider.getCredential(idToken: googleKey.idToken, accessToken: googleKey.accessToken);
-            FirebaseAuth.instance.signInWithCredential(credential).then((FirebaseUser signedUser){
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home(user:signedUser)));
-            }).catchError((e){
+      onPressed: () {
+        googleAuth.signIn().then((result) {
+          result.authentication.then((googleKey) {
+            AuthCredential credential = GoogleAuthProvider.getCredential(
+                idToken: googleKey.idToken, accessToken: googleKey.accessToken);
+            FirebaseAuth.instance
+                .signInWithCredential(credential)
+                .then((FirebaseUser signedUser) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => Home(user: signedUser)));
+            }).catchError((e) {
               print(e);
             });
-          }).catchError((e){
+          }).catchError((e) {
             print(e);
           });
-        }).catchError((e){
+        }).catchError((e) {
           print(e);
         });
       },
-
     );
   }
 
-
-  Widget facebookSignInButton(){
+  Widget facebookSignInButton() {
     return RaisedButton(
       child: Text("Login with Facebook"),
-      onPressed: (){
-        final facebookLogin = FacebookLogin().logInWithReadPermissions(['email','public_profile']).then((result){
+      onPressed: () {
+        final facebookLogin = FacebookLogin().logInWithReadPermissions(
+            ['email', 'public_profile']).then((result) {
           switch (result.status) {
             case FacebookLoginStatus.loggedIn:
-              AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
-              FirebaseAuth.instance.signInWithCredential(credential).then((FirebaseUser user){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Home(user: user,)));
+              AuthCredential credential = FacebookAuthProvider.getCredential(
+                  accessToken: result.accessToken.token);
+              FirebaseAuth.instance
+                  .signInWithCredential(credential)
+                  .then((FirebaseUser user) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Home(
+                              user: user,
+                            )));
               });
               break;
             case FacebookLoginStatus.cancelledByUser:
@@ -84,14 +93,9 @@ class _SignInState extends State<SignIn> {
               break;
           }
         });
-
-
-
       },
     );
   }
-
-
 
   Widget form() {
     return Form(
@@ -129,7 +133,7 @@ class _SignInState extends State<SignIn> {
         FirebaseUser user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home(user:user)));
+            context, MaterialPageRoute(builder: (context) => Home(user: user)));
       } catch (e) {
         print(e.message);
       }
