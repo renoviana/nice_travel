@@ -54,6 +54,14 @@
           }
         },
         {
+          "client_id": "24867216922-f8n2bpuggp5p5j42m9ur3nk6skc0oct3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nicetravel",
+            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
+          }
+        },
+        {
           "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -95,6 +103,14 @@
           "android_info": {
             "package_name": "com.nicetravel.nicetravel",
             "certificate_hash": "bb99f90c7045e55a5a1fc1f73835417f55a19bb4"
+          }
+        },
+        {
+          "client_id": "24867216922-9fn5ckh0vc7kg9k7unf8d86ts2huk5qn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicetravel.nicetravel",
+            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
           }
         },
         {
