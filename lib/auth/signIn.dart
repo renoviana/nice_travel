@@ -66,33 +66,42 @@ class _SignInState extends State<SignIn> {
     );
   }
 
+
+  void initiateFacebookLogin() async {
+    var facebookLogin = FacebookLogin();
+    var facebookLoginResult = await facebookLogin.logInWithReadPermissions(['email']);
+    switch (facebookLoginResult.status) {
+      case FacebookLoginStatus.error:
+        //Todo mosrtar exception para o usuário
+        print(facebookLoginResult.errorMessage);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+      //Todo mosrtar exception para o usuário
+        print("CancelledByUser");
+        break;
+      case FacebookLoginStatus.loggedIn:
+        print("LoggedIn");
+        AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: facebookLoginResult.accessToken.token);
+        FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((FirebaseUser user) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Home(
+                    user: user,
+                  )));
+        });
+        break;
+    }
+  }
+
   Widget facebookSignInButton() {
     return RaisedButton(
       child: Text("Login with Facebook"),
       onPressed: () {
-        final facebookLogin = FacebookLogin().logInWithReadPermissions(
-            ['email', 'public_profile']).then((result) {
-          switch (result.status) {
-            case FacebookLoginStatus.loggedIn:
-              AuthCredential credential = FacebookAuthProvider.getCredential(
-                  accessToken: result.accessToken.token);
-              FirebaseAuth.instance
-                  .signInWithCredential(credential)
-                  .then((FirebaseUser user) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Home(
-                              user: user,
-                            )));
-              });
-              break;
-            case FacebookLoginStatus.cancelledByUser:
-              break;
-            case FacebookLoginStatus.error:
-              break;
-          }
-        });
+        initiateFacebookLogin();
       },
     );
   }
