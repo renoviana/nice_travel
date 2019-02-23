@@ -1,40 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../auth/signIn.dart';
+import 'package:nice_travel/ui/WidgetPage.dart';
+import 'package:nice_travel/ui/backdrop.dart';
+import 'package:nice_travel/ui/info-user.dart';
+import 'package:nice_travel/ui/menuTitle.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key key, @required this.user}) : super(key: key);
-
   final FirebaseUser user;
+
+  const Home({Key key, @required this.user}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  signOut() {
-    FirebaseAuth.instance.signOut().then((value) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => SignIn()));
-    });
+  static const baseColors = ColorSwatch(0xFF6AB7A8, {
+    'highlight': Color(0xFF6AB7A8),
+    'splash': Color(0xFF0ABC9B),
+  });
+
+  WidgetPage currentPage;
+
+  final pages = <WidgetPage>[];
+
+  WidgetPage defaultCurrentPage = new WidgetPage(
+      name: "Nice Travel",
+      color: baseColors,
+      iconLocation: Icons.home,
+      frontPanel: new Text("TODO IMPLEMENTAR!"));
+
+  @override
+  void initState() {
+    super.initState();
+    pages.add(new WidgetPage(
+        name: "User info",
+        color: baseColors,
+        iconLocation: Icons.supervised_user_circle,
+        frontPanel: new InfoUser(user: widget.user)));
+    pages.add(defaultCurrentPage);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
+    final listView = Padding(
+      padding: EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        bottom: 48.0,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Text('Nome:${widget.user.displayName}'),
-            Text('Email:${widget.user.email}'),
-            RaisedButton(onPressed: signOut)
-          ],
-        ),
-      ),
+      child: buildListActions(MediaQuery.of(context).orientation),
     );
+    return Backdrop(
+      currentPage: currentPage == null ? defaultCurrentPage : currentPage,
+      backPanel: listView,
+      backTitle: Text('Selecione um item de menu'),
+    );
+  }
+
+  Widget buildListActions(Orientation deviceOrientation) {
+    return ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          var page = pages[index];
+          return MenuTitle(
+            page: page,
+            onTap: onMenuItemTap,
+          );
+        },
+        itemCount: pages.length);
+  }
+
+  /// Function to call when a [WidgetPage] is tapped.
+  void onMenuItemTap(WidgetPage page) {
+    setState(() {
+      currentPage = page;
+    });
   }
 }
