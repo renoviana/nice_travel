@@ -17,17 +17,20 @@ class _BackdropPanel extends StatelessWidget {
     this.onTap,
     this.onVerticalDragUpdate,
     this.onVerticalDragEnd,
+    this.title,
     this.child,
   }) : super(key: key);
 
   final VoidCallback onTap;
   final GestureDragUpdateCallback onVerticalDragUpdate;
   final GestureDragEndCallback onVerticalDragEnd;
+  final Widget title;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      elevation: 2.0,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(16.0),
         topRight: Radius.circular(16.0),
@@ -41,8 +44,17 @@ class _BackdropPanel extends StatelessWidget {
             onVerticalDragEnd: onVerticalDragEnd,
             onTap: onTap,
             child: Container(
-              height: 50.0,
+              height: 48.0,
+              padding: EdgeInsetsDirectional.only(start: 16.0),
+              alignment: AlignmentDirectional.centerStart,
+              child: DefaultTextStyle(
+                style: Theme.of(context).textTheme.subhead,
+                child: title,
+              ),
             ),
+          ),
+          Divider(
+            height: 1.0,
           ),
           Expanded(
             child: child,
@@ -223,7 +235,8 @@ class _BackdropState extends State<Backdrop>
               onTap: _toggleBackdropPanelVisibility,
               onVerticalDragUpdate: _handleDragUpdate,
               onVerticalDragEnd: _handleDragEnd,
-              child: widget.currentPage.frontPanel,
+              title: Text(widget.currentPage.name),
+              child: widget.currentPage.frontTitle,
             ),
           ),
         ],
@@ -246,7 +259,7 @@ class _BackdropState extends State<Backdrop>
         ),
         title: _BackdropTitle(
           listenable: _controller.view,
-          frontTitle: Text(widget.currentPage.name),
+          frontTitle: widget.currentPage.frontTitle,
           backTitle: widget.backTitle,
         ),
       ),

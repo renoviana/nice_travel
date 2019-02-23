@@ -28,7 +28,8 @@ class _HomeState extends State<Home> {
       name: "Nice Travel",
       color: baseColors,
       iconLocation: Icons.home,
-      frontPanel: new Text("TODO IMPLEMENTAR!"));
+      frontPanel: new Text("TODO IMPLEMENTAR!"),
+      frontTitle: new Text("Nice Travel"));
 
   @override
   void initState() {
@@ -37,7 +38,8 @@ class _HomeState extends State<Home> {
         name: "User info",
         color: baseColors,
         iconLocation: Icons.supervised_user_circle,
-        frontPanel: new InfoUser(user: widget.user)));
+        frontPanel: new InfoUser(user: widget.user),
+        frontTitle: new Text("User info")));
     pages.add(defaultCurrentPage);
   }
 

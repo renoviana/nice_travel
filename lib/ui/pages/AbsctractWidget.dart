@@ -13,14 +13,17 @@ class WidgetPage {
   final ColorSwatch color;
   final IconData iconLocation;
   final Widget frontPanel;
+  final Widget frontTitle;
 
   const WidgetPage({
     @required this.name,
     @required this.color,
     @required this.iconLocation,
     @required this.frontPanel,
+    @required this.frontTitle,
   })  : assert(name != null),
         assert(color != null),
         assert(iconLocation != null),
-        assert(frontPanel != null);
+        assert(frontPanel != null),
+        assert(frontTitle != null);
 }
