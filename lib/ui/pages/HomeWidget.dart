@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nice_travel/ui/WidgetPage.dart';
-import 'package:nice_travel/ui/backdrop.dart';
-import 'package:nice_travel/ui/info-user.dart';
-import 'package:nice_travel/ui/menuTitle.dart';
+import 'package:nice_travel/ui/pages/AbsctractWidget.dart';
+import 'package:nice_travel/ui/Backdrop.dart';
+import 'package:nice_travel/ui/pages/InfoUserWidget.dart';
+import 'package:nice_travel/ui/MenuTitle.dart';
 
 class Home extends StatefulWidget {
   final FirebaseUser user;

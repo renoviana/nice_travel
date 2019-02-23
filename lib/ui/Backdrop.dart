@@ -6,7 +6,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:nice_travel/ui/WidgetPage.dart';
+import 'package:nice_travel/ui/pages/AbsctractWidget.dart';
 
 
 const double kFlingVelocity = 2.0;

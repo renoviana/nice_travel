@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nice_travel/auth/signIn.dart';
 
-import '../auth/signIn.dart';
 
 class InfoUser extends StatefulWidget {
   final FirebaseUser user;

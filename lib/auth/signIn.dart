@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/ui/home.dart';
+import 'package:nice_travel/ui/pages/HomeWidget.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

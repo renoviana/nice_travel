@@ -6,7 +6,7 @@
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:nice_travel/ui/WidgetPage.dart';
+import 'package:nice_travel/ui/pages/AbsctractWidget.dart';
 
 // We use an underscore to indicate that these variables are private.
 // See https://www.dartlang.org/guides/language/effective-dart/design#libraries
