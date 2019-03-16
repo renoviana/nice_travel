@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:nice_travel/ui/pages/AbsctractWidget.dart';
 
-
 const double kFlingVelocity = 2.0;
 
 class _BackdropPanel extends StatelessWidget {
@@ -154,8 +153,7 @@ class _BackdropState extends State<Backdrop>
     if (widget.currentPage != old.currentPage) {
       setState(() {
         _controller.fling(
-            velocity:
-                _backdropPanelVisible ? -kFlingVelocity : kFlingVelocity);
+            velocity: _backdropPanelVisible ? -kFlingVelocity : kFlingVelocity);
       });
     } else if (!_backdropPanelVisible) {
       setState(() {
@@ -208,8 +206,7 @@ class _BackdropState extends State<Backdrop>
       _controller.fling(velocity: math.min(-kFlingVelocity, -flingVelocity));
     else
       _controller.fling(
-          velocity:
-              _controller.value < 0.5 ? -kFlingVelocity : kFlingVelocity);
+          velocity: _controller.value < 0.5 ? -kFlingVelocity : kFlingVelocity);
   }
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
