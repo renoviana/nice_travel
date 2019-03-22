@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nice_travel/auth/signIn.dart';
 
-
 class InfoUser extends StatefulWidget {
   final FirebaseUser user;
 
@@ -13,14 +12,12 @@ class InfoUser extends StatefulWidget {
 }
 
 class _InfoUserState extends State<InfoUser> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: form(),
     );
   }
-
 
   signOut() {
     FirebaseAuth.instance.signOut().then((value) {
@@ -32,13 +29,11 @@ class _InfoUserState extends State<InfoUser> {
   Widget form() {
     return Container(
       alignment: Alignment.topLeft,
-      child: Container(
-        child: infoUser()
-      ),
+      child: Container(child: infoUser()),
     );
   }
 
-  Widget infoUser(){
+  Widget infoUser() {
     return Column(
       children: <Widget>[
         Text('Nome:${widget.user.displayName}'),
@@ -48,4 +43,3 @@ class _InfoUserState extends State<InfoUser> {
     );
   }
 }
-

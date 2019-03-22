@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/ui/pages/HomeWidget.dart';
+import 'package:nice_travel/auth/authController.dart';
+import 'package:nice_travel/pages/HomeWidget.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter_alert/flutter_alert.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -41,43 +45,51 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget googleSignInButton() {
-    return RaisedButton(
-      child: Text("Login with Google"),
-      onPressed: () {
-        googleAuth.signIn().then((result) {
-          result.authentication.then((googleKey) {
-            AuthCredential credential = GoogleAuthProvider.getCredential(
-                idToken: googleKey.idToken, accessToken: googleKey.accessToken);
-            FirebaseAuth.instance
-                .signInWithCredential(credential)
-                .then((FirebaseUser signedUser) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => Home(user: signedUser)));
-            }).catchError((e) {
-              print(e);
-            });
-          }).catchError((e) {
-            print(e);
-          });
-        }).catchError((e) {
-          print(e);
-        });
-      },
+    return Container(
+      color: Colors.red,
+      child: IconButton(
+        icon: Icon(MdiIcons.google),
+        color: Colors.white,
+        onPressed: initiateGoogleLogin,
+      ),
     );
   }
 
+  void initiateGoogleLogin() {
+    final AuthController bloc = BlocProvider.of<AuthController>(context);
+    googleAuth.signIn().then((result) {
+      result.authentication.then((googleKey) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(
+            idToken: googleKey.idToken, accessToken: googleKey.accessToken);
+        FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((FirebaseUser signedUser) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Home(user: signedUser)));
+        }).catchError((e) {
+          bloc.setMsg(e.toString());
+        });
+      }).catchError((e) {
+        bloc.setMsg(e.toString());
+      });
+    }).catchError((e) {
+      bloc.setMsg(e.toString());
+    });
+  }
 
   void initiateFacebookLogin() async {
+    final AuthController bloc = BlocProvider.of<AuthController>(context);
     var facebookLogin = FacebookLogin();
-    var facebookLoginResult = await facebookLogin.logInWithReadPermissions(['email']);
+    var facebookLoginResult =
+        await facebookLogin.logInWithReadPermissions(['email']);
     switch (facebookLoginResult.status) {
       case FacebookLoginStatus.error:
         //Todo mosrtar exception para o usuário
-        print(facebookLoginResult.errorMessage);
+        bloc.setMsg(facebookLoginResult.errorMessage);
         break;
       case FacebookLoginStatus.cancelledByUser:
-      //Todo mosrtar exception para o usuário
-        print("CancelledByUser");
+        //Todo mosrtar exception para o usuário
+        bloc.setMsg('Cancelado pelo usuário');
         break;
       case FacebookLoginStatus.loggedIn:
         print("LoggedIn");
@@ -90,37 +102,20 @@ class _SignInState extends State<SignIn> {
               context,
               MaterialPageRoute(
                   builder: (context) => Home(
-                    user: user,
-                  )));
+                        user: user,
+                      )));
         });
         break;
     }
   }
 
   Widget facebookSignInButton() {
-    return RaisedButton(
-      child: Text("Login with Facebook"),
-      onPressed: () {
-        initiateFacebookLogin();
-      },
-    );
-  }
-
-  Widget form() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          emailInput(),
-          passwordInput(),
-          RaisedButton(
-            onPressed: signIn,
-            child: Text('Entrar'),
-          ),
-          googleSignInButton(),
-          facebookSignInButton()
-        ],
-      ),
+    return Container(
+      color: Colors.blue,
+      child: IconButton(
+          icon: Icon(MdiIcons.facebook),
+          color: Colors.white,
+          onPressed: initiateFacebookLogin),
     );
   }
 
@@ -130,7 +125,46 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         title: Text("Nive Travel"),
       ),
-      body: form(),
+      body: form(context),
+    );
+  }
+
+  Widget form(context) {
+    final AuthController bloc = BlocProvider.of<AuthController>(context);
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            emailInput(),
+            passwordInput(),
+            RaisedButton(
+              onPressed: signIn,
+              child: Text('Entrar'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[googleSignInButton(), facebookSignInButton()],
+            ),
+            StreamBuilder(
+              stream: bloc.outMsg,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.data != '') {
+                  return Container(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      snapshot.data,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
+                return Text('');
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 

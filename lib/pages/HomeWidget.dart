@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nice_travel/ui/pages/AbsctractWidget.dart';
+import 'package:nice_travel/pages/AbsctractWidget.dart';
 import 'package:nice_travel/ui/Backdrop.dart';
-import 'package:nice_travel/ui/pages/InfoUserWidget.dart';
+import 'package:nice_travel/pages/InfoUserWidget.dart';
 import 'package:nice_travel/ui/MenuTitle.dart';
 
 class Home extends StatefulWidget {
