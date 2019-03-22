@@ -10,7 +10,7 @@ class AuthController implements BlocBase {
   Sink<String> get inMsg => _msgController.sink;
 
   void setMsg(String msg) {
-    _msgController.add(msg);
+    _msgController.add(_msgController.value);
   }
 
   @override

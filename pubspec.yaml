@@ -10,7 +10,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -24,7 +24,7 @@ dependencies:
   material_design_icons_flutter: ^3.2.3595
   bloc_pattern:
   rxdart:
-  flutter_alert:
+  flutter_url_image_load_fail:
 
 dev_dependencies:
   flutter_test:

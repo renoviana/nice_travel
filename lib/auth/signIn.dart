@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter_alert/flutter_alert.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -150,7 +149,7 @@ class _SignInState extends State<SignIn> {
             StreamBuilder(
               stream: bloc.outMsg,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.data != '') {
+                if (snapshot.hasData) {
                   return Container(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
