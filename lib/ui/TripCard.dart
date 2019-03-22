@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
+import 'package:nice_travel/model/Trip.dart';
+import 'package:nice_travel/pages/TripDetails.dart';
 
 class TripCard extends StatelessWidget {
   final Widget child;
-  final String trip;
+  final Trip trip;
 
   TripCard(this.trip, {Key key, this.child}) : super(key: key);
 
@@ -27,14 +29,16 @@ class TripCard extends StatelessWidget {
               },
             ),
             ListTile(
-              onTap: () {},
-              title: Text('Salvador'),
-              subtitle: Text('4 dias'),
+              title: Text(this.trip.city),
+              subtitle: Text("${this.trip.numberOfDays.toString()} dias"),
             )
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => TripDetails(this.trip)));
+      },
     );
   }
 }

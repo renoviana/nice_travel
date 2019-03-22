@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/pages/listController.dart';
 import 'package:nice_travel/ui/TripCard.dart';
 
@@ -19,7 +20,7 @@ class _ListTripsState extends State<ListTrips> {
       stream: bloc.outList,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          List<String> lista = snapshot.data;
+          List<Trip> lista = snapshot.data;
           if (lista.isEmpty) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
