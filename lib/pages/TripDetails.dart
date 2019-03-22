@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
 import 'package:nice_travel/model/Trip.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+import 'package:nice_travel/pages/DayTimeLine.dart';
 
 class TripDetails extends StatefulWidget {
   final Widget child;
@@ -13,17 +12,6 @@ class TripDetails extends StatefulWidget {
 }
 
 class _TripDetailsState extends State<TripDetails> {
-  List<TimelineModel> items = [
-    TimelineModel(Placeholder(),
-        position: TimelineItemPosition.random,
-        iconBackground: Colors.redAccent,
-        icon: Icon(Icons.blur_circular)),
-    TimelineModel(Placeholder(),
-        position: TimelineItemPosition.random,
-        iconBackground: Colors.redAccent,
-        icon: Icon(Icons.blur_circular)),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +53,14 @@ class _TripDetailsState extends State<TripDetails> {
       child: ListView.builder(
         itemCount: widget.trip.dias.length,
         itemBuilder: (BuildContext context, int i) {
-          return new ListTile(title: Text("Dia  $i"));
+          return new ListTile(
+            title: Text("Dia  $i"),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      DayTimeLine(widget.trip.dias[i])));
+            },
+          );
         },
       ),
     );

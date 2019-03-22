@@ -5,7 +5,12 @@ import 'package:rxdart/rxdart.dart';
 class ListController implements BlocBase {
   static List<Trip> tripteste = [
     new Trip('Salvador', 10, [
-      new DayActivities([Activities('Pelourinho', '12:00')])
+      DayActivities([Activities('Pelourinho', '12:00')]),
+      DayActivities([Activities('Pelourinho', '12:00')]),
+      DayActivities([Activities('Pelourinho', '12:00')]),
+      DayActivities([Activities('Pelourinho', '12:00')]),
+      DayActivities([Activities('Pelourinho', '12:00')]),
+      DayActivities([Activities('Pelourinho', '12:00')]),
     ])
   ];
 
