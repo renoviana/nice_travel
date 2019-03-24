@@ -1,12 +1,11 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nice_travel/auth/authController.dart';
 import 'package:nice_travel/pages/HomeWidget.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -134,7 +133,8 @@ class _SignInState extends State<SignIn> {
       padding: EdgeInsets.all(16.0),
       child: Form(
         key: _formKey,
-        child: Column(
+        child: Wrap(
+          alignment: WrapAlignment.center,
           children: <Widget>[
             emailInput(),
             passwordInput(),
