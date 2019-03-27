@@ -128,7 +128,8 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget form(context) {
-    final AuthController bloc = BlocProvider.of<AuthController>(context);
+    final AuthController bloc = BlocProvider.of
+    <AuthController>(context);
     return Container(
       padding: EdgeInsets.all(16.0),
       child: Form(
