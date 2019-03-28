@@ -1,8 +1,11 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nice_travel/pages/ListTrips.dart';
-import 'package:nice_travel/pages/listController.dart';
+import 'package:nice_travel/controller/firebase.dart';
+
+import 'package:nice_travel/ui/trip/ListTrips.dart';
+import 'package:nice_travel/controller/listController.dart';
+import 'package:nice_travel/pages/addCronograma.dart';
 
 class Home extends StatefulWidget {
   final FirebaseUser user;
@@ -19,21 +22,41 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  int _currentIndex = 0;
+
+  List<Widget> _screens = [ListTrips(), ListTrips(), ListTrips()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Trips',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-      ),
       body: BlocProvider<ListController>(
-          child: ListTrips(), bloc: ListController()),
+          child: _screens[_currentIndex], bloc: ListController()),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => BlocProvider(
+                    bloc: ListController(),
+                    child: AddCronograma(),
+                  )));
+        },
         child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (i) {
+          setState(() {
+            _currentIndex = i;
+          });
+        },
+        currentIndex: _currentIndex,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star), title: Text('Favoritos')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home), title: Text('Cronogramas')),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('Info'),
+          ),
+        ],
       ),
     );
   }

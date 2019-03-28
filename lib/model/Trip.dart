@@ -1,8 +1,24 @@
+import 'package:google_maps_webservice/places.dart';
+import 'package:nice_travel/model/placesDetails.dart';
+
 class Trip {
-  final String city;
-  final List<DayActivities> dias;
+  final Result city;
+  final String dias;
   final int numberOfDays;
   Trip(this.city, this.numberOfDays, this.dias);
+
+  Trip.fromSnapshot(Map<dynamic, dynamic> snapshot)
+      : city = Result.fromJson(snapshot['city']),
+        dias = snapshot['dias'],
+        numberOfDays = snapshot['numberOfDays'];
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['city'] = this.city.toJson();
+    data['dias'] = this.dias;
+    data['numberOfDays'] = this.numberOfDays;
+    return data;
+  }
 }
 
 class DayActivities {
