@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/auth/authController.dart';
-import './auth/signIn.dart';
+import 'package:nice_travel/controller/authController.dart';
+import 'package:nice_travel/pages/signIn.dart';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 

@@ -1,16 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
-import 'package:nice_travel/auth/authController.dart';
-import 'package:nice_travel/pages/HomeWidget.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:nice_travel/auth/authController.dart';
+
+import 'package:nice_travel/controller/authController.dart';
 import 'package:nice_travel/pages/HomeWidget.dart';
 
 class SignIn extends StatefulWidget {

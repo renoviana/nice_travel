@@ -1,6 +1,7 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:nice_travel/model/Trip.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+
+import 'package:nice_travel/model/Trip.dart';
 
 class ListController implements BlocBase {
   static List<Trip> tripteste = [
