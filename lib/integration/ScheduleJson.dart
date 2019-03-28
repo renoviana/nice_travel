@@ -11,20 +11,15 @@ abstract class ScheduleJson
     implements Built<ScheduleJson, ScheduleJsonBuilder> {
   static Serializer<ScheduleJson> get serializer => _$scheduleJsonSerializer;
 
-  @nullable
   int get scheduleCod;
 
-  @nullable
   int get qtdDays;
 
-  @nullable
   String get imageUrl;
 
 // BuiltList<int> get scheduleDay;
-  @nullable
   String get nameCity;
 
-  @nullable
   double get priceFinal;
 
   ScheduleJson._();
