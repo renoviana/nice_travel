@@ -14,6 +14,7 @@ const kGoogleApiKey = "AIzaSyC9b4oUjYYnSj5jLqdUidl4Wdy1cEskoJI";
 class _AddCronogramaState extends State<AddCronograma> {
   GoogleMapsPlaces _places = new GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -39,22 +40,20 @@ class _AddCronogramaState extends State<AddCronograma> {
   }
 
   Widget _formWidget() {
-    if (_confirmButton) {
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[CircularProgressIndicator()],
-        ),
-      );
-    }
     return Column(
       children: <Widget>[
         new Container(
+          height: 50,
           margin: EdgeInsets.all(15),
           child: RaisedButton(
-              child: Text("Selecione seu destino"),
+              color: Colors.blueAccent,
+              child: Text(
+                "Selecione seu destino",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
               onPressed: () async {
                 Prediction p = await showGooglePlacesAutocomplete(
                         context: context,
@@ -72,20 +71,62 @@ class _AddCronogramaState extends State<AddCronograma> {
               }),
           width: MediaQuery.of(context).size.width,
         ),
+        _cronogramaForm(),
         Container(
+          width: 200,
+          height: 60,
           margin: EdgeInsets.all(15),
-          child: new TextField(
-            controller: controller,
-            decoration: new InputDecoration(hintText: "Destino"),
+          child: RaisedButton(
+            color: Colors.green,
+            onPressed: () {
+              if (_formKey.currentState.validate()) {}
+            },
+            child: Text(
+              "Concluir",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.all(15),
-          child: new TextField(
-            decoration: new InputDecoration(hintText: "Quantidade de dias"),
-          ),
-        ),
+        )
       ],
+    );
+  }
+
+  Widget _cronogramaForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(15),
+            child: new FocusScope(
+                node: new FocusScopeNode(),
+                child: new TextFormField(
+                  controller: controller,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Por favor selecione um destino';
+                    }
+                  },
+                  decoration: new InputDecoration(hintText: "Destino"),
+                )),
+          ),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: new TextFormField(
+              decoration: new InputDecoration(hintText: "Quantidade de dias"),
+              keyboardType: TextInputType.numberWithOptions(),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Campo Obrigatório';
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
