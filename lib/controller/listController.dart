@@ -17,7 +17,7 @@ class ListController implements BlocBase {
     ])
   ];
 
-  var _listController = BehaviorSubject<List<Trip>>.seeded(tripteste);
+  var _listController = BehaviorSubject<List<Trip>>(seedValue: tripteste);
 
   Stream<List<Trip>> get outList => _listController.stream;
   Sink<List<Trip>> get inList => _listController.sink;
