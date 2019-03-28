@@ -1,4 +1,3 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:nice_travel/controller/listController.dart';
 import 'package:nice_travel/model/Trip.dart';

@@ -1,11 +1,9 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nice_travel/controller/firebase.dart';
-
-import 'package:nice_travel/ui/trip/ListTrips.dart';
+import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/listController.dart';
 import 'package:nice_travel/pages/addCronograma.dart';
+import 'package:nice_travel/ui/trip/ListTrips.dart';
 
 class Home extends StatefulWidget {
   final FirebaseUser user;

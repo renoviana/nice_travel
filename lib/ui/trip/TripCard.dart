@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/ui/trip/TripDetails.dart';
 import 'package:nice_travel/model/api.dart';
@@ -24,7 +23,7 @@ class TripCard extends StatelessWidget {
       return CachedNetworkImage(
         height: 180,
         imageUrl:
-            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=${kGoogleApiKey}',
+            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=$kGoogleApiKey',
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.cover,
         placeholder: (context, url) => new CircularProgressIndicator(),

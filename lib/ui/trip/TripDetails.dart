@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
-
 import 'package:nice_travel/model/Trip.dart';
-import 'package:nice_travel/ui/DayTimeLine.dart';
 
 class TripDetails extends StatefulWidget {
   final Widget child;
