@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places_autocomplete/flutter_google_places_autocomplete.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class AddCronograma extends StatefulWidget {
   final Widget child;
@@ -55,7 +56,7 @@ class _AddCronogramaState extends State<AddCronograma> {
                 ),
               ),
               onPressed: () async {
-                Prediction p = await showGooglePlacesAutocomplete(
+                Prediction p = await PlacesAutocomplete.show(
                         context: context,
                         apiKey: kGoogleApiKey,
                         mode: Mode.overlay,
