@@ -28,6 +28,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("My Trips",
+            style: TextStyle(
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+      ),
       body: BlocProvider<ListController>(
           child: _screens[_currentIndex], bloc: ListController()),
       floatingActionButton: FloatingActionButton(

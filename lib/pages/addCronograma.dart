@@ -129,7 +129,7 @@ class _AddCronogramaState extends State<AddCronograma> {
                     context: context,
                     apiKey: kGoogleApiKey,
                     mode: Mode.fullscreen,
-                    language: "pt",
+                    language: "pt-BR",
                     types: ["(cities)"],
                     components: [new Component(Component.country, "br")])
                 .then((value) {

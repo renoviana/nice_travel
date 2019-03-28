@@ -30,9 +30,9 @@ class ListTrips extends StatelessWidget {
             );
           } else {
             return Container(
-              margin: EdgeInsets.only(top: 50),
+              margin: EdgeInsets.only(top: 10),
               child: ListView.builder(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(12),
                 itemCount: lista.length,
                 itemBuilder: (BuildContext context, int i) {
                   print(lista[i]);

@@ -33,18 +33,47 @@ class TripCard extends StatelessWidget {
     }
 
     return GestureDetector(
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            cardimg(),
-            ListTile(
-              title: Text(this.trip.city.name),
-              subtitle: Text("${this.trip.numberOfDays.toString()} dias"),
-            )
-          ],
-        ),
-      ),
+      child: Container(
+          margin: EdgeInsets.all(16),
+          height: 200,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.blueGrey,
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  colorFilter: new ColorFilter.mode(
+                      Colors.white.withOpacity(0.6), BlendMode.dstATop),
+                  image: CachedNetworkImageProvider(
+                      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=${kGoogleApiKey}'))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                  margin: EdgeInsets.all(20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          this.trip.city.name,
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900),
+                        ),
+                        Container(
+                          height: 5,
+                        ),
+                        Text(
+                          this.trip.city.addressComponents[2].longName,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ]))
+            ],
+          )),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TripDetails(this.trip)));
