@@ -2,17 +2,13 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/controller/listController.dart';
-import 'package:nice_travel/ui/TripCard.dart';
+import 'package:nice_travel/ui/trip/TripCard.dart';
 
-class ListTrips extends StatefulWidget {
+class ListTrips extends StatelessWidget {
   final Widget child;
 
   ListTrips({Key key, this.child}) : super(key: key);
 
-  _ListTripsState createState() => _ListTripsState();
-}
-
-class _ListTripsState extends State<ListTrips> {
   @override
   Widget build(BuildContext context) {
     final ListController bloc = BlocProvider.of<ListController>(context);
