@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Trip.dart';
-import 'package:nice_travel/ui/trip/TripDetails.dart';
 import 'package:nice_travel/model/api.dart';
+import 'package:nice_travel/ui/trip/TripDetails.dart';
 
 class TripCard extends StatelessWidget {
   final Widget child;

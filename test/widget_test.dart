@@ -7,15 +7,18 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:nice_travel/integration/ApiConnection.dart';
+import 'package:nice_travel/model/Schedule.dart';
 
 void main() {
 
   test('Test get schedule by city name', () async {
     var apiConnection = new ApiConnection();
-    var scheduleByCityName = await apiConnection.getScheduleByCityName("Salvador", 1);
+    Response response = await apiConnection.getScheduleByCityName("Salvador", 1);
+    List<Schedule> schedules = apiConnection.teste(response);
     String salvador = "Salvador";
-    expect(true, scheduleByCityName.contains(salvador));
+    expect(schedules.first.nameCity, salvador);
   });
 
   test('Test create schedule ', () async {
