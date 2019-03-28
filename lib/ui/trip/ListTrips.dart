@@ -14,11 +14,15 @@ class ListTrips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ListController bloc = BlocProvider.of<ListController>(context);
+    bloc.getList();
+
+    //bloc.addToList(Trip('', 1, 'teste'));
     return StreamBuilder(
       stream: bloc.outList,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           List<Trip> lista = snapshot.data;
+
           if (lista.isEmpty) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,6 +35,7 @@ class ListTrips extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 itemCount: lista.length,
                 itemBuilder: (BuildContext context, int i) {
+                  print(lista[i]);
                   return new TripCard(lista[i]);
                 },
               ),

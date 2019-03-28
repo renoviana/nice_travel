@@ -1,7 +1,11 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:nice_travel/controller/listController.dart';
+import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/model/api.dart';
+import 'package:nice_travel/model/placesDetails.dart';
 
 class AddCronograma extends StatefulWidget {
   final Widget child;
@@ -15,6 +19,10 @@ class _AddCronogramaState extends State<AddCronograma> {
   GoogleMapsPlaces _places = new GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
   final _formKey = GlobalKey<FormState>();
+
+  Result _destino;
+  String _dias;
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +32,8 @@ class _AddCronogramaState extends State<AddCronograma> {
 
   @override
   Widget build(BuildContext context) {
+    final ListController _bloc = BlocProvider.of<ListController>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -32,34 +42,37 @@ class _AddCronogramaState extends State<AddCronograma> {
         ),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Container(child: _formWidget()),
-    );
-  }
-
-  Widget _formWidget() {
-    return Column(
-      children: <Widget>[
-        _googlePlacesButton(),
-        _cronogramaForm(),
-        Container(
-          width: 200,
-          height: 60,
-          margin: EdgeInsets.all(15),
-          child: RaisedButton(
-            color: Colors.green,
-            onPressed: () {
-              if (_formKey.currentState.validate()) {}
-            },
-            child: Text(
-              "Concluir",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
+      body: Container(
+          child: Column(
+        children: <Widget>[
+          _googlePlacesButton(),
+          _cronogramaForm(),
+          Container(
+            width: 200,
+            height: 60,
+            margin: EdgeInsets.all(15),
+            child: RaisedButton(
+              color: Colors.green,
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+                  print(_destino);
+                  print(_dias);
+                  _bloc.addToList(Trip(_destino, int.parse(_dias), 'teste'));
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                "Concluir",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      )),
     );
   }
 
@@ -84,6 +97,7 @@ class _AddCronogramaState extends State<AddCronograma> {
             margin: EdgeInsets.all(15),
             child: new TextFormField(
               decoration: new InputDecoration(hintText: "Quantidade de dias"),
+              onSaved: (value) => _dias = value,
               keyboardType: TextInputType.numberWithOptions(),
               validator: (value) {
                 if (value.isEmpty) {
@@ -114,13 +128,15 @@ class _AddCronogramaState extends State<AddCronograma> {
             Prediction p = await PlacesAutocomplete.show(
                     context: context,
                     apiKey: kGoogleApiKey,
-                    mode: Mode.overlay,
+                    mode: Mode.fullscreen,
                     language: "pt",
+                    types: ["(cities)"],
                     components: [new Component(Component.country, "br")])
                 .then((value) {
               _places.getDetailsByPlaceId(value.placeId).then((onValue) {
                 setState(() {
-                  controller.text = onValue.result.name;
+                  controller.text = onValue.result.formattedAddress;
+                  _destino = Result.fromPlaceDetails(onValue.result);
                 });
               });
             });

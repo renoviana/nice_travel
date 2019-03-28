@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nice_travel/controller/firebase.dart';
 
 import 'package:nice_travel/ui/trip/ListTrips.dart';
 import 'package:nice_travel/controller/listController.dart';
@@ -32,7 +33,10 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => AddCronograma()));
+              builder: (BuildContext context) => BlocProvider(
+                    bloc: ListController(),
+                    child: AddCronograma(),
+                  )));
         },
         child: Icon(Icons.add),
       ),

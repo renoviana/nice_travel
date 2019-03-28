@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
 
 import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/ui/trip/TripDetails.dart';
+import 'package:nice_travel/model/api.dart';
 
 class TripCard extends StatelessWidget {
   final Widget child;
@@ -13,25 +13,33 @@ class TripCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget cardimg() {
+      String url;
+      if (this.trip.city.photos == null || this.trip.city.photos.length == 0)
+        return Image.asset(
+          'assets/cityplaceholder.png',
+          height: 180,
+        );
+
+      return CachedNetworkImage(
+        height: 180,
+        imageUrl:
+            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=${kGoogleApiKey}',
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => new CircularProgressIndicator(),
+        errorWidget: (context, url, error) => new Icon(Icons.error),
+      );
+    }
+
     return GestureDetector(
       child: Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            LoadImageFromUrl(
-              'https://rodoviariaonline.com.br/wp-content/uploads/2018/11/deseja-um-pouco-de-axe-confira-as-8-principais-praias-em-salvador-640x427.jpg',
-              (image) =>
-                  image, //What widget returns when the image is loaded successfully
-              () => Text(
-                  'Loading...'), //What widget returns when the image is loading
-              (IRetryLoadImage retryLoadImage, code, message) {
-                //What widget returns when the image failed to load
-                retryLoadImage.retryLoadImage();
-                return Container();
-              },
-            ),
+            cardimg(),
             ListTile(
-              title: Text(this.trip.city),
+              title: Text(this.trip.city.name),
               subtitle: Text("${this.trip.numberOfDays.toString()} dias"),
             )
           ],

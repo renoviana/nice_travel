@@ -36,7 +36,7 @@ class _TripDetailsState extends State<TripDetails> {
           Container(
             child: ListTile(
               title: Text(
-                widget.trip.city,
+                widget.trip.city.name,
                 style: TextStyle(color: Colors.white),
               ),
               subtitle: Text("${widget.trip.numberOfDays.toString()} dias",
@@ -44,27 +44,27 @@ class _TripDetailsState extends State<TripDetails> {
             ),
             color: Colors.blueGrey,
           ),
-          listDays()
+          // listDays()
         ],
       ),
     );
   }
 
-  Widget listDays() {
-    return new Expanded(
-      child: ListView.builder(
-        itemCount: widget.trip.dias.length,
-        itemBuilder: (BuildContext context, int i) {
-          return new ListTile(
-            title: Text("Dia  $i"),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      DayTimeLine(widget.trip.dias[i])));
-            },
-          );
-        },
-      ),
-    );
-  }
+  // Widget listDays() {
+  //   return new Expanded(
+  //     child: ListView.builder(
+  //       itemCount: widget.trip.dias.length,
+  //       itemBuilder: (BuildContext context, int i) {
+  //         return new ListTile(
+  //           title: Text("Dia  $i"),
+  //           onTap: () {
+  //             Navigator.of(context).push(MaterialPageRoute(
+  //                 builder: (BuildContext context) =>
+  //                     DayTimeLine(widget.trip.dias[i])));
+  //           },
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 }
