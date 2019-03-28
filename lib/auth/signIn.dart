@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
 import 'package:nice_travel/auth/authController.dart';
 import 'package:nice_travel/pages/HomeWidget.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -45,13 +47,42 @@ class _SignInState extends State<SignIn> {
 
   Widget googleSignInButton() {
     return Container(
-      color: Colors.red,
-      child: IconButton(
-        icon: Icon(MdiIcons.google),
-        color: Colors.white,
-        onPressed: initiateGoogleLogin,
+      width: 300,
+      height: 65,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.red,
       ),
+      child: FlatButton(
+          textColor: Colors.white,
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                MdiIcons.google,
+                color: Colors.white,
+              ),
+              Container(
+                width: 10,
+              ),
+              Text(
+                'Continuar com Google',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              )
+            ],
+          )),
     );
+    // );Container(
+    //   color: Colors.red,
+    //   child: IconButton(
+    //     icon: Icon(MdiIcons.google),
+    //     color: Colors.white,
+    //     onPressed: initiateGoogleLogin,
+    //   ),
+    // );
   }
 
   void initiateGoogleLogin() {
@@ -108,64 +139,110 @@ class _SignInState extends State<SignIn> {
     }
   }
 
-  Widget facebookSignInButton() {
+  Widget roundFlatButton(IconData icon, String text, Function f, Color cor) {
     return Container(
-      color: Colors.blue,
-      child: IconButton(
-          icon: Icon(MdiIcons.facebook),
-          color: Colors.white,
-          onPressed: initiateFacebookLogin),
+      width: 300,
+      height: 65,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: cor,
+      ),
+      child: FlatButton(
+          textColor: Colors.white,
+          onPressed: () {
+            f();
+          },
+          child: Row(
+            children: <Widget>[
+              Icon(icon),
+              Container(
+                width: 10,
+              ),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              )
+            ],
+          )),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Nive Travel"),
-      ),
-      body: form(context),
-    );
-  }
-
-  Widget form(context) {
-    final AuthController bloc = BlocProvider.of<AuthController>(context);
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
+      backgroundColor: Colors.white,
+      body: Container(
+        decoration: BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/boipeba.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        width: MediaQuery.of(context).size.width,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            emailInput(),
-            passwordInput(),
-            RaisedButton(
-              onPressed: signIn,
-              child: Text('Entrar'),
+            Text(
+              "NICE TRAVEL",
+              style: TextStyle(fontSize: 35, color: Colors.white),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[googleSignInButton(), facebookSignInButton()],
+            Container(
+              height: 70,
             ),
-            StreamBuilder(
-              stream: bloc.outMsg,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      snapshot.data,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  );
-                }
-                return Text('');
-              },
-            )
+            roundFlatButton(MdiIcons.facebookBox, "Continuar com Facebook",
+                initiateFacebookLogin, Colors.blue),
+            Container(
+              height: 35,
+            ),
+            roundFlatButton(MdiIcons.google, "Continuar com Google",
+                initiateGoogleLogin, Colors.red),
           ],
         ),
       ),
     );
   }
+
+  // Widget form(context) {
+  //   final AuthController bloc = BlocProvider.of<AuthController>(context);
+  //   return Container(
+  //     padding: EdgeInsets.all(16.0),
+  //     child: Form(
+  //       key: _formKey,
+  //       child: Column(
+  //         children: <Widget>[
+  //           emailInput(),
+  //           passwordInput(),
+  //           RaisedButton(
+  //             onPressed: signIn,
+  //             child: Text('Entrar'),
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[googleSignInButton(), facebookSignInButton()],
+  //           ),
+  //           StreamBuilder(
+  //             stream: bloc.outMsg,
+  //             builder: (BuildContext context, AsyncSnapshot snapshot) {
+  //               if (snapshot.hasData) {
+  //                 return Container(
+  //                   padding: EdgeInsets.all(16.0),
+  //                   child: Text(
+  //                     snapshot.data,
+  //                     style: TextStyle(color: Colors.red),
+  //                   ),
+  //                 );
+  //               }
+  //               return Text('');
+  //             },
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Future<void> signIn() async {
     final formState = _formKey.currentState;
