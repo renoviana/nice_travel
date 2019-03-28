@@ -7,16 +7,15 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:nice_travel/integration/ApiConnection.dart';
 
 void main() {
 
   test('Test get schedule by city name', () async {
-    final url = "http://localhost:8080/schedule/city?cityName=Salvador";
-    final response = await http.get(url);
-    expect(response.statusCode, 200);
-    final jsonString = response.body;
+    var apiConnection = new ApiConnection();
+    var scheduleByCityName = await apiConnection.getScheduleByCityName("Salvador", 1);
     String salvador = "Salvador";
-    expect(true, jsonString.contains(salvador));
+    expect(true, scheduleByCityName.contains(salvador));
   });
 
   test('Test create schedule ', () async {
