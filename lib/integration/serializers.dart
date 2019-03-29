@@ -6,6 +6,7 @@ library serializers;
 
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:nice_travel/integration/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/ScheduleJson.dart';
 
 part 'serializers.g.dart';
@@ -22,7 +23,7 @@ part 'serializers.g.dart';
 ///
 /// You usually only need to do this once per project.
 @SerializersFor([
-  ScheduleJson,
+  ScheduleJson, ScheduleDayJson
 ])
 final Serializers serializers = _$serializers;
 Serializers standardSerializers =

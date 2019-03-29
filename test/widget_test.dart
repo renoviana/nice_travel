@@ -12,21 +12,31 @@ import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 void main() {
-
   test('Test get schedule by city name', () async {
     var apiConnection = new ApiConnection();
-    Response response = await apiConnection.getScheduleByCityName("Salvador", 1);
-    List<Schedule> schedules = apiConnection.teste(response);
+    Response response =
+        await apiConnection.getScheduleByCityName("Salvador", 1);
+    List<Schedule> schedules = apiConnection.formatFutureToSchedules(response);
     String salvador = "Salvador";
     expect(schedules.first.nameCity, salvador);
   });
 
+  test('Test get schedule Day by Schedule cod', () async {
+    var apiConnection = new ApiConnection();
+    Response response = await apiConnection.getScheduleDayByCodSchedule(1);
+    List<ScheduleDay> schedulesDays =
+        apiConnection.formatFutureToSchedulesDay(response);
+    expect(true, schedulesDays.first.priceDay > 1);
+    expect(true, schedulesDays.first.day == 1);
+  });
+
   test('Test create schedule ', () async {
-    final url = "http://localhost:8080/schedule?placeID=ChIJrTLr-GyuEmsRBfy61i59si0&numberDays=2";
+    final url =
+        "http://localhost:8080/schedule?placeID=ChIJrTLr-GyuEmsRBfy61i59si0&numberDays=2";
     final response = await http.post(url);
     expect(response.statusCode, 200);
     final jsonString = response.body;
-    String mockReturn = '{"qtdDays":2,"scheduleDay":null,"imageUrl":"https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV","nameCity":"ChIJrTLr-GyuEmsRBfy61i59si0","scheduleCod":1,"priceFinal":0}';
+    String mockReturn = """{"qtdDays":2,"imageUrl":"https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV","nameCity":"ChIJrTLr-GyuEmsRBfy61i59si0","scheduleCod":1,"priceFinal":null}""";
     expect(mockReturn, jsonString);
   });
 

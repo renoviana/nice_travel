@@ -1,15 +1,17 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:nice_travel/integration/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 class ApiConnection {
   Future<Response> getScheduleByCityName(String cityName, int sizeElements) {
-    final url = "http://localhost:8080/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
+    final url =
+        "http://localhost:8080/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
     return http.get(url);
   }
 
-  List<Schedule> teste(Response response) {
+  List<Schedule> formatFutureToSchedules(Response response) {
     if (response.statusCode == 200) {
       return formatScheduleJson(response.body);
     }
@@ -20,5 +22,21 @@ class ApiConnection {
     return ScheduleJson().parseScheduleJsonToSchedule(json);
   }
 
-  handleError(error) {}
+  Future<Response> getScheduleDayByCodSchedule(int codSchedule) {
+    final url =
+        "http://localhost:8080/schedule/days?scheduleId=$codSchedule";
+    return http.get(url);
+  }
+
+  List<ScheduleDay> formatFutureToSchedulesDay(Response response) {
+    if (response.statusCode == 200) {
+      return formatScheduleDayJson(response.body);
+    }
+    return [];
+  }
+
+  List<ScheduleDay> formatScheduleDayJson(String json) {
+    return ScheduleDayJson().parseScheduleDayJsonToSchedule(json);
+  }
+
 }

@@ -1,3 +1,4 @@
+import 'package:nice_travel/integration/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/ScheduleJson.dart';
 
 class Schedule {
@@ -6,20 +7,22 @@ class Schedule {
   String nameCity;
   double priceFinal;
 
-  Schedule(ScheduleJson scheduleJson){
+  Schedule(ScheduleJson scheduleJson) {
     this.qtdDays = scheduleJson.qtdDays;
     this.imageUrl = scheduleJson.imageUrl;
     this.nameCity = scheduleJson.nameCity;
     this.priceFinal = scheduleJson.priceFinal;
   }
-
 }
 
 class ScheduleDay {
-  final int day;
-  final double priceDay;
+  int day;
+  double priceDay;
 
-  ScheduleDay(this.day, this.priceDay);
+  ScheduleDay(ScheduleDayJson scheduleDayJson) {
+    this.day = scheduleDayJson.day;
+    this.priceDay = scheduleDayJson.priceDay;
+  }
 }
 
 class Activities {
