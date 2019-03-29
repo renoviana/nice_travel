@@ -11,15 +11,19 @@ abstract class ScheduleJson
     implements Built<ScheduleJson, ScheduleJsonBuilder> {
   static Serializer<ScheduleJson> get serializer => _$scheduleJsonSerializer;
 
+  @nullable
   int get scheduleCod;
 
+  @nullable
   int get qtdDays;
 
+  @nullable
   String get imageUrl;
 
-// BuiltList<int> get scheduleDay;
+  @nullable
   String get nameCity;
 
+  @nullable
   double get priceFinal;
 
   ScheduleJson._();
@@ -30,8 +34,9 @@ abstract class ScheduleJson
     final parsed = json.jsonDecode(jsonToSchule);
 
     List<Schedule> schedules = new List();
-    for(var scheduleJson in parsed){
-      var deserializeWith = standardSerializers.deserializeWith(ScheduleJson.serializer, scheduleJson);
+    for (var scheduleJson in parsed) {
+      var deserializeWith = standardSerializers.deserializeWith(
+          ScheduleJson.serializer, scheduleJson);
       schedules.add(Schedule(deserializeWith));
     }
     return schedules;
