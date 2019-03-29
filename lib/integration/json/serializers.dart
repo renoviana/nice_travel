@@ -6,10 +6,10 @@ library serializers;
 
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:nice_travel/integration/ScheduleDayJson.dart';
-import 'package:nice_travel/integration/ScheduleJson.dart';
+import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
+import 'package:nice_travel/integration/json/ScheduleJson.dart';
 
-part 'serializers.g.dart';
+part 'package:nice_travel/integration/json/serializers.g.dart';
 
 /// Example of how to use built_value serialization.
 ///

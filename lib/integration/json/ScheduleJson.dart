@@ -2,10 +2,10 @@ import 'dart:convert' as json;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:nice_travel/integration/serializers.dart';
+import 'package:nice_travel/integration/json/serializers.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
-part 'ScheduleJson.g.dart';
+part 'package:nice_travel/integration/json/ScheduleJson.g.dart';
 
 abstract class ScheduleJson
     implements Built<ScheduleJson, ScheduleJsonBuilder> {

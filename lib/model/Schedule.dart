@@ -1,5 +1,5 @@
-import 'package:nice_travel/integration/ScheduleDayJson.dart';
-import 'package:nice_travel/integration/ScheduleJson.dart';
+import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
+import 'package:nice_travel/integration/json/ScheduleJson.dart';
 
 class Schedule {
   int qtdDays;
