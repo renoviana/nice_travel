@@ -6,25 +6,20 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
 import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 void main() {
   test('Test get schedule by city name', () async {
     var apiConnection = new ApiConnection();
-    Response response =
-        await apiConnection.getScheduleByCityName("Salvador", 1);
-    List<Schedule> schedules = apiConnection.formatFutureToSchedules(response);
+    List<Schedule> schedules = await apiConnection.getScheduleByCityName("Salvador", 1);
     String salvador = "Salvador";
     expect(schedules.first.nameCity, salvador);
   });
 
   test('Test get schedule Day by Schedule cod', () async {
     var apiConnection = new ApiConnection();
-    Response response = await apiConnection.getScheduleDayByCodSchedule(1);
-    List<ScheduleDay> schedulesDays =
-        apiConnection.formatFutureToSchedulesDay(response);
+    List<ScheduleDay> schedulesDays = await apiConnection.getScheduleDayByCodSchedule(1);
     expect(true, schedulesDays.first.priceDay > 1);
     expect(true, schedulesDays.first.day == 1);
   });

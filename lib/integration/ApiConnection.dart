@@ -5,15 +5,15 @@ import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 class ApiConnection {
-  Future<Response> getScheduleByCityName(String cityName, int sizeElements) {
+  Future<List<Schedule>> getScheduleByCityName(String cityName, int sizeElements) async {
     final url =
         "http://localhost:8080/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
-    return http.get(url);
+    return _formatFutureToSchedules(await http.get(url));
   }
 
-  Future<Response> getScheduleDayByCodSchedule(int codSchedule) {
+  Future<List<ScheduleDay>> getScheduleDayByCodSchedule(int codSchedule) async {
     final url = "http://localhost:8080/schedule/days?scheduleId=$codSchedule";
-    return http.get(url);
+    return await _formatFutureToSchedulesDay(await http.get(url));
   }
 
   Future<Response> publishSchedule(int codSchedule) {
@@ -26,27 +26,26 @@ class ApiConnection {
     return http.post(url);
   }
 
-
-  List<Schedule> formatFutureToSchedules(Response response) {
+  List<Schedule> _formatFutureToSchedules(Response response) {
     if (response.statusCode == 200) {
-      return formatScheduleJson(response.body);
+      return _formatScheduleJson(response.body);
     }
     return [];
   }
 
-  List<Schedule> formatScheduleJson(String json) {
+  List<Schedule> _formatScheduleJson(String json) {
     return ScheduleJson().parseScheduleJsonToSchedule(json);
   }
 
 
-  List<ScheduleDay> formatFutureToSchedulesDay(Response response) {
+  List<ScheduleDay> _formatFutureToSchedulesDay(Response response) {
     if (response.statusCode == 200) {
-      return formatScheduleDayJson(response.body);
+      return _formatScheduleDayJson(response.body);
     }
     return [];
   }
 
-  List<ScheduleDay> formatScheduleDayJson(String json) {
+  List<ScheduleDay> _formatScheduleDayJson(String json) {
     return ScheduleDayJson().parseScheduleDayJsonToSchedule(json);
   }
 
