@@ -13,7 +13,7 @@ class ApiConnection {
 
   Future<List<ScheduleDay>> getScheduleDayByCodSchedule(int codSchedule) async {
     final url = "http://localhost:8080/schedule/days?scheduleId=$codSchedule";
-    return await _formatFutureToSchedulesDay(await http.get(url));
+    return _formatFutureToSchedulesDay(await http.get(url));
   }
 
   Future<Response> publishSchedule(int codSchedule) {
