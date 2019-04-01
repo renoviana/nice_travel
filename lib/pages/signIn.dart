@@ -7,6 +7,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:nice_travel/controller/authController.dart';
+import 'package:nice_travel/controller/listController.dart';
 import 'package:nice_travel/pages/HomeWidget.dart';
 
 class SignIn extends StatefulWidget {
@@ -93,8 +94,13 @@ class _SignInState extends State<SignIn> {
         FirebaseAuth.instance
             .signInWithCredential(credential)
             .then((FirebaseUser signedUser) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Home(user: signedUser)));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                    bloc: ListController(),
+                    child: Home(
+                      user: signedUser,
+                    ),
+                  )));
         }).catchError((e) {
           bloc.setMsg(e.toString());
         });
@@ -127,12 +133,13 @@ class _SignInState extends State<SignIn> {
         FirebaseAuth.instance
             .signInWithCredential(credential)
             .then((FirebaseUser user) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Home(
-                        user: user,
-                      )));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                    bloc: ListController(),
+                    child: Home(
+                      user: user,
+                    ),
+                  )));
         });
         break;
     }

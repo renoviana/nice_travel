@@ -1,7 +1,8 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nice_travel/controller/firebase.dart';
+
+import 'package:nice_travel/pages/maps.dart';
 
 import 'package:nice_travel/ui/trip/ListTrips.dart';
 import 'package:nice_travel/controller/listController.dart';
@@ -17,33 +18,62 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Widget map;
   @override
   void initState() {
     super.initState();
   }
 
   int _currentIndex = 0;
+  bool onmap = false;
 
-  List<Widget> _screens = [ListTrips(), ListTrips(), ListTrips()];
+  Icon switchMapIcon() {
+    if (onmap) {
+      return Icon(
+        Icons.list,
+        color: Colors.blueGrey,
+      );
+    }
+    return Icon(
+      Icons.map,
+      color: Colors.blueGrey,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final ListController bloc = BlocProvider.of<ListController>(context);
+    map = MapsWidget(bloc);
+    List<Widget> _screens = [ListTrips(bloc), ListTrips(bloc), map];
     return Scaffold(
       appBar: AppBar(
         title: Text("My Trips",
             style: TextStyle(
               color: Colors.black,
             )),
+        actions: <Widget>[
+          IconButton(
+            icon: switchMapIcon(),
+            onPressed: () {
+              setState(() {
+                onmap = !onmap;
+
+                if (onmap)
+                  _currentIndex = 2;
+                else
+                  _currentIndex = 1;
+              });
+            },
+          )
+        ],
         backgroundColor: Colors.white,
       ),
-      body: BlocProvider<ListController>(
-          child: _screens[_currentIndex], bloc: ListController()),
+      body: _screens[_currentIndex],
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueGrey,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => BlocProvider(
-                    bloc: ListController(),
-                    child: AddCronograma(),
-                  )));
+              builder: (BuildContext context) => AddCronograma(bloc)));
         },
         child: Icon(Icons.add),
       ),

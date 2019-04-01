@@ -1,4 +1,3 @@
-import 'package:google_maps_webservice/places.dart';
 import 'package:nice_travel/model/placesDetails.dart';
 
 class Trip {

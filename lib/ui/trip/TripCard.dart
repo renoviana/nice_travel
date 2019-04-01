@@ -13,29 +13,17 @@ class TripCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget cardimg() {
-      String url;
-      if (this.trip.city.photos == null || this.trip.city.photos.length == 0)
-        return Image.asset(
-          'assets/cityplaceholder.png',
-          height: 180,
-        );
-
-      return CachedNetworkImage(
-        height: 180,
-        imageUrl:
-            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=${kGoogleApiKey}',
-        width: MediaQuery.of(context).size.width,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => new CircularProgressIndicator(),
-        errorWidget: (context, url, error) => new Icon(Icons.error),
-      );
+    String url;
+    if (this.trip.city.photos == null || this.trip.city.photos.length == 0) {
+      url = this.trip.city.defaultimg;
+    } else {
+      url =
+          'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=$kGoogleApiKey';
     }
-
     return GestureDetector(
       child: Container(
           margin: EdgeInsets.all(16),
-          height: 200,
+          height: 180,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.blueGrey,
@@ -43,8 +31,7 @@ class TripCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(
                       Colors.white.withOpacity(0.6), BlendMode.dstATop),
-                  image: CachedNetworkImageProvider(
-                      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=${kGoogleApiKey}'))),
+                  image: CachedNetworkImageProvider(url))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +52,12 @@ class TripCard extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          this.trip.city.addressComponents[2].longName,
+                          this
+                              .trip
+                              .city
+                              .addressComponents[2]
+                              .longName
+                              .replaceFirst('State of', ''),
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,

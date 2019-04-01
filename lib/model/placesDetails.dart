@@ -16,7 +16,8 @@ class Result {
   String url;
   int utcOffset;
   String vicinity;
-
+  String defaultimg =
+      'https://www.bauducco.com.br/wp/wordpress/wp-content/uploads/2017/09/default-placeholder-1-2.png';
   Result(
       {this.addressComponents,
       this.adrAddress,

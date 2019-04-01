@@ -1,4 +1,3 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -9,8 +8,9 @@ import 'package:nice_travel/model/placesDetails.dart';
 
 class AddCronograma extends StatefulWidget {
   final Widget child;
+  final ListController bloc;
 
-  AddCronograma({Key key, this.child}) : super(key: key);
+  AddCronograma(this.bloc, {Key key, this.child}) : super(key: key);
 
   _AddCronogramaState createState() => _AddCronogramaState();
 }
@@ -32,8 +32,6 @@ class _AddCronogramaState extends State<AddCronograma> {
 
   @override
   Widget build(BuildContext context) {
-    final ListController _bloc = BlocProvider.of<ListController>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -56,9 +54,9 @@ class _AddCronogramaState extends State<AddCronograma> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  print(_destino);
-                  print(_dias);
-                  _bloc.addToList(Trip(_destino, int.parse(_dias), 'teste'));
+
+                  widget.bloc
+                      .addToList(Trip(_destino, int.parse(_dias), 'teste'));
                   Navigator.of(context).pop();
                 }
               },
