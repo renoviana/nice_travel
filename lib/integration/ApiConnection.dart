@@ -17,7 +17,7 @@ class ApiConnection {
   }
 
   Future<Response> publishSchedule(int codSchedule) {
-    final url = "http://localhost:8080/schedule/publish?travelId=$codSchedule";
+    final url = "http://localhost:8080/schedule/publish?scheduleId=$codSchedule";
     return http.post(url);
   }
 
