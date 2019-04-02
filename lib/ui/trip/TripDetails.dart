@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_url_image_load_fail/flutter_url_image_load_fail.dart';
 import 'package:nice_travel/model/Trip.dart';
+import 'package:nice_travel/model/api.dart';
 
 class TripDetails extends StatefulWidget {
   final Widget child;

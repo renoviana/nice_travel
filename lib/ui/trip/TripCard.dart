@@ -42,7 +42,7 @@ class TripCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(
                       Colors.white.withOpacity(0.6), BlendMode.dstATop),
-                  image: CachedNetworkImageProvider(url))),
+                  image: CachedNetworkImageProvider(""))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/listController.dart';
 import 'package:nice_travel/pages/addCronograma.dart';
+import 'package:nice_travel/pages/maps.dart';
 import 'package:nice_travel/ui/trip/ListTrips.dart';
 
 class Home extends StatefulWidget {
