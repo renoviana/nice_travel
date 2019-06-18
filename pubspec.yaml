@@ -16,19 +16,21 @@ dependencies:
   flutter:
     sdk: flutter
   
-  firebase_database:    
-  firebase_auth: ^0.8.0+3
+  dio: ^2.1.7
+  firebase_database: ^2.0.2
+  
+  firebase_auth: ^0.8.0+2
   google_sign_in: ^4.0.1
-  flutter_facebook_login:
+  flutter_facebook_login: ^2.0.1
   
   material_design_icons_flutter: ^3.2.3595
   flutter_url_image_load_fail:
-  bloc_pattern:
-  rxdart:
+  bloc_pattern: ^2.2.0+3
+  rxdart: ^0.22.0
 
   timeline_list: ^0.0.3
-  cached_network_image:
-  flutter_google_places:
+  cached_network_image: "^0.4.0"
+  flutter_google_places: "0.2.3"
 
   
   # The following adds the Cupertino Icons font to your application.
@@ -37,7 +39,7 @@ dependencies:
   built_collection: '>=2.0.0 <5.0.0'
   built_value: '>=5.5.5 <7.0.0'
 
-  google_maps_flutter:
+  google_maps_flutter: "0.5.16"
 
 dev_dependencies:
   build_runner: ^1.0.0
