@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/controller/authController.dart';
-import 'package:nice_travel/pages/signIn.dart';
 
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:nice_travel/pages/signIn.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +19,6 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue[500],
           textSelectionHandleColor: Colors.green[500],
         ),
-        home: BlocProvider<AuthController>(
-            child: SignIn(), bloc: AuthController()));
+        home: SignIn());
   }
 }

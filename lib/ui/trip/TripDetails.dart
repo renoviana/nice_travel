@@ -14,11 +14,6 @@ class TripDetails extends StatefulWidget {
 class _TripDetailsState extends State<TripDetails> {
   String url = '';
   double _heigthAppBar = 280;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

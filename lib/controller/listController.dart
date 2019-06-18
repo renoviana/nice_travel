@@ -1,10 +1,9 @@
 import 'package:nice_travel/controller/firebase.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 
 import 'package:nice_travel/model/Trip.dart';
 
-class ListController implements BlocBase {
+class ListController {
   // static List<Trip> tripteste = [
   //   new Trip('Salvador', 10, [
   //     DayActivities([
@@ -19,7 +18,7 @@ class ListController implements BlocBase {
   //   ])
   // ];
 
-  var _listController = BehaviorSubject<List<Trip>>(seedValue: []);
+  var _listController = BehaviorSubject<List<Trip>>.seeded([]);
 
   Stream<List<Trip>> get outList => _listController.stream;
   Sink<List<Trip>> get inList => _listController.sink;
@@ -41,9 +40,6 @@ class ListController implements BlocBase {
   void printList() {
     print(_listController.value);
   }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
 }
+
+final listController = new ListController();

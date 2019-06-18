@@ -1,4 +1,3 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/listController.dart';
@@ -40,7 +39,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final ListController bloc = BlocProvider.of<ListController>(context);
+    final ListController bloc = listController;
     map = MapsWidget(bloc);
     List<Widget> _screens = [ListTrips(bloc), ListTrips(bloc), map];
     return Scaffold(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:nice_travel/controller/authController.dart';
-import 'package:nice_travel/controller/listController.dart';
+
 import 'package:nice_travel/pages/HomeWidget.dart';
 
 class SignIn extends StatefulWidget {
@@ -86,7 +86,7 @@ class _SignInState extends State<SignIn> {
   }
 
   void initiateGoogleLogin() {
-    final AuthController bloc = BlocProvider.of<AuthController>(context);
+    final AuthController bloc = authController;
     googleAuth.signIn().then((result) {
       result.authentication.then((googleKey) {
         AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -95,11 +95,8 @@ class _SignInState extends State<SignIn> {
             .signInWithCredential(credential)
             .then((FirebaseUser signedUser) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                    bloc: ListController(),
-                    child: Home(
-                      user: signedUser,
-                    ),
+              builder: (context) => Home(
+                    user: signedUser,
                   )));
         }).catchError((e) {
           bloc.setMsg(e.toString());
@@ -113,7 +110,7 @@ class _SignInState extends State<SignIn> {
   }
 
   void initiateFacebookLogin() async {
-    final AuthController bloc = BlocProvider.of<AuthController>(context);
+    final AuthController bloc = authController;
     var facebookLogin = FacebookLogin();
     var facebookLoginResult =
         await facebookLogin.logInWithReadPermissions(['email']);
@@ -134,11 +131,8 @@ class _SignInState extends State<SignIn> {
             .signInWithCredential(credential)
             .then((FirebaseUser user) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                    bloc: ListController(),
-                    child: Home(
-                      user: user,
-                    ),
+              builder: (context) => Home(
+                    user: user,
                   )));
         });
         break;
