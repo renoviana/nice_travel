@@ -5,24 +5,25 @@ import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 class ApiConnection {
+  
+  static const URL_API = "http://192.168.25.185:8080";
   Future<List<Schedule>> getScheduleByCityName(String cityName, int sizeElements) async {
-    final url =
-        "http://localhost:8080/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
-    return _formatFutureToSchedules(await http.get(url));
+    final url = URL_API + "/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
+    return _formatFutureToSchedules(await http.Client().get(url));
   }
 
   Future<List<ScheduleDay>> getScheduleDayByCodSchedule(int codSchedule) async {
-    final url = "http://localhost:8080/schedule/days?scheduleId=$codSchedule";
+    final url = URL_API + "/schedule/days?scheduleId=$codSchedule";
     return _formatFutureToSchedulesDay(await http.get(url));
   }
 
   Future<Response> publishSchedule(int codSchedule) {
-    final url = "http://localhost:8080/schedule/publish?scheduleId=$codSchedule";
+    final url = URL_API + "/schedule/publish?scheduleId=$codSchedule";
     return http.post(url);
   }
 
   Future<Response> createSchedule(String placeId, int  numberDays) {
-    final url = "http://localhost:8080/schedule?placeID=$placeId&numberDays=$numberDays";
+    final url = URL_API + "/schedule?placeID=$placeId&numberDays=$numberDays";
     return http.post(url);
   }
 
