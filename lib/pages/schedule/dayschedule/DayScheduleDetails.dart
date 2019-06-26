@@ -1,29 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/Trip.dart';
 import 'package:nice_travel/model/api.dart';
 
-class TripDetails extends StatefulWidget {
+class DaySchedulePage extends StatefulWidget {
   final Widget child;
-  final Trip trip;
-  TripDetails(this.trip, {Key key, this.child}) : super(key: key);
+  final Schedule trip;
+  DaySchedulePage(this.trip, {Key key, this.child}) : super(key: key);
 
-  _TripDetailsState createState() => _TripDetailsState();
+  _DaySchedulePageState createState() => _DaySchedulePageState();
 }
 
-class _TripDetailsState extends State<TripDetails> {
+class _DaySchedulePageState extends State<DaySchedulePage> {
   String url = '';
   double _heigthAppBar = 280;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.trip.city.photos == null ||
-        widget.trip.city.photos.length == 0) {
-      url = widget.trip.city.defaultimg;
-    } else {
-      url =
-          'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${widget.trip.city.photos[0].photoReference}&key=$kGoogleApiKey';
-    }
+    // if (widget.trip.city.photos == null ||
+    //     widget.trip.city.photos.length == 0) {
+    //   url = widget.trip.city.defaultimg;
+    // } else {
+    //   url =
+    //       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${widget.trip.city.photos[0].photoReference}&key=$kGoogleApiKey';
+    // }
     return Scaffold(
         body: Container(
       child: Column(
@@ -78,7 +79,7 @@ class _TripDetailsState extends State<TripDetails> {
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(1), BlendMode.dstATop),
-              image: CachedNetworkImageProvider(url)),
+              image: CachedNetworkImageProvider(widget.trip.imageUrl)),
         ));
   }
 
@@ -99,7 +100,7 @@ class _TripDetailsState extends State<TripDetails> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            '${widget.trip.city.name}',
+            '${widget.trip.nameCity}',
             style: TextStyle(
               fontSize: 25,
             ),
@@ -149,7 +150,7 @@ class _TripDetailsState extends State<TripDetails> {
           separatorBuilder: (context, index) => Divider(
                 color: Colors.black,
               ),
-          itemCount: widget.trip.numberOfDays,
+          itemCount: widget.trip.qtdDays,
           itemBuilder: (BuildContext context, int i) {
             return new ListTile(
               title: Text("Dia  $i"),

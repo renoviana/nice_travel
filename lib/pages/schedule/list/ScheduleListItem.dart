@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nice_travel/model/Trip.dart';
+import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/pages/schedule/dayschedule/DayScheduleDetails.dart';
 
-import 'package:nice_travel/ui/trip/TripDetails.dart';
-
-class TripCard extends StatelessWidget {
-  final Widget child;
-  final Trip trip;
-
-  TripCard(this.trip, {Key key, this.child}) : super(key: key);
+class ScheduleListItem extends StatelessWidget {
+  final Schedule schedule;
+  ScheduleListItem(this.schedule);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class TripCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(
                       Colors.white.withOpacity(0.6), BlendMode.dstATop),
-                  image: CachedNetworkImageProvider(""))),
+                  image: CachedNetworkImageProvider(this.schedule.imageUrl))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +50,7 @@ class TripCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          this.trip.city.name,
+                          this.schedule.nameCity,
                           style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
@@ -62,24 +59,12 @@ class TripCard extends StatelessWidget {
                         Container(
                           height: 5,
                         ),
-                        Text(
-                          this
-                              .trip
-                              .city
-                              .addressComponents[2]
-                              .longName
-                              .replaceFirst('State of', ''),
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900),
-                        ),
                       ]))
             ],
           )),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => TripDetails(this.trip)));
+            builder: (BuildContext context) => DaySchedulePage(this.schedule)));
       },
     );
   }

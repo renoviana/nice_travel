@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:nice_travel/controller/authController.dart';
 
-import 'package:nice_travel/pages/HomeWidget.dart';
+import 'package:nice_travel/pages/home/HomePage.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -95,7 +95,7 @@ class _SignInState extends State<SignIn> {
             .signInWithCredential(credential)
             .then((FirebaseUser signedUser) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => Home(
+              builder: (context) => HomePage(
                     user: signedUser,
                   )));
         }).catchError((e) {
@@ -131,7 +131,7 @@ class _SignInState extends State<SignIn> {
             .signInWithCredential(credential)
             .then((FirebaseUser user) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => Home(
+              builder: (context) => HomePage(
                     user: user,
                   )));
         });
@@ -251,8 +251,8 @@ class _SignInState extends State<SignIn> {
       try {
         FirebaseUser user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home(user: user)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => HomePage(user: user)));
       } catch (e) {
         print(e.message);
       }

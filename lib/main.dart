@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:nice_travel/pages/signIn.dart';
+import 'package:nice_travel/login/signIn.dart';
+import 'package:nice_travel/pages/home/HomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,6 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue[500],
           textSelectionHandleColor: Colors.green[500],
         ),
-        home: SignIn());
+        home: HomePage());
   }
 }
