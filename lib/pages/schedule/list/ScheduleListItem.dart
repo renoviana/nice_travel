@@ -9,37 +9,17 @@ class ScheduleListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Widget cardimg() {
-    //   String url;
-    //   if (this.trip.city.photos == null || this.trip.city.photos.length == 0)
-    //     return Image.asset(
-    //       'assets/cityplaceholder.png',
-    //       height: 180,
-    //     );
-
-    //   return CachedNetworkImage(
-    //     height: 180,
-    //     imageUrl:
-    //         'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.trip.city.photos[0].photoReference}&key=$kGoogleApiKey',
-    //     width: MediaQuery.of(context).size.width,
-    //     fit: BoxFit.cover,
-    //     // placeholder: (context, url) => new CircularProgressIndicator(),
-    //     // errorWidget: (context, url, error) => new Icon(Icons.error),
-    //   );
-    // }
-
     return GestureDetector(
       child: Container(
-          margin: EdgeInsets.all(16),
+          margin: EdgeInsets.only(left: 8, right: 8, bottom: 3, top: 3),
           height: 180,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(3.0),
               color: Colors.blueGrey,
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(
-                      Colors.white.withOpacity(0.6), BlendMode.dstATop),
-                  image: CachedNetworkImageProvider(this.schedule.imageUrl))),
+              boxShadow: [
+                buildBoxShadow()
+              ],
+              image: buildDecorationImage()),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,5 +47,25 @@ class ScheduleListItem extends StatelessWidget {
             builder: (BuildContext context) => DaySchedulePage(this.schedule)));
       },
     );
+  }
+
+  DecorationImage buildDecorationImage() {
+    return DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(
+                    Colors.white.withOpacity(0.8), BlendMode.dstATop),
+                image: CachedNetworkImageProvider(this.schedule.imageUrl));
+  }
+
+  BoxShadow buildBoxShadow() {
+    return BoxShadow(
+                color: Colors.grey,
+                blurRadius: 1.5, // has the effect of softening the shadow
+                spreadRadius: 1.5, // has the effect of extending the shadow
+                offset: Offset(
+                  1.0, // horizontal, move right 10
+                  2.0, // vertical, move down 10
+                ),
+              );
   }
 }
