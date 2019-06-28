@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/login/signIn.dart';
 import 'package:nice_travel/pages/home/HomePage.dart';
 
 import 'integration/ApiConnection.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
   Future getSchedules() async {
     var apiConnection = new ApiConnection();
     List<Schedule> schedules =
-        await apiConnection.getScheduleByCityName("Salvador", 1);
+        await apiConnection.getScheduleByCityName("Salvador", sizeElements: 1);
     print(schedules.first.nameCity);
   }
 }
