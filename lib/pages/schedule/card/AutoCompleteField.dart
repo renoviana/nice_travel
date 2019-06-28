@@ -2,7 +2,6 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/controller/resource/CitiesResource.dart';
-import 'package:nice_travel/model/CityModel.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 
 class AutoCompleteField {
@@ -22,7 +21,7 @@ class AutoCompleteField {
       decoration: InputDecoration(
           hintText: "Buscar cronograma para onde?",
           suffixIcon: IconButton(
-            icon: Icon(Icons.remove),
+            icon: Icon(Icons.clear),
             onPressed: () {
               field.clear();
               autoCompleteBloc.setCityInputStatus.add(true);
