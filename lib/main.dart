@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/pages/signIn.dart';
+import 'package:nice_travel/login/signIn.dart';
+import 'package:nice_travel/pages/home/HomePage.dart';
 
 import 'integration/ApiConnection.dart';
 import 'model/Schedule.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue[500],
           textSelectionHandleColor: Colors.green[500],
         ),
-        home: SignIn());
+        home: HomePage());
   }
 
   //TODO REMOVER ESSE MÉTODO, ELE É TEMPORARIO APENAS PARA VALIDAR.
