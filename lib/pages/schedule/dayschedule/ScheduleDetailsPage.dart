@@ -65,12 +65,26 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           elevation: 0,
         ),
         decoration: BoxDecoration(
+          boxShadow: [
+            buildBoxShadow()
+          ],
           image: DecorationImage(
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(1), BlendMode.dstATop),
               image: CachedNetworkImageProvider(widget.trip.imageUrl)),
         ));
+  }
+  BoxShadow buildBoxShadow() {
+    return BoxShadow(
+      color: Colors.grey,
+      blurRadius: 1.5,
+      spreadRadius: 1.5,
+      offset: Offset(
+        1.5, // horizontal move
+        3.0, // vertica move
+      ),
+    );
   }
 
   Widget cityinfoWidget() {
