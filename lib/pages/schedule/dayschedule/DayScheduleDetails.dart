@@ -17,11 +17,15 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
     return ListTile(
       title: Text(
         "Dia  ${widget.scheduleDay.day}",
-        style: TextStyle(fontFamily: "OpenSans"),
+        style: TextStyle(fontFamily: "Literata"),
       ),
       subtitle: Text(
         "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
-        style: TextStyle(fontSize: 12, color: Colors.green),
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.green,
+          fontFamily: "OpenSans",
+        ),
       ),
       trailing: IconButton(
         icon: Icon(Icons.edit),

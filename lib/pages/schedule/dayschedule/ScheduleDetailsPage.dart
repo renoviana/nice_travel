@@ -97,7 +97,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     return Text(
       '${widget.trip.nameCity}',
       style: TextStyle(
-        fontFamily: "OpenSans",
+        fontFamily: "Literata",
         fontSize: 25,
       ),
     );
