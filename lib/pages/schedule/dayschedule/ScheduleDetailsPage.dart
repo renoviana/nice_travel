@@ -65,9 +65,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           elevation: 0,
         ),
         decoration: BoxDecoration(
-          boxShadow: [
-            buildBoxShadow()
-          ],
+          boxShadow: [buildBoxShadow()],
           image: DecorationImage(
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
@@ -75,6 +73,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
               image: CachedNetworkImageProvider(widget.trip.imageUrl)),
         ));
   }
+
   BoxShadow buildBoxShadow() {
     return BoxShadow(
       color: Colors.grey,
@@ -93,8 +92,10 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       child: Column(
         children: <Widget>[
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               cityNameTitle(),
+              createIconAddDay(),
             ],
           ),
           Row(
@@ -114,6 +115,17 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
         fontFamily: "Literata",
         fontSize: 25,
       ),
+    );
+  }
+
+  Widget createIconAddDay() {
+    return MaterialButton(
+      child: Icon(Icons.add_circle_outline),
+      minWidth: 40,
+      height: 55,
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(60.0)),
+      onPressed: () { /*TODO ADICIONAR NOVO DIA*/},
     );
   }
 

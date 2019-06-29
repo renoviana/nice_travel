@@ -14,24 +14,30 @@ class DayScheduleDetails extends StatefulWidget {
 class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        "Dia  ${widget.scheduleDay.day}",
-        style: TextStyle(fontFamily: "Literata"),
-      ),
-      subtitle: Text(
-        "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
-        style: TextStyle(
-          fontSize: 12,
-          color: Colors.green,
-          fontFamily: "OpenSans",
+    return Material(
+      child: ListTile(
+        title: Text(
+          "Dia  ${widget.scheduleDay.day}",
+          style: TextStyle(fontFamily: "Literata"),
         ),
+        subtitle: Text(
+          "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.green,
+            fontFamily: "OpenSans",
+          ),
+        ),
+        trailing: MaterialButton(
+          child: Icon(Icons.remove_circle, color: Colors.red,),
+          minWidth: 60,
+          height: 100,
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(60.0)),
+          onPressed: () { /*TODO REMOVER*/},
+        ),
+        onTap: () { /*TODO EDIT*/},
       ),
-      trailing: IconButton(
-        icon: Icon(Icons.edit),
-        onPressed: () {},
-      ),
-      onTap: () {},
     );
   }
 }
