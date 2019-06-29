@@ -1,7 +1,6 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
-
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/pages/schedule/card/AutoCompleteField.dart';
 
@@ -60,6 +59,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
           height: 50,
           color: Colors.blue,
           child: RaisedButton(
+            onPressed: () => {},
             child: Text(
               "Buscar",
               style: TextStyle(fontSize: 20, color: Colors.white),

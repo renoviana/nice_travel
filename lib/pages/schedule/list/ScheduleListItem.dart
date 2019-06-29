@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/schedule/dayschedule/DayScheduleDetails.dart';
+import 'package:nice_travel/pages/schedule/dayschedule/ScheduleDetailsPage.dart';
 
 class ScheduleListItem extends StatelessWidget {
   final Schedule schedule;

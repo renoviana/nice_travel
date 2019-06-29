@@ -3,7 +3,7 @@
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:flutter/material.dart';
 
-// import 'package:nice_travel/pages/schedule/ScheduleDetails.dart';
+// import 'package:nice_travel/pages/schedule/ScheduleDetailsPage.dart';
 
 // class MapsWidget extends StatefulWidget {
 //   MapsWidget(this.bloc);
