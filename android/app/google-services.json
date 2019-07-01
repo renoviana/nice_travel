@@ -25,15 +25,71 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24867216922:android:2cb87eac396c47d0",
+        "android_client_info": {
+          "package_name": "com.example.guiachapada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4u4bWAl8ACg2ct2kKtpj9r3B0EY8J_DE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24867216922:android:239db619cc309faf",
+        "android_client_info": {
+          "package_name": "com.example.hmweed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4u4bWAl8ACg2ct2kKtpj9r3B0EY8J_DE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -46,19 +102,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "24867216922-fh2mmb8i6uidficb29npim8f340eg42t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nicetravel",
+            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
+          }
+        },
+        {
           "client_id": "24867216922-cp0ttiha945bq2bkhqbdhq0o6stt9r92.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.nicetravel",
             "certificate_hash": "bb99f90c7045e55a5a1fc1f73835417f55a19bb4"
-          }
-        },
-        {
-          "client_id": "24867216922-f8n2bpuggp5p5j42m9ur3nk6skc0oct3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.nicetravel",
-            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
           }
         },
         {
@@ -72,20 +128,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     },
@@ -98,19 +147,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "24867216922-o253qfo8lnuga81g488ffropkini3mtq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicetravel.nicetravel",
+            "certificate_hash": "5879d401390ff0866bf080895794aea162d1f320"
+          }
+        },
+        {
+          "client_id": "24867216922-9tdijgqhefn67ooigahcrif47ah52daj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicetravel.nicetravel",
+            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
+          }
+        },
+        {
           "client_id": "24867216922-guj4d1aq14ttlbmi7hs9lksje33mnkdq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.nicetravel.nicetravel",
             "certificate_hash": "bb99f90c7045e55a5a1fc1f73835417f55a19bb4"
-          }
-        },
-        {
-          "client_id": "24867216922-9fn5ckh0vc7kg9k7unf8d86ts2huk5qn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nicetravel.nicetravel",
-            "certificate_hash": "2e3f7ebc8b4d5100ef15d2581aa81b4aef3880ca"
           }
         },
         {
@@ -124,20 +181,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "24867216922-p0usulabe2emgj9s0t9cf5s5reh6o18v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
