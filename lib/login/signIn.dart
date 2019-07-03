@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -20,6 +21,9 @@ class _SignInState extends State<SignIn> {
 
   GoogleSignIn googleAuth = new GoogleSignIn();
   FacebookLogin facebookLogin = new FacebookLogin();
+
+  bool _isGoogleButtonDisabled = false;
+  bool _isFbButtonDisabled = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -86,42 +90,49 @@ class _SignInState extends State<SignIn> {
   }
 
   void initiateGoogleLogin() {
-    final AuthController bloc = authController;
+    //final AuthController bloc = authController;
     googleAuth.signIn().then((result) {
-      result.authentication.then((googleKey) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(
-            idToken: googleKey.idToken, accessToken: googleKey.accessToken);
-        FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((FirebaseUser signedUser) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => HomePage(
-                    user: signedUser,
-                  )));
-        }).catchError((e) {
-          bloc.setMsg(e.toString());
+      if (result != null) {
+        result.authentication.then((googleKey) {
+          AuthCredential credential = GoogleAuthProvider.getCredential(
+              idToken: googleKey.idToken, accessToken: googleKey.accessToken);
+          FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((FirebaseUser signedUser) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => HomePage(
+                      user: signedUser,
+                    )));
+          }).catchError((PlatformException e) {
+            _isGoogleButtonDisabled = false;
+            //  bloc.setMsg(e.toString());
+          });
+        }).catchError((PlatformException e) {
+          _isGoogleButtonDisabled = false;
+          // bloc.setMsg(e.toString());
         });
-      }).catchError((e) {
-        bloc.setMsg(e.toString());
-      });
-    }).catchError((e) {
-      bloc.setMsg(e.toString());
+      }
+    }).catchError((PlatformException e) {
+      _isGoogleButtonDisabled = false;
+      // bloc.setMsg(e.toString());
     });
   }
 
   void initiateFacebookLogin() async {
-    final AuthController bloc = authController;
+    //final AuthController bloc = authController;
     var facebookLogin = FacebookLogin();
     var facebookLoginResult =
         await facebookLogin.logInWithReadPermissions(['email']);
     switch (facebookLoginResult.status) {
       case FacebookLoginStatus.error:
+        _isGoogleButtonDisabled = false;
         //Todo mosrtar exception para o usuário
-        bloc.setMsg(facebookLoginResult.errorMessage);
+        // bloc.setMsg(facebookLoginResult.errorMessage);
         break;
       case FacebookLoginStatus.cancelledByUser:
         //Todo mosrtar exception para o usuário
-        bloc.setMsg('Cancelado pelo usuário');
+        _isGoogleButtonDisabled = false;
+        // bloc.setMsg('Cancelado pelo usuário');
         break;
       case FacebookLoginStatus.loggedIn:
         print("LoggedIn");
@@ -150,7 +161,7 @@ class _SignInState extends State<SignIn> {
       child: FlatButton(
           textColor: Colors.white,
           onPressed: () {
-            f();
+            _isGoogleButtonDisabled ? null : f();
           },
           child: Row(
             children: <Widget>[
