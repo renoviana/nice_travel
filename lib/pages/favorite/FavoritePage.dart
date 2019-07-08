@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nice_travel/pages/favorite/card/FavoriteCard.dart';
+import 'package:nice_travel/pages/favorite/list/FavoriteList.dart';
 
 class FavoritePage extends StatefulWidget {
   @override
@@ -8,6 +10,13 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Column(
+        children: <Widget>[
+          FavoriteCard(),
+          FavoriteList(),
+        ],
+      ),
+    );
   }
 }

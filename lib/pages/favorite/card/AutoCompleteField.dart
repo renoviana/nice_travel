@@ -19,7 +19,7 @@ class AutoCompleteField {
   AutoCompleteField() {
     field = AutoCompleteTextField<GooglePlacesModel>(
       decoration: InputDecoration(
-          hintText: "Vai para onde?",
+          hintText: "Buscar cronograma para onde?",
           suffixIcon: IconButton(
             icon: Icon(Icons.clear),
             onPressed: () {
