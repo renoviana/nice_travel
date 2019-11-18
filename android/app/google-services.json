@@ -147,6 +147,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "24867216922-n2qi9ci0dja5cdg4sm5p2aifkl4rfhlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicetravel.nicetravel",
+            "certificate_hash": "a28c0d7fd1a5dcda5760e19e4f549d6495c1fccb"
+          }
+        },
+        {
           "client_id": "24867216922-o253qfo8lnuga81g488ffropkini3mtq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

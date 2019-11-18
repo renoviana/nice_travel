@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/schedule/dayschedule/ScheduleDetailsPage.dart';
+import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 
 class FavoriteListItem extends StatelessWidget {
   final Schedule schedule;
@@ -16,7 +17,7 @@ class FavoriteListItem extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3.0),
               color: Colors.blueGrey,
-              boxShadow: [buildBoxShadow()],
+              boxShadow: [CustomWidgets.buildBoxShadow(5.0)],
               image: buildDecorationImage()),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -71,15 +72,4 @@ class FavoriteListItem extends StatelessWidget {
         image: CachedNetworkImageProvider(this.schedule.imageUrl));
   }
 
-  BoxShadow buildBoxShadow() {
-    return BoxShadow(
-      color: Colors.grey,
-      blurRadius: 1.5,
-      spreadRadius: 1.5,
-      offset: Offset(
-        1.5, // horizontal move
-        5.0, // vertica move
-      ),
-    );
-  }
 }

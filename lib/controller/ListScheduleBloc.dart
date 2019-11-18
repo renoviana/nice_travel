@@ -1,4 +1,3 @@
-import 'package:nice_travel/controller/firebase.dart';
 import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';

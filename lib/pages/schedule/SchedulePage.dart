@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:nice_travel/pages/schedule/card/ScheduleCard.dart';
 import 'package:nice_travel/pages/schedule/list/ScheduleList.dart';
-import 'package:nice_travel/pages/schedule/card/CreateScheduleCard.dart';
 
 class SchedulePage extends StatefulWidget {
   @override

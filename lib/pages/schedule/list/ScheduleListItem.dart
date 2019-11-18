@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/schedule/dayschedule/ScheduleDetailsPage.dart';
+import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 
 class ScheduleListItem extends StatelessWidget {
   final Schedule schedule;
+
   ScheduleListItem(this.schedule);
 
   @override
@@ -16,9 +18,7 @@ class ScheduleListItem extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3.0),
               color: Colors.blueGrey,
-              boxShadow: [
-                buildBoxShadow()
-              ],
+              boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
               image: buildDecorationImage()),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -51,21 +51,9 @@ class ScheduleListItem extends StatelessWidget {
 
   DecorationImage buildDecorationImage() {
     return DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(
-                    Colors.white.withOpacity(0.8), BlendMode.dstATop),
-                image: CachedNetworkImageProvider(this.schedule.imageUrl));
-  }
-
-  BoxShadow buildBoxShadow() {
-    return BoxShadow(
-                color: Colors.grey,
-                blurRadius: 1.5,
-                spreadRadius: 1.5,
-                offset: Offset(
-                  1.5, // horizontal move
-                  5.0, // vertica move
-                ),
-              );
+        fit: BoxFit.cover,
+        colorFilter: new ColorFilter.mode(
+            Colors.white.withOpacity(0.8), BlendMode.dstATop),
+        image: CachedNetworkImageProvider(this.schedule.imageUrl));
   }
 }
