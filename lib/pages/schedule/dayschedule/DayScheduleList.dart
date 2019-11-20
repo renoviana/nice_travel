@@ -15,10 +15,7 @@ class DayScheduleList extends StatelessWidget {
         initialData: [],
         builder: (context, snapshot) {
           return Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(
-                color: Colors.black,
-              ),
+            child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return DayScheduleDetails(snapshot.data[index]);
               },

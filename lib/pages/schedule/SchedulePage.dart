@@ -11,11 +11,13 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: <Widget>[
-          ScheduleCard(),
-          ScheduleList(),
-        ],
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            ScheduleCard(),
+            ScheduleList(),
+          ],
+        ),
       ),
     );
   }

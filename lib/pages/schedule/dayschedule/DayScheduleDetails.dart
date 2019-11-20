@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 
@@ -14,30 +15,50 @@ class DayScheduleDetails extends StatefulWidget {
 class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: ListTile(
-        title: Text(
-          "Dia  ${widget.scheduleDay.day}",
-          style: TextStyle(fontFamily: "Literata"),
-        ),
-        subtitle: Text(
-          "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.green,
-            fontFamily: "OpenSans",
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          title: Text(
+            "Dia  ${widget.scheduleDay.day}",
+            style: TextStyle(fontFamily: "Literata"),
           ),
+          subtitle: Text(
+            "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.green,
+              fontFamily: "OpenSans",
+            ),
+          ),
+          trailing: MaterialButton(
+            child: Icon(Icons.remove_circle_outline, color: Colors.red,),
+            minWidth: 60,
+            height: 100,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(60.0)),
+            onPressed: removerDialog,
+          ),
+          onTap: () { /*TODO EDIT*/},
         ),
-        trailing: MaterialButton(
-          child: Icon(Icons.remove_circle, color: Colors.red,),
-          minWidth: 60,
-          height: 100,
-          shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(60.0)),
-          onPressed: () { /*TODO REMOVER*/},
-        ),
-        onTap: () { /*TODO EDIT*/},
       ),
     );
+  }
+
+  void removerDialog() {
+    showDialog(
+      context: context,builder: (_) => AssetGiffyDialog(
+      image: new Image.asset("noo.gif"),
+      title: Text('Deseja remover o dia ${widget.scheduleDay.day}?',
+        style: TextStyle(
+            fontSize: 22.0, fontWeight: FontWeight.w600),
+      ),
+      description: Text('Esse dia será apagado e não poderá ser revertido.',
+        textAlign: TextAlign.center,
+        style: TextStyle(),
+      ),
+      entryAnimation: EntryAnimation.BOTTOM_LEFT,
+      onOkButtonPressed: () {},
+    ) );
   }
 }

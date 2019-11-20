@@ -24,12 +24,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
         child: Card(
       margin: EdgeInsets.all(10),
       elevation: 2.00,
       child: Container(
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Column(
           children: <Widget>[
             Container(child: _field),
@@ -54,12 +54,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
       children: <Widget>[
         TextField(decoration: InputDecoration(hintText: "Quantos dias?")),
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           width: MediaQuery.of(context).size.width - 40,
-          height: 50,
-          color: Colors.blue,
+          height: 40,
           child: RaisedButton(
             onPressed: () => {},
+            color: Colors.lightBlue,
             child: Text(
               "Buscar",
               style: TextStyle(fontSize: 20, color: Colors.white),

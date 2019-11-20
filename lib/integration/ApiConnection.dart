@@ -6,7 +6,8 @@ import 'package:nice_travel/model/Schedule.dart';
 
 class ApiConnection {
 
-  static const URL_API = "https://nice-travel2.herokuapp.com";
+//  static const URL_API = "https://nice-travel2.herokuapp.com";
+  static const URL_API = "http://localhost:8080";
   Future<List<Schedule>> getScheduleByCityName(String cityName, {int sizeElements = 5}) async {
     final url = URL_API + "/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
     return _formatFutureToSchedules(await http.Client().get(url));

@@ -32,7 +32,7 @@ dependencies:
   cached_network_image:
   flutter_google_places: "0.2.3"
   autocomplete_textfield: ^1.6.7
-  
+  giffy_dialog: 1.6.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -67,6 +67,8 @@ flutter:
   assets:
     - boipeba.png
     - cityplaceholder.png
+    - yes.gif
+    - noo.gif
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

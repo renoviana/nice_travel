@@ -78,20 +78,16 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   Widget cityinfoWidget() {
     return Container(
       padding: EdgeInsets.only(left: 5, right: 5),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
             children: <Widget>[
               cityNameTitle(),
-              createIconAddDay(),
-            ],
-          ),
-          Row(
-            children: <Widget>[
               priceScheduleSubTitle(),
             ],
           ),
+          createIconAddDay(),
         ],
       ),
     );
@@ -102,19 +98,26 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       '${widget.trip.nameCity}',
       style: TextStyle(
         fontFamily: "Literata",
-        fontSize: 25,
+        fontSize: 30,
       ),
     );
   }
 
   Widget createIconAddDay() {
     return MaterialButton(
-      child: Icon(Icons.add_circle_outline),
-      minWidth: 40,
-      height: 55,
+      child: Center(
+          child: Icon(
+        Icons.add_circle,
+        size: 40.0,
+            color: Colors.blue,
+      )),
+      minWidth: 50,
+      height: 65,
       shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(60.0)),
-      onPressed: () { /*TODO ADICIONAR NOVO DIA*/},
+          borderRadius: new BorderRadius.circular(100.0)),
+      onPressed: () {
+        /*TODO ADICIONAR NOVO DIA*/
+      },
     );
   }
 
