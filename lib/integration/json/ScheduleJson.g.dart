@@ -16,7 +16,7 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
   final String wireName = 'ScheduleJson';
 
   @override
-  Iterable serialize(Serializers serializers, ScheduleJson object,
+  Iterable<Object> serialize(Serializers serializers, ScheduleJson object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.scheduleCod != null) {
@@ -49,12 +49,11 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
         ..add(serializers.serialize(object.priceFinal,
             specifiedType: const FullType(double)));
     }
-
     return result;
   }
 
   @override
-  ScheduleJson deserialize(Serializers serializers, Iterable serialized,
+  ScheduleJson deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ScheduleJsonBuilder();
 
@@ -103,7 +102,7 @@ class _$ScheduleJson extends ScheduleJson {
   @override
   final double priceFinal;
 
-  factory _$ScheduleJson([void updates(ScheduleJsonBuilder b)]) =>
+  factory _$ScheduleJson([void Function(ScheduleJsonBuilder) updates]) =>
       (new ScheduleJsonBuilder()..update(updates)).build();
 
   _$ScheduleJson._(
@@ -115,7 +114,7 @@ class _$ScheduleJson extends ScheduleJson {
       : super._();
 
   @override
-  ScheduleJson rebuild(void updates(ScheduleJsonBuilder b)) =>
+  ScheduleJson rebuild(void Function(ScheduleJsonBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -201,7 +200,7 @@ class ScheduleJsonBuilder
   }
 
   @override
-  void update(void updates(ScheduleJsonBuilder b)) {
+  void update(void Function(ScheduleJsonBuilder) updates) {
     if (updates != null) updates(this);
   }
 

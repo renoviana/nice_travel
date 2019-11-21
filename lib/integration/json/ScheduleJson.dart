@@ -5,7 +5,7 @@ import 'package:built_value/serializer.dart';
 import 'package:nice_travel/integration/json/serializers.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
-part 'package:nice_travel/integration/json/ScheduleJson.g.dart';
+part 'ScheduleJson.g.dart';
 
 abstract class ScheduleJson
     implements Built<ScheduleJson, ScheduleJsonBuilder> {

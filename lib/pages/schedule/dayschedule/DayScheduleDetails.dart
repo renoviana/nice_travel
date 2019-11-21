@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/pages/schedule/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 
 class DayScheduleDetails extends StatefulWidget {
@@ -39,11 +40,17 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
                 borderRadius: new BorderRadius.circular(60.0)),
             onPressed: removerDialog,
           ),
-          onTap: () { /*TODO EDIT*/},
+          onTap: sendActivityTimeline,
         ),
       ),
     );
   }
+
+  Future sendActivityTimeline() async {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => ActivityTimeline(widget.scheduleDay)));
+  }
+
 
   void removerDialog() {
     showDialog(

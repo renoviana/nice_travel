@@ -5,12 +5,12 @@ import 'package:built_value/serializer.dart';
 import 'package:nice_travel/integration/json/serializers.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
-part 'package:nice_travel/integration/json/ScheduleDayJson.g.dart';
+part 'ScheduleDayJson.g.dart';
 
-
-abstract class ScheduleDayJson implements Built<ScheduleDayJson, ScheduleDayJsonBuilder> {
-
-  static Serializer<ScheduleDayJson> get serializer => _$scheduleDayJsonSerializer;
+abstract class ScheduleDayJson
+    implements Built<ScheduleDayJson, ScheduleDayJsonBuilder> {
+  static Serializer<ScheduleDayJson> get serializer =>
+      _$scheduleDayJsonSerializer;
 
   @nullable
   double get priceDay;
@@ -18,10 +18,22 @@ abstract class ScheduleDayJson implements Built<ScheduleDayJson, ScheduleDayJson
   @nullable
   int get day;
 
-  ScheduleDayJson._();
-  factory ScheduleDayJson([updates(ScheduleDayJsonBuilder b)]) = _$ScheduleDayJson;
+  @nullable
+  int get id;
 
-  List<ScheduleDay> parseScheduleDayJsonToSchedule(String jsonToSchule) {
+  ScheduleDayJson._();
+
+  factory ScheduleDayJson([updates(ScheduleDayJsonBuilder b)]) =
+      _$ScheduleDayJson;
+
+  ScheduleDay parseScheduleDayJsonToSchedule(String jsonToSchule) {
+    final parsed = json.jsonDecode(jsonToSchule);
+
+    return ScheduleDay(standardSerializers.deserializeWith(
+        ScheduleDayJson.serializer, parsed));
+  }
+
+  List<ScheduleDay> parseScheduleDayJsonToSchedules(String jsonToSchule) {
     final parsed = json.jsonDecode(jsonToSchule);
 
     List<ScheduleDay> schedulesDay = new List();
@@ -33,5 +45,3 @@ abstract class ScheduleDayJson implements Built<ScheduleDayJson, ScheduleDayJson
     return schedulesDay;
   }
 }
-
-

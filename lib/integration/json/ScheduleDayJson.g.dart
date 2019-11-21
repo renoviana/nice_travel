@@ -17,7 +17,7 @@ class _$ScheduleDayJsonSerializer
   final String wireName = 'ScheduleDayJson';
 
   @override
-  Iterable serialize(Serializers serializers, ScheduleDayJson object,
+  Iterable<Object> serialize(Serializers serializers, ScheduleDayJson object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.priceDay != null) {
@@ -32,12 +32,18 @@ class _$ScheduleDayJsonSerializer
         ..add(serializers.serialize(object.day,
             specifiedType: const FullType(int)));
     }
-
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
   @override
-  ScheduleDayJson deserialize(Serializers serializers, Iterable serialized,
+  ScheduleDayJson deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ScheduleDayJsonBuilder();
 
@@ -55,6 +61,10 @@ class _$ScheduleDayJsonSerializer
           result.day = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
       }
     }
 
@@ -67,14 +77,16 @@ class _$ScheduleDayJson extends ScheduleDayJson {
   final double priceDay;
   @override
   final int day;
+  @override
+  final int id;
 
-  factory _$ScheduleDayJson([void updates(ScheduleDayJsonBuilder b)]) =>
+  factory _$ScheduleDayJson([void Function(ScheduleDayJsonBuilder) updates]) =>
       (new ScheduleDayJsonBuilder()..update(updates)).build();
 
-  _$ScheduleDayJson._({this.priceDay, this.day}) : super._();
+  _$ScheduleDayJson._({this.priceDay, this.day, this.id}) : super._();
 
   @override
-  ScheduleDayJson rebuild(void updates(ScheduleDayJsonBuilder b)) =>
+  ScheduleDayJson rebuild(void Function(ScheduleDayJsonBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -86,19 +98,21 @@ class _$ScheduleDayJson extends ScheduleDayJson {
     if (identical(other, this)) return true;
     return other is ScheduleDayJson &&
         priceDay == other.priceDay &&
-        day == other.day;
+        day == other.day &&
+        id == other.id;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, priceDay.hashCode), day.hashCode));
+    return $jf($jc($jc($jc(0, priceDay.hashCode), day.hashCode), id.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ScheduleDayJson')
           ..add('priceDay', priceDay)
-          ..add('day', day))
+          ..add('day', day)
+          ..add('id', id))
         .toString();
   }
 }
@@ -115,12 +129,17 @@ class ScheduleDayJsonBuilder
   int get day => _$this._day;
   set day(int day) => _$this._day = day;
 
+  int _id;
+  int get id => _$this._id;
+  set id(int id) => _$this._id = id;
+
   ScheduleDayJsonBuilder();
 
   ScheduleDayJsonBuilder get _$this {
     if (_$v != null) {
       _priceDay = _$v.priceDay;
       _day = _$v.day;
+      _id = _$v.id;
       _$v = null;
     }
     return this;
@@ -135,14 +154,14 @@ class ScheduleDayJsonBuilder
   }
 
   @override
-  void update(void updates(ScheduleDayJsonBuilder b)) {
+  void update(void Function(ScheduleDayJsonBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$ScheduleDayJson build() {
     final _$result =
-        _$v ?? new _$ScheduleDayJson._(priceDay: priceDay, day: day);
+        _$v ?? new _$ScheduleDayJson._(priceDay: priceDay, day: day, id: id);
     replace(_$result);
     return _$result;
   }

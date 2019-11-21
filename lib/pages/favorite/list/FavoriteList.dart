@@ -14,14 +14,17 @@ class FavoriteList extends StatelessWidget {
         stream: listScheduleBloc.getListSchedule,
         initialData: [],
         builder: (context, snapshot) {
-          return Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return FavoriteListItem(snapshot.data[index]);
-              },
-              itemCount: 1,
-            ),
-          );
-        });
+          return
+            (snapshot.hasData && snapshot.data.length > 0) ?
+            Expanded(
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return FavoriteListItem(snapshot.data[index]);
+                  },
+                  itemCount: 1,
+                )
+            ) : Container();
+        }
+    );
   }
 }

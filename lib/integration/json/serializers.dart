@@ -9,7 +9,9 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/json/ScheduleJson.dart';
 
-part 'package:nice_travel/integration/json/serializers.g.dart';
+import 'ActivityJson.dart';
+
+part 'serializers.g.dart';
 
 /// Example of how to use built_value serialization.
 ///
@@ -23,7 +25,7 @@ part 'package:nice_travel/integration/json/serializers.g.dart';
 ///
 /// You usually only need to do this once per project.
 @SerializersFor([
-  ScheduleJson, ScheduleDayJson
+  ScheduleJson, ScheduleDayJson, ActivityJson
 ])
 final Serializers serializers = _$serializers;
 Serializers standardSerializers =

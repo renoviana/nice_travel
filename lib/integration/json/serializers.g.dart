@@ -7,6 +7,7 @@ part of serializers;
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(ActivityJson.serializer)
       ..add(ScheduleDayJson.serializer)
       ..add(ScheduleJson.serializer))
     .build();

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:nice_travel/integration/json/ActivityJson.dart';
 import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/json/ScheduleJson.dart';
 
@@ -20,21 +22,34 @@ class Schedule {
 class ScheduleDay {
   int day;
   double priceDay;
+  int id;
 
   ScheduleDay(ScheduleDayJson scheduleDayJson) {
     this.day = scheduleDayJson.day;
     this.priceDay = scheduleDayJson.priceDay;
+    this.id = scheduleDayJson.id;
   }
 }
 
-class Activities {
-  final String description;
-  final String nameOfPlace;
-  final double price;
-  final DateTime startActivity;
-  final DateTime finishActivity;
-  final String styleActivity;
+class Activity {
+  String description;
+  String nameOfPlace;
+  double price;
+  TimeOfDay startActivity;
+  TimeOfDay finishActivity;
+  String styleActivity;
+  int idScheduleDay;
+  int id;
 
-  Activities(this.description, this.nameOfPlace, this.price, this.startActivity,
-      this.finishActivity, this.styleActivity);
+  Activity(ActivityJson activityJson) {
+    this.description = activityJson.description;
+    this.nameOfPlace = activityJson.nameOfPlace;
+    this.price = activityJson.price;
+    this.startActivity = activityJson.startActivity;
+    this.finishActivity = activityJson.finishActivity;
+    this.styleActivity = activityJson.styleActivity;
+    this.idScheduleDay = activityJson.idScheduleDay;
+    this.id = activityJson.id;
+  }
+
 }

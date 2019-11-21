@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/pages/schedule/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 
@@ -116,9 +118,16 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(100.0)),
       onPressed: () {
-        /*TODO ADICIONAR NOVO DIA*/
+        sendActivityTimelineWithNewDay();
       },
     );
+  }
+
+  Future sendActivityTimelineWithNewDay() async {
+    ScheduleDay scheduleDay = await ApiConnection()
+        .addScheduleDay(widget.trip.scheduleCod);
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => ActivityTimeline(scheduleDay)));
   }
 
   Widget priceScheduleSubTitle() {
