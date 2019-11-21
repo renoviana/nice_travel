@@ -1,15 +1,14 @@
-import 'package:nice_travel/integration/ApiConnection.dart';
+import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListActivitiesBloc {
-  ApiConnection apiConnection = new ApiConnection();
 
   var _listActivityBloc = BehaviorSubject<List<Activity>>.seeded([]);
 
   void loadActivity(int scheduleDayId) async {
     List<Activity> lista =
-        await apiConnection.getActiviesByScheduleDay(scheduleDayId);
+        await ActivityApiConnection.instance.getActiviesByScheduleDay(scheduleDayId);
     setListActivity.add(lista);
   }
 

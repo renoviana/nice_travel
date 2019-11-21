@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nice_travel/integration/ApiConnection.dart';
+import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/schedule/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
@@ -111,7 +111,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           child: Icon(
         Icons.add_circle,
         size: 40.0,
-            color: Colors.blue,
+        color: Colors.blue,
       )),
       minWidth: 50,
       height: 65,
@@ -124,7 +124,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   }
 
   Future sendActivityTimelineWithNewDay() async {
-    ScheduleDay scheduleDay = await ApiConnection()
+    ScheduleDay scheduleDay = await ScheduleDayApiConnection.instance
         .addScheduleDay(widget.trip.scheduleCod);
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) => ActivityTimeline(scheduleDay)));
