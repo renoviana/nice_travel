@@ -8,7 +8,6 @@ class ScheduleApiConnection {
 
   ScheduleApiConnection._();
 
-  /// Provides an instance of this class corresponding to the default app.
   static final ScheduleApiConnection instance = new ScheduleApiConnection._();
 
   Future<List<Schedule>> getScheduleByCityName(String cityName,
@@ -18,15 +17,27 @@ class ScheduleApiConnection {
     return _formatFutureToSchedules(await http.Client().get(url));
   }
 
-  Future<Response> publishSchedule(int codSchedule) {
-    final url = ApiConnection.URL_API + "/schedule/publish?scheduleId=$codSchedule";
-    return http.post(url);
+  Future<List<Schedule>> getSchedulesByIds(List<int> scheduleIds) async {
+    final url = ApiConnection.URL_API +
+        "/schedule/ids?scheduleIds=$scheduleIds";
+    return _formatFutureToSchedules(await http.Client().get(url));
   }
 
   Future<Response> createSchedule(String placeId, int numberDays) {
     final url = ApiConnection.URL_API + "/schedule?placeID=$placeId&numberDays=$numberDays";
     return http.post(url);
   }
+
+  Future<Response> publishSchedule(int codSchedule) {
+    final url = ApiConnection.URL_API + "/schedule/publish?scheduleId=$codSchedule";
+    return http.post(url);
+  }
+
+  Future<Response> voteTravelSchedule(int codSchedule) {
+    final url = ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule";
+    return http.post(url);
+  }
+
   List<Schedule> _formatFutureToSchedules(Response response) {
     if (response.statusCode == 200) {
       return _formatScheduleJson(response.body);

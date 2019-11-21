@@ -40,7 +40,14 @@ abstract class ActivityJson
 
   factory ActivityJson([updates(ActivityJsonBuilder b)]) = _$ActivityJson;
 
-  List<Activity> parseActivityJsonToActivity(String jsonToSchule) {
+  Activity parseActivityJsonToActivity(String jsonToSchule) {
+    final parsed = json.jsonDecode(jsonToSchule);
+    var deserializeWith =
+        standardSerializers.deserializeWith(ActivityJson.serializer, parsed);
+    return Activity(deserializeWith);
+  }
+
+  List<Activity> parseActivityJsonToActivities(String jsonToSchule) {
     final parsed = json.jsonDecode(jsonToSchule);
 
     List<Activity> activities = new List();

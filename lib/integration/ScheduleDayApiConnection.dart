@@ -8,19 +8,21 @@ class ScheduleDayApiConnection {
 
   ScheduleDayApiConnection._();
 
-  /// Provides an instance of this class corresponding to the default app.
   static final ScheduleDayApiConnection instance = new ScheduleDayApiConnection._();
-
-
-  //SCHEDULE DAY
-  Future<ScheduleDay> addScheduleDay(int codSchedule) async {
-    final url = ApiConnection.URL_API + "/scheduleDay/add?scheduleId=$codSchedule";
-    return _formatFutureToScheduleDay(await http.post(url));
-  }
 
   Future<List<ScheduleDay>> getScheduleDayByCodSchedule(int codSchedule) async {
     final url = ApiConnection.URL_API + "/scheduleDay/days?scheduleId=$codSchedule";
     return _formatFutureToSchedulesDay(await http.get(url));
+  }
+
+  Future<Response> deleteScheduleDay(int scheduleDayId) async {
+    final url = ApiConnection.URL_API + "/scheduleDay/delete?scheduleDayId=$scheduleDayId";
+    return await http.delete(url);
+  }
+
+  Future<ScheduleDay> addScheduleDay(int codSchedule) async {
+    final url = ApiConnection.URL_API + "/scheduleDay/add?scheduleId=$codSchedule";
+    return _formatFutureToScheduleDay(await http.post(url));
   }
 
   List<ScheduleDay> _formatFutureToSchedulesDay(Response response) {
