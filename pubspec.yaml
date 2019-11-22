@@ -84,6 +84,9 @@ flutter:
      - family: OpenSans
        fonts:
          - asset: fonts/OpenSans-Regular.ttf
+     - family: NiceTravelIcons
+       fonts:
+         - asset: fonts/icons.ttf
      - family: Literata
        fonts:
          - asset: fonts/Literata[wght].ttf

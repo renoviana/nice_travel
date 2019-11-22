@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:nice_travel/integration/json/ActivityJson.dart';
 import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
 import 'package:nice_travel/integration/json/ScheduleJson.dart';
@@ -35,8 +34,8 @@ class Activity {
   String description;
   String nameOfPlace;
   double price;
-  TimeOfDay startActivity;
-  TimeOfDay finishActivity;
+  String startActivity;
+  String finishActivity;
   String styleActivity;
   int idScheduleDay;
   int id;

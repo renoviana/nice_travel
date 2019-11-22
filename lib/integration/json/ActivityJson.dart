@@ -2,7 +2,6 @@ import 'dart:convert' as json;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:nice_travel/integration/json/serializers.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
@@ -22,10 +21,10 @@ abstract class ActivityJson
   double get price;
 
   @nullable
-  prefix0.TimeOfDay get startActivity;
+  String  get startActivity;
 
   @nullable
-  prefix0.TimeOfDay get finishActivity;
+  String  get finishActivity;
 
   @nullable
   String get styleActivity;

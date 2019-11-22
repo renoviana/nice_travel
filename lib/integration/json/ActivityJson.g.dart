@@ -41,13 +41,13 @@ class _$ActivityJsonSerializer implements StructuredSerializer<ActivityJson> {
       result
         ..add('startActivity')
         ..add(serializers.serialize(object.startActivity,
-            specifiedType: const FullType(prefix0.TimeOfDay)));
+            specifiedType: const FullType(String)));
     }
     if (object.finishActivity != null) {
       result
         ..add('finishActivity')
         ..add(serializers.serialize(object.finishActivity,
-            specifiedType: const FullType(prefix0.TimeOfDay)));
+            specifiedType: const FullType(String)));
     }
     if (object.styleActivity != null) {
       result
@@ -95,13 +95,11 @@ class _$ActivityJsonSerializer implements StructuredSerializer<ActivityJson> {
           break;
         case 'startActivity':
           result.startActivity = serializers.deserialize(value,
-                  specifiedType: const FullType(prefix0.TimeOfDay))
-              as prefix0.TimeOfDay;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'finishActivity':
           result.finishActivity = serializers.deserialize(value,
-                  specifiedType: const FullType(prefix0.TimeOfDay))
-              as prefix0.TimeOfDay;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'styleActivity':
           result.styleActivity = serializers.deserialize(value,
@@ -130,9 +128,9 @@ class _$ActivityJson extends ActivityJson {
   @override
   final double price;
   @override
-  final prefix0.TimeOfDay startActivity;
+  final String startActivity;
   @override
-  final prefix0.TimeOfDay finishActivity;
+  final String finishActivity;
   @override
   final String styleActivity;
   @override
@@ -224,14 +222,14 @@ class ActivityJsonBuilder
   double get price => _$this._price;
   set price(double price) => _$this._price = price;
 
-  prefix0.TimeOfDay _startActivity;
-  prefix0.TimeOfDay get startActivity => _$this._startActivity;
-  set startActivity(prefix0.TimeOfDay startActivity) =>
+  String _startActivity;
+  String get startActivity => _$this._startActivity;
+  set startActivity(String startActivity) =>
       _$this._startActivity = startActivity;
 
-  prefix0.TimeOfDay _finishActivity;
-  prefix0.TimeOfDay get finishActivity => _$this._finishActivity;
-  set finishActivity(prefix0.TimeOfDay finishActivity) =>
+  String _finishActivity;
+  String get finishActivity => _$this._finishActivity;
+  set finishActivity(String finishActivity) =>
       _$this._finishActivity = finishActivity;
 
   String _styleActivity;
