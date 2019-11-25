@@ -12,6 +12,11 @@ enum Style {
   SPORT,
   OTHER,
 }
+
+List<String> getStyleDescription(){
+   return Style.values.map((s) => s.toString().replaceAll("Style.", "").replaceAll("_", " ")).toList();
+}
+
 const icons = 'NiceTravelIcons';
 
 class IconStyleActivity {
