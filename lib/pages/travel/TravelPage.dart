@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/pages/schedule/card/ScheduleCard.dart';
-import 'package:nice_travel/pages/schedule/list/ScheduleList.dart';
+import 'package:nice_travel/pages/travel/card/ScheduleCard.dart';
+import 'package:nice_travel/pages/travel/list/ScheduleList.dart';
 
-class SchedulePage extends StatefulWidget {
+class TravelPage extends StatefulWidget {
   @override
-  _SchedulePageState createState() => _SchedulePageState();
+  _TravelPageState createState() => _TravelPageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _TravelPageState extends State<TravelPage> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -6,7 +6,7 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
 import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/schedule/activity/IconStyleActivity.dart';
+import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
 
 class ActivityPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/ListDayScheduleBloc.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/schedule/dayschedule/DayScheduleDetails.dart';
+import 'package:nice_travel/pages/travel/dayschedule/DayScheduleDetails.dart';
 
 class DayScheduleList extends StatelessWidget {
   DayScheduleList(Schedule schedule) {

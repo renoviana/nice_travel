@@ -2,7 +2,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
-import 'package:nice_travel/pages/schedule/card/AutoCompleteField.dart';
+import 'package:nice_travel/pages/travel/card/AutoCompleteField.dart';
 
 class ScheduleCard extends StatefulWidget {
   const ScheduleCard({Key key}) : super(key: key);

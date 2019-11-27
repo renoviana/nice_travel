@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/login/SignIn.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/schedule/SchedulePage.dart';
+import 'package:nice_travel/pages/travel/TravelPage.dart';
 
 import 'CustomDrawer.dart';
 
@@ -20,12 +20,13 @@ class TabsScreenState extends State<TabsScreen> {
       controller: _pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        buildCronogramas(),
+        buildViagem(),
+        buildCronograma(),
       ],
     );
   }
 
-  Scaffold buildCronogramas() {
+  Scaffold buildViagem() {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -37,7 +38,18 @@ class TabsScreenState extends State<TabsScreen> {
           )
         ],
       ),
-      body: SchedulePage(),
+      body: TravelPage(),
+      drawer: CustomDrawer(_pageController),
+    );
+  }
+
+  Scaffold buildCronograma() {
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: Text("Nice Travel"),
+      ),
+      body: TravelPage(),
       drawer: CustomDrawer(_pageController),
     );
   }

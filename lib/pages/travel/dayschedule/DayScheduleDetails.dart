@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/schedule/activity/ActivityTimeline.dart';
+import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
 

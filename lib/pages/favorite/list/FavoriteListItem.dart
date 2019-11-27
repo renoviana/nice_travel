@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/schedule/dayschedule/ScheduleDetailsPage.dart';
+import 'package:nice_travel/pages/travel/dayschedule/ScheduleDetailsPage.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 
 class FavoriteListItem extends StatelessWidget {
