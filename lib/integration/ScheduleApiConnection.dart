@@ -5,7 +5,6 @@ import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 class ScheduleApiConnection {
-
   ScheduleApiConnection._();
 
   static final ScheduleApiConnection instance = new ScheduleApiConnection._();
@@ -18,23 +17,28 @@ class ScheduleApiConnection {
   }
 
   Future<List<Schedule>> getSchedulesByIds(List<int> scheduleIds) async {
-    final url = ApiConnection.URL_API +
-        "/schedule/ids?scheduleIds=$scheduleIds";
+    String ids = '';
+    scheduleIds..forEach((id) => ids += '&scheduleIds=$id');
+    final url = ApiConnection.URL_API + '/schedule/ids?1=1$ids';
+    print(url);
     return _formatFutureToSchedules(await http.Client().get(url));
   }
 
   Future<Response> createSchedule(String placeId, int numberDays) {
-    final url = ApiConnection.URL_API + "/schedule?placeID=$placeId&numberDays=$numberDays";
+    final url = ApiConnection.URL_API +
+        "/schedule?placeID=$placeId&numberDays=$numberDays";
     return http.post(url);
   }
 
   Future<Response> publishSchedule(int codSchedule) {
-    final url = ApiConnection.URL_API + "/schedule/publish?scheduleId=$codSchedule";
+    final url =
+        ApiConnection.URL_API + "/schedule/publish?scheduleId=$codSchedule";
     return http.post(url);
   }
 
   Future<Response> voteTravelSchedule(int codSchedule) {
-    final url = ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule";
+    final url =
+        ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule";
     return http.post(url);
   }
 
@@ -48,5 +52,4 @@ class ScheduleApiConnection {
   List<Schedule> _formatScheduleJson(String json) {
     return ScheduleJson().parseScheduleJsonToSchedule(json);
   }
-
 }

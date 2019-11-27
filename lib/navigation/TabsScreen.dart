@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/login/SignIn.dart';
 import 'package:nice_travel/model/UserModel.dart';
+import 'package:nice_travel/pages/schedule/SchedulePage.dart';
 import 'package:nice_travel/pages/travel/TravelPage.dart';
 
 import 'CustomDrawer.dart';
@@ -49,7 +50,7 @@ class TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text("Nice Travel"),
       ),
-      body: TravelPage(),
+      body: SchedulePage(),
       drawer: CustomDrawer(_pageController),
     );
   }

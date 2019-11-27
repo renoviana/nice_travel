@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/controller/ListDayScheduleBloc.dart';
+import 'package:nice_travel/controller/travel/ListDayScheduleBloc.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/dayschedule/DayScheduleDetails.dart';
 

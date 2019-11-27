@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nice_travel/controller/ListActivitiesBloc.dart';
+import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:timeline_list/timeline.dart';
