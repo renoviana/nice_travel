@@ -66,14 +66,18 @@ class ActivityTimeline extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(formatarHoraToString(activity.startActivityDate), style: textTheme.caption),
+                  Text(formatarHoraToString(activity.startActivityDate),
+                      style: textTheme.caption),
                   const SizedBox(
                     height: 8.0,
                   ),
-                  Text(
-                    activity.nameOfPlace,
-                    style: textTheme.title,
-                    textAlign: TextAlign.center,
+                  Flexible(
+                    child: Text(
+                      activity.nameOfPlace,
+                      style: textTheme.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   const SizedBox(
                     height: 8.0,

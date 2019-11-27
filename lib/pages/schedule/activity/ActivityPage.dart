@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/schedule/activity/IconStyleActivity.dart';
+import 'package:nice_travel/widgets/RemoverDialog.dart';
 
 class ActivityPage extends StatefulWidget {
   final Activity _activity;
@@ -84,12 +85,12 @@ class _ActivityPageState extends State<ActivityPage> {
 
   builtActivity() {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Form(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Form(
               autovalidate: true,
               key: _formKey,
               child: Wrap(
@@ -105,10 +106,35 @@ class _ActivityPageState extends State<ActivityPage> {
                 ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
+              child: MaterialButton(
+                height: 45,
+                //Wrap with Material
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(22.0)),
+                elevation: 18.0,
+                color: Color(0xFF801E08),
+                clipBehavior: Clip.antiAlias,
+                // Add This
+                child: new Text('Deletar',
+                    style: new TextStyle(fontSize: 16.0, color: Colors.white)),
+                onPressed: () {
+                  removerDialog(
+                      context, "Deseja remover essa atividade?", deleteAction);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  deleteAction() {
+    ActivityApiConnection.instance.deleteActivity(_activity.id);
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   save(BuildContext context) async {
@@ -188,11 +214,12 @@ class _ActivityPageState extends State<ActivityPage> {
       onShowPicker: (context, currentValue) async {
         final time = await showTimePicker(
           context: context,
-          initialTime: TimeOfDay.fromDateTime(currentValue ?? _activity.startActivityDate),
+          initialTime: TimeOfDay.fromDateTime(
+              currentValue ?? _activity.startActivityDate),
         );
         return DateTimeField.convert(time);
       },
-      initialValue:  _activity.startActivityDate,
+      initialValue: _activity.startActivityDate,
       onChanged: (dt) => setState(() => _activity.startActivityDate = dt),
     );
   }
@@ -208,7 +235,8 @@ class _ActivityPageState extends State<ActivityPage> {
       onShowPicker: (context, currentValue) async {
         final time = await showTimePicker(
           context: context,
-          initialTime: TimeOfDay.fromDateTime(currentValue ?? _activity.finishActivityDate),
+          initialTime: TimeOfDay.fromDateTime(
+              currentValue ?? _activity.finishActivityDate),
         );
         return DateTimeField.convert(time);
       },
@@ -219,7 +247,11 @@ class _ActivityPageState extends State<ActivityPage> {
   }
 
   String _validateDate(DateTime date) {
-    if (_activity.finishActivityDate != null && _activity.startActivityDate.difference(_activity.finishActivityDate).inMinutes > 0) {
+    if (_activity.finishActivityDate != null &&
+        _activity.startActivityDate
+                .difference(_activity.finishActivityDate)
+                .inMinutes >
+            0) {
       return "A data final precisa ser maior do que a data inicial.";
     }
     return null;
@@ -239,27 +271,27 @@ class _ActivityPageState extends State<ActivityPage> {
   }
 
   _builtStyleActivity() {
-    return  FormBuilderDropdown(
+    return FormBuilderDropdown(
       attribute: "atividade",
       decoration: InputDecoration(
           labelText: 'Tipo da atividade',
           labelStyle: TextStyle(color: Colors.black),
           border: OutlineInputBorder()),
-       initialValue: _activity.styleActivity.toUpperCase(),
+      initialValue: _activity.styleActivity.toUpperCase(),
       hint: Text('Select Gender'),
       onChanged: (tp) => _activity.styleActivity = tp,
       validators: [FormBuilderValidators.required()],
       items: getStyleDescription()
           .map((tp) => DropdownMenuItem(
-          value: tp,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconStyleActivity(tp).icon,
-                Text("$tp"),
-              ],
-            )
-      )).toList(),
+              value: tp,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconStyleActivity(tp).icon,
+                  Text("$tp"),
+                ],
+              )))
+          .toList(),
     );
   }
 }
