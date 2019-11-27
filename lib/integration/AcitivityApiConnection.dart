@@ -6,24 +6,33 @@ import 'ApiConnection.dart';
 import 'json/ActivityJson.dart';
 
 class ActivityApiConnection {
-
   ActivityApiConnection._();
 
   static final ActivityApiConnection instance = new ActivityApiConnection._();
 
   Future<List<Activity>> getActiviesByScheduleDay(int scheduleDayId) async {
-    final url = ApiConnection.URL_API +
-        "/activity?scheduleDayId=$scheduleDayId";
+    final url =
+        ApiConnection.URL_API + "/activity?scheduleDayId=$scheduleDayId";
     return _formatFutureToActivities(await http.Client().get(url));
   }
 
-  Future<Activity> addActivity(int codSchedule) async {
-    final url = ApiConnection.URL_API + "/scheduleDay/add?scheduleId=$codSchedule";
+  Future<Activity> addActivity(Activity activity) async {
+    final url = ApiConnection.URL_API +
+        "/activity/add?"
+            "description=${activity.description}"
+            "nameOfPlace=${activity.nameOfPlace}"
+            "price=${activity.price}"
+            "startActivity=${activity.startActivityDate}"
+            "finishActivity=${activity.finishActivityDate}"
+            "styleActivity=${activity.styleActivity}"
+            "idScheduleDay=${activity.idScheduleDay}"
+            "id=${activity.id}";
     return _formatFutureToActivity(await http.post(url));
   }
 
-  Future<Response> deleteActivity(int scheduleDayId) async {
-    final url = ApiConnection.URL_API + "/scheduleDay/delete?scheduleDayId=$scheduleDayId";
+  Future<Response> deleteActivity(int activityId) async {
+    final url =
+        ApiConnection.URL_API + "/activity/delete?activityId=$activityId";
     return await http.delete(url);
   }
 
@@ -48,5 +57,4 @@ class ActivityApiConnection {
   Activity _formatActivityJson(String json) {
     return ActivityJson().parseActivityJsonToActivity(json);
   }
-
 }
