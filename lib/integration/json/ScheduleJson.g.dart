@@ -49,6 +49,18 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
         ..add(serializers.serialize(object.priceFinal,
             specifiedType: const FullType(double)));
     }
+    if (object.userUID != null) {
+      result
+        ..add('userUID')
+        ..add(serializers.serialize(object.userUID,
+            specifiedType: const FullType(String)));
+    }
+    if (object.userName != null) {
+      result
+        ..add('userName')
+        ..add(serializers.serialize(object.userName,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -83,6 +95,14 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
           result.priceFinal = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
+        case 'userUID':
+          result.userUID = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'userName':
+          result.userName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -101,6 +121,10 @@ class _$ScheduleJson extends ScheduleJson {
   final String nameCity;
   @override
   final double priceFinal;
+  @override
+  final String userUID;
+  @override
+  final String userName;
 
   factory _$ScheduleJson([void Function(ScheduleJsonBuilder) updates]) =>
       (new ScheduleJsonBuilder()..update(updates)).build();
@@ -110,7 +134,9 @@ class _$ScheduleJson extends ScheduleJson {
       this.qtdDays,
       this.imageUrl,
       this.nameCity,
-      this.priceFinal})
+      this.priceFinal,
+      this.userUID,
+      this.userName})
       : super._();
 
   @override
@@ -128,17 +154,23 @@ class _$ScheduleJson extends ScheduleJson {
         qtdDays == other.qtdDays &&
         imageUrl == other.imageUrl &&
         nameCity == other.nameCity &&
-        priceFinal == other.priceFinal;
+        priceFinal == other.priceFinal &&
+        userUID == other.userUID &&
+        userName == other.userName;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, scheduleCod.hashCode), qtdDays.hashCode),
-                imageUrl.hashCode),
-            nameCity.hashCode),
-        priceFinal.hashCode));
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, scheduleCod.hashCode), qtdDays.hashCode),
+                        imageUrl.hashCode),
+                    nameCity.hashCode),
+                priceFinal.hashCode),
+            userUID.hashCode),
+        userName.hashCode));
   }
 
   @override
@@ -148,7 +180,9 @@ class _$ScheduleJson extends ScheduleJson {
           ..add('qtdDays', qtdDays)
           ..add('imageUrl', imageUrl)
           ..add('nameCity', nameCity)
-          ..add('priceFinal', priceFinal))
+          ..add('priceFinal', priceFinal)
+          ..add('userUID', userUID)
+          ..add('userName', userName))
         .toString();
   }
 }
@@ -177,6 +211,14 @@ class ScheduleJsonBuilder
   double get priceFinal => _$this._priceFinal;
   set priceFinal(double priceFinal) => _$this._priceFinal = priceFinal;
 
+  String _userUID;
+  String get userUID => _$this._userUID;
+  set userUID(String userUID) => _$this._userUID = userUID;
+
+  String _userName;
+  String get userName => _$this._userName;
+  set userName(String userName) => _$this._userName = userName;
+
   ScheduleJsonBuilder();
 
   ScheduleJsonBuilder get _$this {
@@ -186,6 +228,8 @@ class ScheduleJsonBuilder
       _imageUrl = _$v.imageUrl;
       _nameCity = _$v.nameCity;
       _priceFinal = _$v.priceFinal;
+      _userUID = _$v.userUID;
+      _userName = _$v.userName;
       _$v = null;
     }
     return this;
@@ -212,7 +256,9 @@ class ScheduleJsonBuilder
             qtdDays: qtdDays,
             imageUrl: imageUrl,
             nameCity: nameCity,
-            priceFinal: priceFinal);
+            priceFinal: priceFinal,
+            userUID: userUID,
+            userName: userName);
     replace(_$result);
     return _$result;
   }

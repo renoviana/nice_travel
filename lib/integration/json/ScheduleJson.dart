@@ -26,6 +26,12 @@ abstract class ScheduleJson
   @nullable
   double get priceFinal;
 
+  @nullable
+  String get userUID;
+
+  @nullable
+  String get userName;
+
   ScheduleJson._();
 
   factory ScheduleJson([updates(ScheduleJsonBuilder b)]) = _$ScheduleJson;

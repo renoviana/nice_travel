@@ -9,6 +9,10 @@ class Schedule {
   String imageUrl;
   String nameCity;
   double priceFinal;
+  String userName;
+  String userUID;
+
+  Schedule.newInstance();
 
   Schedule(ScheduleJson scheduleJson) {
     this.qtdDays = scheduleJson.qtdDays;
@@ -16,6 +20,8 @@ class Schedule {
     this.nameCity = scheduleJson.nameCity;
     this.priceFinal = scheduleJson.priceFinal;
     this.scheduleCod = scheduleJson.scheduleCod;
+    this.userName = scheduleJson.userName;
+    this.userUID = scheduleJson.userUID;
   }
 }
 

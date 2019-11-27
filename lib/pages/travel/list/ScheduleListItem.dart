@@ -39,6 +39,21 @@ class ScheduleListItem extends StatelessWidget {
                         Container(
                           height: 5,
                         ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              this.schedule.userName,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900),
+                            )
+                          ],
+                        )
                       ]))
             ],
           )),
