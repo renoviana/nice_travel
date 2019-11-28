@@ -46,6 +46,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
               icon: Icon(Icons.clear),
               onPressed: () {
                 autoCompleteField.field.clear();
+                changeCity();
                 autoCompleteBloc.setCityInputStatus.add(true);
               },
             )),
@@ -167,7 +168,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
   }
 
   save(BuildContext context, UserModel model) {
-    if (_formKey.currentState.validate() && _nameCity != null) {
+    if (_formKey.currentState.validate() && _nameCity != "") {
       showCircularProgress(context);
       ScheduleApiConnection.instance.createSchedule(
           _placeId,

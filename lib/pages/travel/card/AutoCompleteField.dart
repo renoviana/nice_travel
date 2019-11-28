@@ -23,7 +23,7 @@ class AutoCompleteField {
     field = AutoCompleteTextField<GooglePlacesModel>(
       decoration: inputDecoration,
       clearOnSubmit: false,
-      onFocusChanged: (focus) => clearOnFocusOutWhenValueWasNotSelected(focus),
+      onFocusChanged: (focus) => clearOnFocusOutWhenValueWasNotSelected(focus, onSelectCity),
       itemBuilder: itemBuilder,
       itemFilter: (item, query) {
         return item.terms[0].value
@@ -46,7 +46,9 @@ class AutoCompleteField {
 
         if (text.length >= 3) {
           await CitiesResource().getCities(text).then((onValue) {
-            field.updateSuggestions(onValue);
+            if(field != null) {
+              field.updateSuggestions(onValue);
+            }
           });
         }
       },
@@ -55,9 +57,11 @@ class AutoCompleteField {
     );
   }
 
-  clearOnFocusOutWhenValueWasNotSelected(bool focus) {
+  clearOnFocusOutWhenValueWasNotSelected(bool focus, Function changeCity) {
     if (!focus && _cityInputisNull) {
       field.clear();
+      _placeId = null;
+      Function.apply(changeCity, []);
     }
     _focusOn = focus;
   }
