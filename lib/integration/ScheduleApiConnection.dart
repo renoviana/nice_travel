@@ -58,6 +58,8 @@ class ScheduleApiConnection {
   List<Schedule> _formatFutureToSchedules(Response response) {
     if (response.statusCode == 200) {
       return _formatScheduleJson(response.body);
+    } else {
+      print('${response.statusCode} - ${response.body}');
     }
     return [];
   }

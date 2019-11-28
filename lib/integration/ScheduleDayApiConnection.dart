@@ -31,6 +31,8 @@ class ScheduleDayApiConnection {
   List<ScheduleDay> _formatFutureToSchedulesDay(Response response) {
     if (response.statusCode == 200) {
       return _formatSchedulesDayJson(response.body);
+    } else {
+      print('${response.statusCode} - ${response.body}');
     }
     return [];
   }

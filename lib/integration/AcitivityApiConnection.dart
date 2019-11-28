@@ -6,7 +6,7 @@ import 'ApiConnection.dart';
 import 'json/ActivityJson.dart';
 
 class ActivityApiConnection {
-  ActivityApiConnection._(){
+  ActivityApiConnection._() {
     print('Calling ActivityApiConnection');
   }
 
@@ -22,14 +22,15 @@ class ActivityApiConnection {
     final url = ApiConnection.URL_API +
         "/activity/add?"
             "description=${activity.description}"
-            "nameOfPlace=${activity.nameOfPlace}"
-            "price=${activity.price}"
-            "startActivity=${activity.startActivityDate}"
-            "finishActivity=${activity.finishActivityDate}"
-            "styleActivity=${activity.styleActivity}"
-            "idScheduleDay=${activity.idScheduleDay}"
-            "id=${activity.id}";
-    return _formatFutureToActivity(await http.post(url));
+            "&nameOfPlace=${activity.nameOfPlace}"
+            "&price=${activity.price}"
+            "&startActivity=${activity.startActivityDate}"
+            "${activity.finishActivityDate != null ? "&finishActivity=${activity.finishActivityDate}" : ""}"
+            "&styleActivity=${activity.styleActivity}"
+            "&idScheduleDay=${activity.idScheduleDay}"
+            "${activity.id != null ? "&id=${activity.id}" : ""}";
+    return _formatFutureToActivity(
+        await http.post(ApiConnection.encodeFull(url)));
   }
 
   Future<Response> deleteActivity(int activityId) async {
@@ -52,6 +53,8 @@ class ActivityApiConnection {
   Activity _formatFutureToActivity(Response response) {
     if (response.statusCode == 200) {
       return _formatActivityJson(response.body);
+    } else {
+      print('${response.statusCode} - ${response.body}');
     }
     return null;
   }
