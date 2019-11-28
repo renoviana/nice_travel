@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
+import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:timeline_list/timeline.dart';
@@ -9,44 +10,77 @@ import 'package:timeline_list/timeline_model.dart';
 import 'ActivityPage.dart';
 import 'IconStyleActivity.dart';
 
-class ActivityTimeline extends StatelessWidget {
-  final ScheduleDay _scheduleDay;
+class ActivityTimeline extends StatefulWidget {
+  ScheduleDay _scheduleDay;
+  int _scheduleCod;
 
-  ActivityTimeline(this._scheduleDay) {
-    listActivitiesBloc.loadActivity(_scheduleDay.id);
+  ActivityTimeline(this._scheduleDay);
+
+  ActivityTimeline.newInstance(this._scheduleCod);
+
+  @override
+  _ActivityTimelineState createState() =>
+      _ActivityTimelineState(this._scheduleDay, this._scheduleCod);
+}
+
+class _ActivityTimelineState extends State<ActivityTimeline> {
+  ScheduleDay _scheduleDay;
+  int _scheduleCod;
+
+  _ActivityTimelineState(this._scheduleDay, this._scheduleCod);
+
+  @override
+  void initState() {
+    super.initState();
+    if (this._scheduleDay != null) {
+      listActivitiesBloc.loadActivity(_scheduleDay.id);
+    } else {
+      newScheduleDay();
+    }
+  }
+
+  newScheduleDay() async {
+    var scheduleDay =
+        await ScheduleDayApiConnection.instance.addScheduleDay(_scheduleCod);
+    setState(() {
+      _scheduleDay = scheduleDay;
+    });
+//    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(children: [
-          new Text('${_scheduleDay.day}º Dia '),
-        ]),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => sendToNewActivity(context),
-            icon: Icon(Icons.add_circle_outline),
-          )
-        ],
-      ),
-      body: StreamBuilder<List<Activity>>(
-          stream: listActivitiesBloc.getListActivity,
-          initialData: [],
-          builder: (context, snapshot) {
-            return snapshot.hasData && snapshot.data.length > 0
-                ? Timeline.builder(
-                    position: TimelinePosition.Left,
-                    itemBuilder: (ctx, i) {
-                      return createTimeLine(ctx, i, snapshot);
-                    },
-                    itemCount: snapshot.data.length,
-                  )
-                : new Container(
-                    child: Text("Não tem elementos"),
-                  );
-          }),
-    );
+    return _scheduleDay == null
+        ? Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,)
+        : Scaffold(
+            appBar: AppBar(
+              title: Row(children: [
+                new Text('${_scheduleDay.day}º Dia '),
+              ]),
+              actions: <Widget>[
+                IconButton(
+                  onPressed: () => sendToNewActivity(context),
+                  icon: Icon(Icons.add_circle_outline),
+                )
+              ],
+            ),
+            body: StreamBuilder<List<Activity>>(
+                stream: listActivitiesBloc.getListActivity,
+                initialData: [],
+                builder: (context, snapshot) {
+                  return snapshot.hasData && snapshot.data.length > 0
+                      ? Timeline.builder(
+                          position: TimelinePosition.Left,
+                          itemBuilder: (ctx, i) {
+                            return createTimeLine(ctx, i, snapshot);
+                          },
+                          itemCount: snapshot.data.length,
+                        )
+                      : new Container(
+                          child: Text("Não tem elementos"),
+                        );
+                }),
+          );
   }
 
   TimelineModel createTimeLine(

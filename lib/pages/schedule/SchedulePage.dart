@@ -16,7 +16,7 @@ class _SchedulePageState extends State<SchedulePage> {
       body: MyScheduleList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => sendNewSchedulePage(),
-        child: Icon(Icons.save),
+        child: Icon(Icons.add_circle),
         backgroundColor: Colors.blue,
       ),
     );

@@ -2,7 +2,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
-import 'package:nice_travel/pages/favorite/card/AutoCompleteField.dart';
+import 'package:nice_travel/pages/travel/card/AutoCompleteField.dart';
 
 class FavoriteCard extends StatefulWidget {
   const FavoriteCard({Key key}) : super(key: key);
@@ -18,7 +18,15 @@ class _FavoriteCardState extends State<FavoriteCard> {
   @override
   void initState() {
     super.initState();
-    autoCompleteField = new AutoCompleteField();
+    autoCompleteField = new AutoCompleteField(InputDecoration(
+        hintText: "Vai para onde?",
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            autoCompleteField.field.clear();
+            autoCompleteBloc.setCityInputStatus.add(true);
+          },
+        )));
     _field = autoCompleteField.field;
   }
 

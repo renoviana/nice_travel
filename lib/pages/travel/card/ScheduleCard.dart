@@ -18,7 +18,15 @@ class _ScheduleCardState extends State<ScheduleCard> {
   @override
   void initState() {
     super.initState();
-    autoCompleteField = new AutoCompleteField();
+    autoCompleteField = new AutoCompleteField(InputDecoration(
+        hintText: "Vai para onde?",
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            autoCompleteField.field.clear();
+            autoCompleteBloc.setCityInputStatus.add(true);
+          },
+        )));
     _field = autoCompleteField.field;
   }
 

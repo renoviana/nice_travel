@@ -36,6 +36,11 @@ class ScheduleApiConnection {
     return http.post(url);
   }
 
+  void deleteSchedule(int scheduleCod) {
+   final url =  ApiConnection.URL_API + "/schedule/delete?scheduleId=$scheduleCod";
+   http.delete(url);
+  }
+
   Future<Response> voteTravelSchedule(int codSchedule) {
     final url =
         ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule";

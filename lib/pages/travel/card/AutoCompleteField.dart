@@ -16,17 +16,9 @@ class AutoCompleteField {
 
   bool isCityInputNull() => _cityInputisNull;
 
-  AutoCompleteField() {
+  AutoCompleteField(InputDecoration inputDecoration) {
     field = AutoCompleteTextField<GooglePlacesModel>(
-      decoration: InputDecoration(
-          hintText: "Vai para onde?",
-          suffixIcon: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              field.clear();
-              autoCompleteBloc.setCityInputStatus.add(true);
-            },
-          )),
+      decoration: inputDecoration,
       clearOnSubmit: false,
       itemBuilder: itemBuilder,
       itemFilter: (item, query) {

@@ -12,7 +12,9 @@ class Schedule {
   String userName;
   String userUID;
 
-  Schedule.newInstance();
+  Schedule.newInstance(){
+    this.qtdDays = 1;
+  }
 
   Schedule(ScheduleJson scheduleJson) {
     this.qtdDays = scheduleJson.qtdDays;

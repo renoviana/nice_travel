@@ -3,9 +3,18 @@ import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/list/ScheduleListItem.dart';
 
-class ScheduleList extends StatelessWidget {
-  ScheduleList() {
+
+class ScheduleList extends StatefulWidget {
+  @override
+  _ScheduleListState createState() => _ScheduleListState();
+}
+
+class _ScheduleListState extends State<ScheduleList> {
+
+  @override
+  void initState() {
     listScheduleBloc.loadSchedules();
+    super.initState();
   }
 
   @override

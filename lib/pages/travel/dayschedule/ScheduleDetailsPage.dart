@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
+import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
+import 'package:nice_travel/widgets/RemoverDialog.dart';
 
 import 'DayScheduleList.dart';
 
@@ -19,34 +20,41 @@ class DaySchedulePage extends StatefulWidget {
 
 class _DaySchedulePageState extends State<DaySchedulePage> {
   double _heigthAppBar = 280;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         body: Container(
-      child: Column(
-        children: <Widget>[
-          Stack(
+          child: Column(
             children: <Widget>[
-              citycardContainer(
-                  card: Container(
-                padding: EdgeInsets.only(left: 12, right: 12, top: 5),
-                decoration: BoxDecoration(
-                    color: Colors.white, shape: BoxShape.rectangle),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    cityinfoWidget(),
-                    DayScheduleList(widget.trip),
-                  ],
-                ),
-              )),
-              imageAppBar(),
+              Stack(
+                children: <Widget>[
+                  citycardContainer(
+                      card: Container(
+                    padding: EdgeInsets.only(left: 12, right: 12, top: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.white, shape: BoxShape.rectangle),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        cityinfoWidget(),
+                        DayScheduleList(widget.trip),
+                      ],
+                    ),
+                  )),
+                  imageAppBar(),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget citycardContainer({Widget card}) {
@@ -83,13 +91,16 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              cityNameTitle(),
-              priceScheduleSubTitle(),
-            ],
+          Flexible(
+            child: Column(
+              children: <Widget>[
+                cityNameTitle(),
+                priceScheduleSubTitle(),
+              ],
+            ),
           ),
           createIconAddDay(),
+          buildRemoverButton(),
         ],
       ),
     );
@@ -98,6 +109,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   Widget cityNameTitle() {
     return Text(
       '${widget.trip.nameCity}',
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: "Literata",
         fontSize: 30,
@@ -106,28 +118,45 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   }
 
   Widget createIconAddDay() {
-    return MaterialButton(
-      child: Center(
-          child: Icon(
+    return IconButton(
+      icon: Icon(
         Icons.add_circle,
         size: 40.0,
         color: Colors.blue,
-      )),
-      minWidth: 50,
-      height: 65,
-      shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(100.0)),
+      ),
       onPressed: () {
         sendActivityTimelineWithNewDay();
       },
     );
   }
 
+  Widget buildRemoverButton() {
+    if (widget.trip.scheduleCod != null) {
+      return IconButton(
+        icon: Icon(
+          Icons.delete,
+          size: 40.0,
+          color: Colors.red,
+        ),
+        onPressed: () {
+          removerDialog(
+              context, "Deseja remover esse cronograma?", deleteAction);
+        },
+      );
+    }
+
+    return Container();
+  }
+
+  deleteAction() {
+    ScheduleApiConnection.instance.deleteSchedule(widget.trip.scheduleCod);
+    Navigator.pop(context);
+    Navigator.pop(context);
+  }
+
   Future sendActivityTimelineWithNewDay() async {
-    ScheduleDay scheduleDay = await ScheduleDayApiConnection.instance
-        .addScheduleDay(widget.trip.scheduleCod);
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => ActivityTimeline(scheduleDay)));
+    await Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => ActivityTimeline.newInstance(widget.trip.scheduleCod)));
   }
 
   Widget priceScheduleSubTitle() {

@@ -8,6 +8,7 @@ import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 class ActivityPage extends StatefulWidget {
   final Activity _activity;
@@ -106,32 +107,40 @@ class _ActivityPageState extends State<ActivityPage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
-              child: MaterialButton(
-                height: 45,
-                //Wrap with Material
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(22.0)),
-                elevation: 18.0,
-                color: Color(0xFF801E08),
-                clipBehavior: Clip.antiAlias,
-                // Add This
-                child: new Text('Deletar',
-                    style: new TextStyle(fontSize: 16.0, color: Colors.white)),
-                onPressed: () {
-                  removerDialog(
-                      context, "Deseja remover essa atividade?", deleteAction);
-                },
-              ),
-            ),
+            buildRemoverButton(),
           ],
         ),
       ),
     );
   }
 
+  buildRemoverButton() {
+    if (_activity.id != null) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
+        child: MaterialButton(
+          height: 45,
+          //Wrap with Material
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+          elevation: 18.0,
+          color: Color(0xFF801E08),
+          clipBehavior: Clip.antiAlias,
+          // Add This
+          child: new Text('Deletar',
+              style: new TextStyle(fontSize: 16.0, color: Colors.white)),
+          onPressed: () {
+            removerDialog(
+                context, "Deseja remover essa atividade?", deleteAction);
+          },
+        ),
+      );
+    }
+    return Container();
+  }
+
   deleteAction() {
+    showCircularProgress(context);
     ActivityApiConnection.instance.deleteActivity(_activity.id);
     Navigator.pop(context);
     Navigator.pop(context);
@@ -139,7 +148,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   save(BuildContext context) async {
     if (_formKey.currentState.validate()) {
-      showCircularProgress("Salvando...", context);
+      showCircularProgress(context);
       ActivityApiConnection.instance.addActivity(_activity);
       Navigator.pop(context); //pop dialog
     } else {
@@ -147,19 +156,6 @@ class _ActivityPageState extends State<ActivityPage> {
     }
   }
 
-  void showCircularProgress(String message, BuildContext context) {
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
-        duration: new Duration(minutes: 2),
-        content: Row(
-          children: <Widget>[
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            ),
-            Container(
-                margin: EdgeInsets.only(left: 8.0), child: new Text(message)),
-          ],
-        )));
-  }
 
   Widget _builtDescriptionText() {
     return TextFormField(
