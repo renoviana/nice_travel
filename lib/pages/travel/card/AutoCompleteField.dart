@@ -17,13 +17,15 @@ class AutoCompleteField {
   bool _focusOn = false;
 
   bool isCityInputNull() => _cityInputisNull;
+
   String getPlaceId() => _placeId;
 
   AutoCompleteField(InputDecoration inputDecoration, Function onSelectCity) {
     field = AutoCompleteTextField<GooglePlacesModel>(
       decoration: inputDecoration,
       clearOnSubmit: false,
-      onFocusChanged: (focus) => clearOnFocusOutWhenValueWasNotSelected(focus, onSelectCity),
+      onFocusChanged: (focus) =>
+          clearOnFocusOutWhenValueWasNotSelected(focus, onSelectCity),
       itemBuilder: itemBuilder,
       itemFilter: (item, query) {
         return item.terms[0].value
@@ -46,7 +48,7 @@ class AutoCompleteField {
 
         if (text.length >= 3) {
           await CitiesResource().getCities(text).then((onValue) {
-            if(field != null) {
+            if (field != null && onValue != null) {
               field.updateSuggestions(onValue);
             }
           });
@@ -67,12 +69,12 @@ class AutoCompleteField {
   }
 
   Widget itemBuilder(BuildContext context, GooglePlacesModel suggestion) {
-     return Visibility(
-       child: new ListTile(
-         title: Text(suggestion.description),
+    return Visibility(
+      child: new ListTile(
+        title: Text(suggestion.description),
 //       trailing: Text(suggestion.terms[1].value),
-       ),
-       visible: _focusOn,
-     );
+      ),
+      visible: _focusOn,
+    );
   }
 }
