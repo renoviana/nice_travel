@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'DayScheduleList.dart';
 
@@ -38,17 +40,17 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
                 children: <Widget>[
                   citycardContainer(
                       card: Container(
-                    padding: EdgeInsets.only(left: 12, right: 12, top: 5),
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.rectangle),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        cityinfoWidget(),
-                        DayScheduleList(widget.trip),
-                      ],
-                    ),
-                  )),
+                        padding: EdgeInsets.only(left: 12, right: 12, top: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.white, shape: BoxShape.rectangle),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            cityinfoWidget(),
+                            DayScheduleList(widget.trip),
+                          ],
+                        ),
+                      )),
                   imageAppBar(),
                 ],
               ),
@@ -59,8 +61,14 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   Widget citycardContainer({Widget card}) {
     return Container(
-      height: MediaQuery.of(context).size.height - _heigthAppBar,
-      width: MediaQuery.of(context).size.width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - _heigthAppBar,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       color: Color(0xff758698),
       margin: EdgeInsets.only(top: _heigthAppBar),
       child: card,
@@ -70,7 +78,10 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   Widget imageAppBar() {
     return Container(
         height: _heigthAppBar,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -86,24 +97,26 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   }
 
   Widget cityinfoWidget() {
-    return Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Flexible(
-            child: Column(
-              children: <Widget>[
-                cityNameTitle(),
-                priceScheduleSubTitle(),
-              ],
+    return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+      return Container(
+        padding: EdgeInsets.only(left: 5, right: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Flexible(
+              child: Column(
+                children: <Widget>[
+                  cityNameTitle(),
+                  priceScheduleSubTitle(),
+                ],
+              ),
             ),
-          ),
-          createIconAddDay(),
-          buildRemoverButton(),
-        ],
-      ),
-    );
+            buildRemoverButton(model),
+            createIconAddDay(),
+          ],
+        ),
+      );
+    });
   }
 
   Widget cityNameTitle() {
@@ -125,13 +138,20 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
         color: Colors.blue,
       ),
       onPressed: () {
+        //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
+        // caso seja ok, caso contrario deverá criar um novo cronograma.
         sendActivityTimelineWithNewDay();
       },
     );
   }
 
-  Widget buildRemoverButton() {
-    if (widget.trip.scheduleCod != null) {
+
+  buildButtons() {
+
+  }
+
+  Widget buildRemoverButton(UserModel model) {
+    if (ableDelete(model)) {
       return IconButton(
         icon: Icon(
           Icons.delete,
@@ -148,6 +168,8 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     return Container();
   }
 
+  bool ableDelete(UserModel model) => widget.trip.scheduleCod != null && model.sessionUser != null && model.sessionUser.uid == widget.trip.userUID;
+
   deleteAction() {
     ScheduleApiConnection.instance.deleteSchedule(widget.trip.scheduleCod);
     Navigator.pop(context);
@@ -156,7 +178,8 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   Future sendActivityTimelineWithNewDay() async {
     await Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => ActivityTimeline.newInstance(widget.trip.scheduleCod)));
+        builder: (BuildContext context) =>
+            ActivityTimeline.newInstance(widget.trip.scheduleCod)));
   }
 
   Widget priceScheduleSubTitle() {
@@ -169,4 +192,5 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           color: Colors.green),
     );
   }
+
 }
