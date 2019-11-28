@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
+import 'package:nice_travel/widgets/ValidateLoginAction.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -26,6 +29,7 @@ class ActivityTimeline extends StatefulWidget {
 class _ActivityTimelineState extends State<ActivityTimeline> {
   ScheduleDay _scheduleDay;
   int _scheduleCod;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   _ActivityTimelineState(this._scheduleDay, this._scheduleCod);
 
@@ -50,45 +54,53 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   @override
   Widget build(BuildContext context) {
     return _scheduleDay == null
-        ? Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,)
-        : Scaffold(
-            appBar: AppBar(
-              title: Row(children: [
-                new Text('${_scheduleDay.day}º Dia '),
-              ]),
-              actions: <Widget>[
-                IconButton(
-                  onPressed: () => sendToNewActivity(context),
-                  icon: Icon(Icons.add_circle_outline),
-                )
-              ],
-            ),
-            body: StreamBuilder<List<Activity>>(
-                stream: listActivitiesBloc.getListActivity,
-                initialData: [],
-                builder: (context, snapshot) {
-                  return snapshot.hasData && snapshot.data.length > 0
-                      ? Timeline.builder(
-                          position: TimelinePosition.Left,
-                          itemBuilder: (ctx, i) {
-                            return createTimeLine(ctx, i, snapshot);
-                          },
-                          itemCount: snapshot.data.length,
-                        )
-                      : new Container(
-                          child: Text("Não tem elementos"),
-                        );
-                }),
-          );
+        ? Container(
+            child: Center(child: CircularProgressIndicator()),
+            color: Colors.white,
+          )
+        : ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+            return Scaffold(
+              key: _scaffoldKey,
+              appBar: AppBar(
+                title: Row(children: [
+                  new Text('${_scheduleDay.day}º Dia '),
+                ]),
+                actions: <Widget>[
+                  IconButton(
+                    onPressed: () => validateLoginAction(context, model,
+                        _scaffoldKey, () => sendToNewActivity(context)),
+                    icon: Icon(Icons.add_circle_outline),
+                  )
+                ],
+              ),
+              body: StreamBuilder<List<Activity>>(
+                  stream: listActivitiesBloc.getListActivity,
+                  initialData: [],
+                  builder: (context, snapshot) {
+                    return snapshot.hasData && snapshot.data.length > 0
+                        ? Timeline.builder(
+                            position: TimelinePosition.Left,
+                            itemBuilder: (ctx, i) {
+                              return createTimeLine(ctx, i, snapshot, model);
+                            },
+                            itemCount: snapshot.data.length,
+                          )
+                        : new Container(
+                            child: Text("Não tem elementos"),
+                          );
+                  }),
+            );
+          });
   }
 
-  TimelineModel createTimeLine(
-      BuildContext context, int i, AsyncSnapshot<List<Activity>> snapshot) {
+  TimelineModel createTimeLine(BuildContext context, int i,
+      AsyncSnapshot<List<Activity>> snapshot, UserModel model) {
     var activity = snapshot.data[i];
     final textTheme = Theme.of(context).textTheme;
     return new TimelineModel(
         GestureDetector(
-          onTap: () => sendToEditActivity(context, activity),
+          onTap: () => validateLoginAction(context, model, _scaffoldKey,
+              () => sendToEditActivity(context, activity)),
           child: Card(
             margin: EdgeInsets.symmetric(vertical: 16.0),
             shape: RoundedRectangleBorder(

@@ -7,6 +7,7 @@ import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/ValidateLoginAction.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'DayScheduleList.dart';
@@ -47,7 +48,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             cityinfoWidget(),
-                            DayScheduleList(widget.trip),
+                            DayScheduleList(widget.trip, _scaffoldKey),
                           ],
                         ),
                       )),
@@ -112,7 +113,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
               ),
             ),
             buildRemoverButton(model),
-            createIconAddDay(),
+            createIconAddDay(model),
           ],
         ),
       );
@@ -130,7 +131,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     );
   }
 
-  Widget createIconAddDay() {
+  Widget createIconAddDay(UserModel model) {
     return IconButton(
       icon: Icon(
         Icons.add_circle,
@@ -140,7 +141,11 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       onPressed: () {
         //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
         // caso seja ok, caso contrario deverá criar um novo cronograma.
-        sendActivityTimelineWithNewDay();
+        validateLoginAction(
+            context,
+            model,
+            _scaffoldKey,
+                () => sendActivityTimelineWithNewDay());
       },
     );
   }
@@ -168,7 +173,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     return Container();
   }
 
-  bool ableDelete(UserModel model) => widget.trip.scheduleCod != null && model.sessionUser != null && model.sessionUser.uid == widget.trip.userUID;
+  bool ableDelete(UserModel model) => widget.trip.scheduleCod != null && model.isLoggedIn() && model.sessionUser.uid == widget.trip.userUID;
 
   deleteAction() {
     ScheduleApiConnection.instance.deleteSchedule(widget.trip.scheduleCod);

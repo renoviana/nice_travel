@@ -8,6 +8,8 @@ import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/widgets/ValidateField.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 class ActivityPage extends StatefulWidget {
@@ -27,8 +29,6 @@ class _ActivityPageState extends State<ActivityPage> {
   MoneyMaskedTextController _moneyController;
   TextEditingController _nameController;
   TextEditingController _descriptionController;
-
-//  String styleActivity;
 
   _ActivityPageState(this._activity);
 
@@ -151,8 +151,9 @@ class _ActivityPageState extends State<ActivityPage> {
       showCircularProgress(context);
       ActivityApiConnection.instance.addActivity(_activity);
       Navigator.pop(context); //pop dialog
+      Navigator.pop(context); //pop dialog
     } else {
-      showToastMessage("É necessário preencher todos os campos");
+      showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }
   }
 
@@ -249,19 +250,6 @@ class _ActivityPageState extends State<ActivityPage> {
                 .inMinutes >
             0) {
       return "A data final precisa ser maior do que a data inicial.";
-    }
-    return null;
-  }
-
-  showToastMessage(String message) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  String validateRequiredField(String value) {
-    if (value == null || value == "") {
-      return "É necessário preencher esse campo.";
     }
     return null;
   }

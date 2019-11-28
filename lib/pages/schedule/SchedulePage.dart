@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nice_travel/model/UserModel.dart';
+import 'package:nice_travel/widgets/ValidateLoginAction.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'NewSchedulePage.dart';
 import 'list/MyScheduleList.dart';
@@ -9,20 +12,25 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MyScheduleList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => sendNewSchedulePage(),
-        child: Icon(Icons.add_circle),
-        backgroundColor: Colors.blue,
-      ),
-    );
-  }
-
-  sendNewSchedulePage() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => NewSchedulePage()));
+    return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+      return Scaffold(
+        key: _scaffoldKey,
+        body: MyScheduleList(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => validateLoginAction(
+              context,
+              model,
+              _scaffoldKey,
+              () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => NewSchedulePage()))),
+          child: Icon(Icons.add_circle),
+          backgroundColor: Colors.blue,
+        ),
+      );
+    });
   }
 }

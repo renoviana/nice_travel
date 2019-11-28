@@ -7,6 +7,8 @@ import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/travel/card/AutoCompleteField.dart';
+import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/widgets/ValidateField.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -149,7 +151,8 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
   }
 
   _buildQtdDaysText() {
-    return new TextField(
+    return new TextFormField(
+      validator: validateRequiredField,
       controller: _qtdDaysController,
       maxLength: 2,
       decoration: InputDecoration(
@@ -164,13 +167,17 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
   }
 
   save(BuildContext context, UserModel model) {
-    showCircularProgress(context);
-    ScheduleApiConnection.instance.createSchedule(
-      _placeId,
-      _qtdDays,
-        model.sessionUser
-    );
-    Navigator.pop(context);
-    Navigator.pop(context);
+    if (_formKey.currentState.validate() && _nameCity != null) {
+      showCircularProgress(context);
+      ScheduleApiConnection.instance.createSchedule(
+          _placeId,
+          _qtdDays,
+          model.sessionUser
+      );
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } else {
+      showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
+    }
   }
 }
