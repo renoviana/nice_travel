@@ -26,7 +26,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
             autoCompleteField.field.clear();
             autoCompleteBloc.setCityInputStatus.add(true);
           },
-        )));
+        )), () => {});
     _field = autoCompleteField.field;
   }
 
@@ -45,7 +45,6 @@ class _ScheduleCardState extends State<ScheduleCard> {
               stream: autoCompleteBloc.getCityInputStatus,
               initialData: true,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                print(snapshot.data);
                 if (snapshot.data == true) return Container();
                 return hiddenColumn();
               },

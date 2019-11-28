@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/model/Schedule.dart';
 
 import 'NewSchedulePage.dart';
 import 'list/MyScheduleList.dart';
@@ -24,6 +23,6 @@ class _SchedulePageState extends State<SchedulePage> {
 
   sendNewSchedulePage() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => NewSchedulePage(Schedule.newInstance())));
+        builder: (BuildContext context) => NewSchedulePage()));
   }
 }

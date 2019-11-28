@@ -12,14 +12,18 @@ class AutoCompleteField {
 
   List<GooglePlacesModel> lista = [];
 
+  String _placeId;
   bool _cityInputisNull = true;
+  bool _focusOn = false;
 
   bool isCityInputNull() => _cityInputisNull;
+  String getPlaceId() => _placeId;
 
-  AutoCompleteField(InputDecoration inputDecoration) {
+  AutoCompleteField(InputDecoration inputDecoration, Function onSelectCity) {
     field = AutoCompleteTextField<GooglePlacesModel>(
       decoration: inputDecoration,
       clearOnSubmit: false,
+      onFocusChanged: (focus) => clearOnFocusOutWhenValueWasNotSelected(focus),
       itemBuilder: itemBuilder,
       itemFilter: (item, query) {
         return item.terms[0].value
@@ -30,9 +34,12 @@ class AutoCompleteField {
         return a.terms[0].value.compareTo(b.terms[0].value);
       },
       itemSubmitted: (GooglePlacesModel data) {
-        print(data);
         field.textField.controller.text = data.terms[0].value;
+        _placeId = data.placeId;
+        print('On Autocomplete Changed');
+        Function.apply(onSelectCity, []);
         autoCompleteBloc.setCityInputStatus.add(false);
+        _cityInputisNull = false;
       },
       textChanged: (String text) async {
         _cityInputisNull = true;
@@ -48,10 +55,20 @@ class AutoCompleteField {
     );
   }
 
+  clearOnFocusOutWhenValueWasNotSelected(bool focus) {
+    if (!focus && _cityInputisNull) {
+      field.clear();
+    }
+    _focusOn = focus;
+  }
+
   Widget itemBuilder(BuildContext context, GooglePlacesModel suggestion) {
-    return new ListTile(
-      title: Text(suggestion.description),
-      //trailing: Text(suggestion.terms[1].value),
-    );
+     return Visibility(
+       child: new ListTile(
+         title: Text(suggestion.description),
+//       trailing: Text(suggestion.terms[1].value),
+       ),
+       visible: _focusOn,
+     );
   }
 }

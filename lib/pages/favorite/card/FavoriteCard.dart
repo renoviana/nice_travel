@@ -26,7 +26,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
             autoCompleteField.field.clear();
             autoCompleteBloc.setCityInputStatus.add(true);
           },
-        )));
+        )), () => {});
     _field = autoCompleteField.field;
   }
 

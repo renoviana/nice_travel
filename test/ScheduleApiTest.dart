@@ -8,6 +8,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/SessionUser.dart';
 
 void main() {
   test('Test get schedule by city name', () async {
@@ -19,7 +20,7 @@ void main() {
 
   test('Test create schedule ', () async {
     final response =
-        await ScheduleApiConnection.instance.createSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2);
+        await ScheduleApiConnection.instance.createSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2, new SessionUser("joão", "joao@mail", "123", "123"));
     expect(response.statusCode, 200);
     final jsonString = response.body;
     String mockReturn =

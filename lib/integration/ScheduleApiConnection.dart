@@ -3,9 +3,10 @@ import 'package:http/http.dart';
 import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/SessionUser.dart';
 
 class ScheduleApiConnection {
-  ScheduleApiConnection._(){
+  ScheduleApiConnection._() {
     print('Calling ScheduleApiConnection');
   }
 
@@ -26,9 +27,13 @@ class ScheduleApiConnection {
     return _formatFutureToSchedules(await http.Client().get(url));
   }
 
-  Future<Response> createSchedule(String placeId, int numberDays) {
+  Future<Response> createSchedule(
+      String placeId, int numberDays, SessionUser sessionUser) {
     final url = ApiConnection.URL_API +
-        "/schedule?placeID=$placeId&numberDays=$numberDays";
+        "/schedule?placeID=$placeId&numberDays=$numberDays"
+            "&userUID=${sessionUser.uid}"
+            "&userEmail=${sessionUser.email}"
+            "&userName=${sessionUser.displayName}";
     return http.post(url);
   }
 
@@ -39,8 +44,9 @@ class ScheduleApiConnection {
   }
 
   void deleteSchedule(int scheduleCod) {
-   final url =  ApiConnection.URL_API + "/schedule/delete?scheduleId=$scheduleCod";
-   http.delete(url);
+    final url =
+        ApiConnection.URL_API + "/schedule/delete?scheduleId=$scheduleCod";
+    http.delete(url);
   }
 
   Future<Response> voteTravelSchedule(int codSchedule) {
