@@ -6,7 +6,9 @@ import 'ApiConnection.dart';
 import 'json/ActivityJson.dart';
 
 class ActivityApiConnection {
-  ActivityApiConnection._();
+  ActivityApiConnection._(){
+    print('Calling ActivityApiConnection');
+  }
 
   static final ActivityApiConnection instance = new ActivityApiConnection._();
 

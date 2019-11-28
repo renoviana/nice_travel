@@ -6,7 +6,9 @@ import 'package:nice_travel/model/Schedule.dart';
 
 class ScheduleDayApiConnection {
 
-  ScheduleDayApiConnection._();
+  ScheduleDayApiConnection._(){
+    print('Calling ScheduleDayApiConnection');
+  }
 
   static final ScheduleDayApiConnection instance = new ScheduleDayApiConnection._();
 
@@ -22,6 +24,7 @@ class ScheduleDayApiConnection {
 
   Future<ScheduleDay> addScheduleDay(int codSchedule) async {
     final url = ApiConnection.URL_API + "/scheduleDay/add?scheduleId=$codSchedule";
+    print(url);
     return _formatFutureToScheduleDay(await http.post(url));
   }
 

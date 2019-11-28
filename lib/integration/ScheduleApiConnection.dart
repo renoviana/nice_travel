@@ -5,7 +5,9 @@ import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 
 class ScheduleApiConnection {
-  ScheduleApiConnection._();
+  ScheduleApiConnection._(){
+    print('Calling ScheduleApiConnection');
+  }
 
   static final ScheduleApiConnection instance = new ScheduleApiConnection._();
 

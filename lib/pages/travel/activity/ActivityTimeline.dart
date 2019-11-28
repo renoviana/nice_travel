@@ -45,7 +45,6 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
     setState(() {
       _scheduleDay = scheduleDay;
     });
-//    Navigator.of(context).pop();
   }
 
   @override
