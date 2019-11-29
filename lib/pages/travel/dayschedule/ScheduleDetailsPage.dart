@@ -157,7 +157,7 @@ class DaySchedulePage extends StatelessWidget {
         ),
         onPressed: () {
           removerDialog(
-              context, "Deseja remover esse cronograma?", () => deleteAction(context));
+              context, "Deseja remover esse cronograma?", () => deleteAction(model, context));
         },
       );
     }
@@ -167,7 +167,7 @@ class DaySchedulePage extends StatelessWidget {
 
   bool ableDelete(UserModel model) => trip.scheduleCod != null && model.isLoggedIn() && model.sessionUser.uid == trip.userUID;
 
-  deleteAction(BuildContext context) {
+  deleteAction(UserModel model, BuildContext context) {
     ScheduleApiConnection.instance.deleteSchedule(trip.scheduleCod);
     Navigator.pop(context);
     Navigator.pop(context);

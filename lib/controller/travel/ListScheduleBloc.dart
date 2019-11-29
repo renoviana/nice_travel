@@ -6,6 +6,7 @@ class ListScheduleBloc {
   var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded(null);
 
   void loadSchedules() async {
+    setListSchedule.add(null);
     List<Schedule> lista =
         await ScheduleApiConnection.instance.getScheduleByCityName('Salvador');
     setListSchedule.add(lista);

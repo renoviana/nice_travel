@@ -8,6 +8,7 @@ class DayScheduleList extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey;
 
   DayScheduleList(this._schedule, this._scaffoldKey) {
+    listScheduleDayBloc.setListScheduleDay.add(null);
     listScheduleDayBloc.loadSchedules(_schedule.scheduleCod);
   }
 

@@ -167,10 +167,10 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
     );
   }
 
-  save(BuildContext context, UserModel model) {
+  save(BuildContext context, UserModel model) async{
     if (_formKey.currentState.validate() && _nameCity != "") {
       showCircularProgress(context);
-      ScheduleApiConnection.instance.createSchedule(
+      await ScheduleApiConnection.instance.createSchedule(
           _placeId,
           _qtdDays,
           model.sessionUser
