@@ -15,7 +15,8 @@ class ActivityApiConnection {
   Future<List<Activity>> getActiviesByScheduleDay(int scheduleDayId) async {
     final url =
         ApiConnection.URL_API + "/activity?scheduleDayId=$scheduleDayId";
-    return _formatFutureToActivities(await http.Client().get(url));
+    print(url);
+    return _formatFutureToActivities(await http.get(url));
   }
 
   Future<Activity> addActivity(Activity activity) async {

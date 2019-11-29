@@ -30,7 +30,6 @@ class _MyScheduleListState extends State<MyScheduleList> {
   Widget build(BuildContext context) {
     return StreamBuilder<List<Schedule>>(
         stream: myListScheduleBloc.getListSchedule,
-        initialData: [],
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Container(

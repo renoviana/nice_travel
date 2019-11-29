@@ -59,7 +59,7 @@ class ScheduleListItem extends StatelessWidget {
           )),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => DaySchedulePage(this.schedule)));
+            builder: (BuildContext context) => DaySchedulePage(this.schedule), settings: RouteSettings(name: "/daySchedulePage")));
       },
     );
   }

@@ -16,19 +16,19 @@ class ScheduleApiConnection {
       {int sizeElements = 5}) async {
     final url = ApiConnection.URL_API +
         "/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
-    return _formatFutureToSchedules(await http.Client().get(url));
+    return _formatFutureToSchedules(await http.get(url));
   }
 
   Future<List<Schedule>> getSchedulesByIds(List<int> scheduleIds) async {
     String ids = '';
     scheduleIds..forEach((id) => ids += '&scheduleIds=$id');
     final url = ApiConnection.URL_API + '/schedule/ids?1=1$ids';
-    return _formatFutureToSchedules(await http.Client().get(url));
+    return _formatFutureToSchedules(await http.get(url));
   }
 
   Future<List<Schedule>> getSchedulesByUserUID(userUID) async {
     final url = ApiConnection.URL_API + '/schedule/userUID?userUID=$userUID';
-    return _formatFutureToSchedules(await http.Client().get(url));
+    return _formatFutureToSchedules(await http.get(url));
   }
 
   Future<Response> createSchedule(

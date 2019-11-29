@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
-import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
 import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
 import 'package:nice_travel/widgets/RemoverDialog.dart';
 import 'package:nice_travel/widgets/ShowToast.dart';
@@ -15,23 +15,26 @@ import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 class ActivityPage extends StatefulWidget {
   final Activity _activity;
+  final ScheduleDay _scheduleDay;
 
-  ActivityPage(this._activity);
+  ActivityPage(this._activity, this._scheduleDay);
 
   @override
-  _ActivityPageState createState() => _ActivityPageState(_activity);
+  _ActivityPageState createState() =>
+      _ActivityPageState(_activity, _scheduleDay);
 }
 
 class _ActivityPageState extends State<ActivityPage> {
   final Activity _activity;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+  final ScheduleDay _scheduleDay;
 
   MoneyMaskedTextController _moneyController;
   TextEditingController _nameController;
   TextEditingController _descriptionController;
 
-  _ActivityPageState(this._activity);
+  _ActivityPageState(this._activity, this._scheduleDay);
 
   updateProductModelValue() {
     setState(() {
@@ -143,22 +146,30 @@ class _ActivityPageState extends State<ActivityPage> {
   deleteAction() {
     showCircularProgress(context);
     ActivityApiConnection.instance.deleteActivity(_activity.id);
-    Navigator.pop(context);
-    Navigator.pop(context);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => ActivityTimeline(_scheduleDay)),
+        ModalRoute.withName('/daySchedulePage'));
   }
 
   save(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       showCircularProgress(context);
       ActivityApiConnection.instance.addActivity(_activity);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      listActivitiesBloc.loadActivity(_activity.idScheduleDay);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => ActivityTimeline(_scheduleDay)),
+          ModalRoute.withName('/daySchedulePage'));
     } else {
       showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }
   }
 
+  bool predicateRoute(Route r) {
+    print(r.settings);
+    print(r.toString());
+    return r.isFirst;
+  }
 
   Widget _builtDescriptionText() {
     return TextFormField(

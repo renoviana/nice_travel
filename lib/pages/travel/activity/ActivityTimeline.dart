@@ -38,6 +38,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   @override
   void initState() {
     super.initState();
+    print(this._scheduleDay);
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
@@ -153,11 +154,11 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   sendToNewActivity(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
-            ActivityPage(Activity.newInstance(_scheduleDay.id))));
+            ActivityPage(Activity.newInstance(_scheduleDay.id), _scheduleDay)));
   }
 
   sendToEditActivity(BuildContext context, Activity activity) {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => ActivityPage(activity)));
+        builder: (BuildContext context) => ActivityPage(activity, _scheduleDay)));
   }
 }
