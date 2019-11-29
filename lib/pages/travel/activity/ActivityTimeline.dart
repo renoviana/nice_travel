@@ -38,7 +38,6 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   @override
   void initState() {
     super.initState();
-    print(this._scheduleDay);
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {

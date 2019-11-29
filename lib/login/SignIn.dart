@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 class SignIn extends StatefulWidget {
   final UserModel _model;
@@ -52,7 +51,6 @@ class _SignInState extends State<SignIn> {
   }
 
   Future<Null> _signIn() async {
-    showCircularProgress(context);
     GoogleSignInAccount user = _googleSignIn.currentUser;
 
     final onError = (exception, stacktrace) {

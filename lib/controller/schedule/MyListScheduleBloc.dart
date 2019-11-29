@@ -3,7 +3,7 @@ import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MyListScheduleBloc {
-  var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded([]);
+  var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded(null);
 
   void loadSchedules(String userUID) async {
     List<Schedule> lista =

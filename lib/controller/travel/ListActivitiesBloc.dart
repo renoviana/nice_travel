@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class ListActivitiesBloc {
 
-  var _listActivityBloc = BehaviorSubject<List<Activity>>.seeded([]);
+  var _listActivityBloc = BehaviorSubject<List<Activity>>.seeded(null);
 
   void loadActivity(int scheduleDayId) async {
     List<Activity> lista =

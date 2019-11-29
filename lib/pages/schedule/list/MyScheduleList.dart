@@ -16,13 +16,17 @@ class MyScheduleList extends StatefulWidget {
 class _MyScheduleListState extends State<MyScheduleList> {
   final UserModel _model;
 
-  _MyScheduleListState(this._model);
+  _MyScheduleListState(this._model){
+    myListScheduleBloc.setListSchedule.add(null);
+  }
 
   @override
   void initState() {
     super.initState();
     if (_model.isLoggedIn()) {
       myListScheduleBloc.loadSchedules(_model.sessionUser.uid);
+    } else {
+      myListScheduleBloc.setListSchedule.add([]);
     }
   }
 
