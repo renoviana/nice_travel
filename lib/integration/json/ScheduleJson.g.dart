@@ -37,10 +37,10 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
         ..add(serializers.serialize(object.imageUrl,
             specifiedType: const FullType(String)));
     }
-    if (object.nameCity != null) {
+    if (object.cityAddress != null) {
       result
-        ..add('nameCity')
-        ..add(serializers.serialize(object.nameCity,
+        ..add('cityAddress')
+        ..add(serializers.serialize(object.cityAddress,
             specifiedType: const FullType(String)));
     }
     if (object.priceFinal != null) {
@@ -87,8 +87,8 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'nameCity':
-          result.nameCity = serializers.deserialize(value,
+        case 'cityAddress':
+          result.cityAddress = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'priceFinal':
@@ -118,7 +118,7 @@ class _$ScheduleJson extends ScheduleJson {
   @override
   final String imageUrl;
   @override
-  final String nameCity;
+  final String cityAddress;
   @override
   final double priceFinal;
   @override
@@ -133,7 +133,7 @@ class _$ScheduleJson extends ScheduleJson {
       {this.scheduleCod,
       this.qtdDays,
       this.imageUrl,
-      this.nameCity,
+      this.cityAddress,
       this.priceFinal,
       this.userUID,
       this.userName})
@@ -153,7 +153,7 @@ class _$ScheduleJson extends ScheduleJson {
         scheduleCod == other.scheduleCod &&
         qtdDays == other.qtdDays &&
         imageUrl == other.imageUrl &&
-        nameCity == other.nameCity &&
+        cityAddress == other.cityAddress &&
         priceFinal == other.priceFinal &&
         userUID == other.userUID &&
         userName == other.userName;
@@ -167,7 +167,7 @@ class _$ScheduleJson extends ScheduleJson {
                 $jc(
                     $jc($jc($jc(0, scheduleCod.hashCode), qtdDays.hashCode),
                         imageUrl.hashCode),
-                    nameCity.hashCode),
+                    cityAddress.hashCode),
                 priceFinal.hashCode),
             userUID.hashCode),
         userName.hashCode));
@@ -179,7 +179,7 @@ class _$ScheduleJson extends ScheduleJson {
           ..add('scheduleCod', scheduleCod)
           ..add('qtdDays', qtdDays)
           ..add('imageUrl', imageUrl)
-          ..add('nameCity', nameCity)
+          ..add('cityAddress', cityAddress)
           ..add('priceFinal', priceFinal)
           ..add('userUID', userUID)
           ..add('userName', userName))
@@ -203,9 +203,9 @@ class ScheduleJsonBuilder
   String get imageUrl => _$this._imageUrl;
   set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
 
-  String _nameCity;
-  String get nameCity => _$this._nameCity;
-  set nameCity(String nameCity) => _$this._nameCity = nameCity;
+  String _cityAddress;
+  String get cityAddress => _$this._cityAddress;
+  set cityAddress(String cityAddress) => _$this._cityAddress = cityAddress;
 
   double _priceFinal;
   double get priceFinal => _$this._priceFinal;
@@ -226,7 +226,7 @@ class ScheduleJsonBuilder
       _scheduleCod = _$v.scheduleCod;
       _qtdDays = _$v.qtdDays;
       _imageUrl = _$v.imageUrl;
-      _nameCity = _$v.nameCity;
+      _cityAddress = _$v.cityAddress;
       _priceFinal = _$v.priceFinal;
       _userUID = _$v.userUID;
       _userName = _$v.userName;
@@ -255,7 +255,7 @@ class ScheduleJsonBuilder
             scheduleCod: scheduleCod,
             qtdDays: qtdDays,
             imageUrl: imageUrl,
-            nameCity: nameCity,
+            cityAddress: cityAddress,
             priceFinal: priceFinal,
             userUID: userUID,
             userName: userName);

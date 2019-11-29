@@ -21,7 +21,7 @@ abstract class ScheduleJson
   String get imageUrl;
 
   @nullable
-  String get nameCity;
+  String get cityAddress;
 
   @nullable
   double get priceFinal;

@@ -32,7 +32,7 @@ class FavoriteListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            this.schedule.nameCity,
+                            this.schedule.cityAddress,
                             style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,

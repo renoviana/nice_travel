@@ -46,6 +46,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
               icon: Icon(Icons.clear),
               onPressed: () {
                 autoCompleteField.field.clear();
+                autoCompleteField.clearPlaceID();
                 changeCity();
                 autoCompleteBloc.setCityInputStatus.add(true);
               },

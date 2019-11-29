@@ -68,6 +68,9 @@ class AutoCompleteField {
     _focusOn = focus;
   }
 
+  clearPlaceID(){
+    _placeId = null;
+  }
   Widget itemBuilder(BuildContext context, GooglePlacesModel suggestion) {
     return Visibility(
       child: new ListTile(

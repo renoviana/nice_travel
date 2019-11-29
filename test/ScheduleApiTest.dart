@@ -13,9 +13,9 @@ import 'package:nice_travel/model/SessionUser.dart';
 void main() {
   test('Test get schedule by city name', () async {
     List<Schedule> schedules =
-        await ScheduleApiConnection.instance.getScheduleByCityName("Salvador", sizeElements: 1);
+        await ScheduleApiConnection.instance.getScheduleByCityPlaceID("Salvador", sizeElements: 1);
     String salvador = "Salvador";
-    expect(schedules.first.nameCity, salvador);
+    expect(schedules.first.cityAddress, salvador);
   });
 
   test('Test create schedule ', () async {

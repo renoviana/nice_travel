@@ -112,7 +112,7 @@ class DaySchedulePage extends StatelessWidget {
 
   Widget cityNameTitle() {
     return Text(
-      '${trip.nameCity}',
+      '${trip.cityAddress}',
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: "Literata",

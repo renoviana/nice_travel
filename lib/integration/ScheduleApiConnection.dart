@@ -12,11 +12,11 @@ class ScheduleApiConnection {
 
   static final ScheduleApiConnection instance = new ScheduleApiConnection._();
 
-  Future<List<Schedule>> getScheduleByCityName(String cityName,
+  Future<List<Schedule>> getScheduleByCityPlaceID(String placeID,
       {int sizeElements = 5}) async {
     final url = ApiConnection.URL_API +
         "/schedule/city?1=1"
-            "${cityName != null ? "&cityName=$cityName" : ""}"
+            "${placeID != null ? "&placeID=$placeID" : ""}"
             "&sizeElements=$sizeElements";
     return _formatFutureToSchedules(await http.get(url));
   }

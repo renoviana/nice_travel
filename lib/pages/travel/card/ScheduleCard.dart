@@ -16,14 +16,16 @@ class ScheduleCard extends StatelessWidget {
           icon: Icon(Icons.clear),
           onPressed: () {
             autoCompleteField.field.clear();
+            autoCompleteField.clearPlaceID();
+            updateSchedules();
             autoCompleteBloc.setCityInputStatus.add(true);
           },
-        )), () => onAutocompleteAction());
+        )), () => updateSchedules());
     _field = autoCompleteField.field;
   }
 
-  void onAutocompleteAction() {
-      listScheduleBloc.loadSchedules(_field.textField.controller.text);
+  void updateSchedules() {
+      listScheduleBloc.loadSchedules(autoCompleteField.getPlaceId());
   }
 
   @override

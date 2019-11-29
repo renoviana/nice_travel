@@ -5,10 +5,10 @@ import 'package:rxdart/rxdart.dart';
 class ListScheduleBloc {
   var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded([]);
 
-  void loadSchedules(String nameCity) async {
+  void loadSchedules(String placeID) async {
     setListSchedule.add(null);
     List<Schedule> lista =
-        await ScheduleApiConnection.instance.getScheduleByCityName(nameCity);
+        await ScheduleApiConnection.instance.getScheduleByCityPlaceID(placeID);
     setListSchedule.add(lista);
   }
 

@@ -7,7 +7,7 @@ class Schedule {
   int scheduleCod;
   int qtdDays;
   String imageUrl;
-  String nameCity;
+  String cityAddress;
   double priceFinal;
   String userName;
   String userUID;
@@ -19,7 +19,7 @@ class Schedule {
   Schedule(ScheduleJson scheduleJson) {
     this.qtdDays = scheduleJson.qtdDays;
     this.imageUrl = scheduleJson.imageUrl;
-    this.nameCity = scheduleJson.nameCity;
+    this.cityAddress = scheduleJson.cityAddress;
     this.priceFinal = scheduleJson.priceFinal;
     this.scheduleCod = scheduleJson.scheduleCod;
     this.userName = scheduleJson.userName;
