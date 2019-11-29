@@ -5,9 +5,9 @@ import 'package:rxdart/rxdart.dart';
 class MyListScheduleBloc {
   var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded([]);
 
-  void loadSchedules(List<int> ids) async {
+  void loadSchedules(String userUID) async {
     List<Schedule> lista =
-        await ScheduleApiConnection.instance.getSchedulesByIds(ids);
+        await ScheduleApiConnection.instance.getSchedulesByUserUID(userUID);
     setListSchedule.add(lista);
   }
 

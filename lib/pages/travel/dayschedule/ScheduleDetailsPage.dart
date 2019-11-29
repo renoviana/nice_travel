@@ -12,23 +12,15 @@ import 'package:scoped_model/scoped_model.dart';
 
 import 'DayScheduleList.dart';
 
-class DaySchedulePage extends StatefulWidget {
-  final Widget child;
+class DaySchedulePage extends StatelessWidget {
   final Schedule trip;
 
-  DaySchedulePage(this.trip, {Key key, this.child}) : super(key: key);
+  DaySchedulePage(this.trip){
+    print('construtor');
+  }
 
-  _DaySchedulePageState createState() => _DaySchedulePageState();
-}
-
-class _DaySchedulePageState extends State<DaySchedulePage> {
   double _heigthAppBar = 280;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +31,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  citycardContainer(
+                  citycardContainer(context,
                       card: Container(
                         padding: EdgeInsets.only(left: 12, right: 12, top: 5),
                         decoration: BoxDecoration(
@@ -48,11 +40,11 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             cityinfoWidget(),
-                            DayScheduleList(widget.trip, _scaffoldKey),
+                            DayScheduleList(trip, _scaffoldKey),
                           ],
                         ),
                       )),
-                  imageAppBar(),
+                  imageAppBar(context),
                 ],
               ),
             ],
@@ -60,7 +52,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
         ));
   }
 
-  Widget citycardContainer({Widget card}) {
+  Widget citycardContainer(BuildContext context, {Widget card}) {
     return Container(
       height: MediaQuery
           .of(context)
@@ -76,7 +68,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     );
   }
 
-  Widget imageAppBar() {
+  Widget imageAppBar(BuildContext context) {
     return Container(
         height: _heigthAppBar,
         width: MediaQuery
@@ -93,7 +85,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(1), BlendMode.dstATop),
-              image: CachedNetworkImageProvider(widget.trip.imageUrl)),
+              image: CachedNetworkImageProvider(trip.imageUrl)),
         ));
   }
 
@@ -112,8 +104,8 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
                 ],
               ),
             ),
-            buildRemoverButton(model),
-            createIconAddDay(model),
+            buildRemoverButton(model, context),
+            createIconAddDay(model, context),
           ],
         ),
       );
@@ -122,7 +114,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   Widget cityNameTitle() {
     return Text(
-      '${widget.trip.nameCity}',
+      '${trip.nameCity}',
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: "Literata",
@@ -131,7 +123,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     );
   }
 
-  Widget createIconAddDay(UserModel model) {
+  Widget createIconAddDay(UserModel model, BuildContext context) {
     return IconButton(
       icon: Icon(
         Icons.add_circle,
@@ -145,7 +137,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
             context,
             model,
             _scaffoldKey,
-                () => sendActivityTimelineWithNewDay());
+                () => sendActivityTimelineWithNewDay(context));
       },
     );
   }
@@ -155,7 +147,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   }
 
-  Widget buildRemoverButton(UserModel model) {
+  Widget buildRemoverButton(UserModel model, BuildContext context) {
     if (ableDelete(model)) {
       return IconButton(
         icon: Icon(
@@ -165,7 +157,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
         ),
         onPressed: () {
           removerDialog(
-              context, "Deseja remover esse cronograma?", deleteAction);
+              context, "Deseja remover esse cronograma?", () => deleteAction(context));
         },
       );
     }
@@ -173,23 +165,23 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     return Container();
   }
 
-  bool ableDelete(UserModel model) => widget.trip.scheduleCod != null && model.isLoggedIn() && model.sessionUser.uid == widget.trip.userUID;
+  bool ableDelete(UserModel model) => trip.scheduleCod != null && model.isLoggedIn() && model.sessionUser.uid == trip.userUID;
 
-  deleteAction() {
-    ScheduleApiConnection.instance.deleteSchedule(widget.trip.scheduleCod);
+  deleteAction(BuildContext context) {
+    ScheduleApiConnection.instance.deleteSchedule(trip.scheduleCod);
     Navigator.pop(context);
     Navigator.pop(context);
   }
 
-  Future sendActivityTimelineWithNewDay() async {
+  Future sendActivityTimelineWithNewDay(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
-            ActivityTimeline.newInstance(widget.trip.scheduleCod)));
+            ActivityTimeline.newInstance(trip.scheduleCod)));
   }
 
   Widget priceScheduleSubTitle() {
     return Text(
-      'Preço médio: R\$: ${getValueFormatted(widget.trip.priceFinal)}',
+      'Preço médio: R\$: ${getValueFormatted(trip.priceFinal)}',
       style: TextStyle(
           fontFamily: "OpenSans",
           fontSize: 14,

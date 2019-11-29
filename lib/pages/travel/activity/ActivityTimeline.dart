@@ -39,6 +39,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
+      listActivitiesBloc.setListActivity;
       newScheduleDay();
     }
   }

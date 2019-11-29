@@ -23,7 +23,11 @@ class ScheduleApiConnection {
     String ids = '';
     scheduleIds..forEach((id) => ids += '&scheduleIds=$id');
     final url = ApiConnection.URL_API + '/schedule/ids?1=1$ids';
-    print(url);
+    return _formatFutureToSchedules(await http.Client().get(url));
+  }
+
+  Future<List<Schedule>> getSchedulesByUserUID(userUID) async {
+    final url = ApiConnection.URL_API + '/schedule/userUID?userUID=$userUID';
     return _formatFutureToSchedules(await http.Client().get(url));
   }
 

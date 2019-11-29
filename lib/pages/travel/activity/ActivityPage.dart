@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
+import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
 import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
@@ -150,8 +151,9 @@ class _ActivityPageState extends State<ActivityPage> {
     if (_formKey.currentState.validate()) {
       showCircularProgress(context);
       ActivityApiConnection.instance.addActivity(_activity);
-      Navigator.pop(context); //pop dialog
-      Navigator.pop(context); //pop dialog
+      Navigator.pop(context);
+      Navigator.pop(context);
+      listActivitiesBloc.loadActivity(_activity.idScheduleDay);
     } else {
       showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }

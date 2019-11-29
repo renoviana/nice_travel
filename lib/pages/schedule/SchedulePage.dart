@@ -19,7 +19,7 @@ class _SchedulePageState extends State<SchedulePage> {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
       return Scaffold(
         key: _scaffoldKey,
-        body: MyScheduleList(),
+        body: MyScheduleList(model),
         floatingActionButton: FloatingActionButton(
           onPressed: () => validateLoginAction(
               context,
