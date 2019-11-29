@@ -15,9 +15,7 @@ import 'DayScheduleList.dart';
 class DaySchedulePage extends StatelessWidget {
   final Schedule trip;
 
-  DaySchedulePage(this.trip){
-    print('construtor');
-  }
+  DaySchedulePage(this.trip);
 
   double _heigthAppBar = 280;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();

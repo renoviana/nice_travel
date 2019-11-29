@@ -3,12 +3,12 @@ import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListScheduleBloc {
-  var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded(null);
+  var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded([]);
 
-  void loadSchedules() async {
+  void loadSchedules(String nameCity) async {
     setListSchedule.add(null);
     List<Schedule> lista =
-        await ScheduleApiConnection.instance.getScheduleByCityName('Salvador');
+        await ScheduleApiConnection.instance.getScheduleByCityName(nameCity);
     setListSchedule.add(lista);
   }
 

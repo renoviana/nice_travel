@@ -5,7 +5,7 @@ import 'package:nice_travel/pages/favorite/list/FavoriteListItem.dart';
 
 class FavoriteList extends StatelessWidget {
   FavoriteList() {
-    listScheduleBloc.loadSchedules();
+    listScheduleBloc.loadSchedules(null);
   }
 
   @override

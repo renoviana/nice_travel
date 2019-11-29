@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
 import 'package:nice_travel/pages/travel/card/ScheduleCard.dart';
 import 'package:nice_travel/pages/travel/list/ScheduleList.dart';
 
-class TravelPage extends StatefulWidget {
-  @override
-  _TravelPageState createState() => _TravelPageState();
-}
+class TravelPage extends StatelessWidget {
 
-class _TravelPageState extends State<TravelPage> {
+  TravelPage(){
+    listScheduleBloc.loadSchedules(null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

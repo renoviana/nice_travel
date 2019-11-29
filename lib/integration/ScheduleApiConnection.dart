@@ -15,7 +15,9 @@ class ScheduleApiConnection {
   Future<List<Schedule>> getScheduleByCityName(String cityName,
       {int sizeElements = 5}) async {
     final url = ApiConnection.URL_API +
-        "/schedule/city?cityName=$cityName&sizeElements=$sizeElements";
+        "/schedule/city?1=1"
+            "${cityName != null ? "&cityName=$cityName" : ""}"
+            "&sizeElements=$sizeElements";
     return _formatFutureToSchedules(await http.get(url));
   }
 
