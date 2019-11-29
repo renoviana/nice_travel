@@ -105,7 +105,7 @@ class _SignInState extends State<SignIn> {
       ),
       child: FlatButton(
           textColor: Colors.white,
-          onPressed: () => {_signIn()},
+          onPressed: () => _signIn(),
           child: Row(
             children: <Widget>[
               Icon(icon),

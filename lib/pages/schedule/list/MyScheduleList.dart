@@ -9,20 +9,6 @@ class MyScheduleList extends StatelessWidget {
 
   MyScheduleList(this._model){
 
-//  @override
-//  _MyScheduleListState createState() => _MyScheduleListState(_model);
-//}
-//
-//class _MyScheduleListState extends State<MyScheduleList> {
-//  final UserModel _model;
-//
-//  _MyScheduleListState(this._model){
-//    myListScheduleBloc.setListSchedule.add(null);
-//  }
-//
-//  @override
-//  void initState() {
-//    super.initState();
     if (_model.isLoggedIn()) {
       myListScheduleBloc.loadSchedules(_model.sessionUser.uid);
     } else {
