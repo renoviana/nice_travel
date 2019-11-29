@@ -31,7 +31,9 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   int _scheduleCod;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _ActivityTimelineState(this._scheduleDay, this._scheduleCod);
+  _ActivityTimelineState(this._scheduleDay, this._scheduleCod) {
+    listActivitiesBloc.setListActivity.add(null);
+  }
 
   @override
   void initState() {
@@ -39,7 +41,6 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
-      listActivitiesBloc.setListActivity;
       newScheduleDay();
     }
   }
@@ -76,19 +77,31 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
               ),
               body: StreamBuilder<List<Activity>>(
                   stream: listActivitiesBloc.getListActivity,
-                  initialData: [],
                   builder: (context, snapshot) {
-                    return snapshot.hasData && snapshot.data.length > 0
-                        ? Timeline.builder(
-                            position: TimelinePosition.Left,
-                            itemBuilder: (ctx, i) {
-                              return createTimeLine(ctx, i, snapshot, model);
-                            },
-                            itemCount: snapshot.data.length,
-                          )
-                        : new Container(
-                            child: Text("Não tem elementos"),
-                          );
+                    if (!snapshot.hasData) {
+                      return Container(
+                        child: Center(child: CircularProgressIndicator()),
+                        color: Colors.white,
+                      );
+                    } else if (snapshot.data.length > 0)
+                      return Timeline.builder(
+                        position: TimelinePosition.Left,
+                        itemBuilder: (ctx, i) {
+                          return createTimeLine(ctx, i, snapshot, model);
+                        },
+                        itemCount: snapshot.data.length,
+                      );
+                    else {
+                      return new Container(
+                        child: Center(
+                            child: Text(
+                          "Nenhuma atividade cadastrada ainda :(",
+                          style: TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                        )),
+                      );
+                    }
                   }),
             );
           });
