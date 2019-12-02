@@ -55,11 +55,23 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
         ..add(serializers.serialize(object.userUID,
             specifiedType: const FullType(String)));
     }
+    if (object.numberStar != null) {
+      result
+        ..add('numberStar')
+        ..add(serializers.serialize(object.numberStar,
+            specifiedType: const FullType(int)));
+    }
     if (object.userName != null) {
       result
         ..add('userName')
         ..add(serializers.serialize(object.userName,
             specifiedType: const FullType(String)));
+    }
+    if (object.publish != null) {
+      result
+        ..add('publish')
+        ..add(serializers.serialize(object.publish,
+            specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -99,9 +111,17 @@ class _$ScheduleJsonSerializer implements StructuredSerializer<ScheduleJson> {
           result.userUID = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'numberStar':
+          result.numberStar = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'userName':
           result.userName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'publish':
+          result.publish = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -124,7 +144,11 @@ class _$ScheduleJson extends ScheduleJson {
   @override
   final String userUID;
   @override
+  final int numberStar;
+  @override
   final String userName;
+  @override
+  final bool publish;
 
   factory _$ScheduleJson([void Function(ScheduleJsonBuilder) updates]) =>
       (new ScheduleJsonBuilder()..update(updates)).build();
@@ -136,7 +160,9 @@ class _$ScheduleJson extends ScheduleJson {
       this.cityAddress,
       this.priceFinal,
       this.userUID,
-      this.userName})
+      this.numberStar,
+      this.userName,
+      this.publish})
       : super._();
 
   @override
@@ -156,7 +182,9 @@ class _$ScheduleJson extends ScheduleJson {
         cityAddress == other.cityAddress &&
         priceFinal == other.priceFinal &&
         userUID == other.userUID &&
-        userName == other.userName;
+        numberStar == other.numberStar &&
+        userName == other.userName &&
+        publish == other.publish;
   }
 
   @override
@@ -165,12 +193,18 @@ class _$ScheduleJson extends ScheduleJson {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, scheduleCod.hashCode), qtdDays.hashCode),
-                        imageUrl.hashCode),
-                    cityAddress.hashCode),
-                priceFinal.hashCode),
-            userUID.hashCode),
-        userName.hashCode));
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc($jc(0, scheduleCod.hashCode),
+                                    qtdDays.hashCode),
+                                imageUrl.hashCode),
+                            cityAddress.hashCode),
+                        priceFinal.hashCode),
+                    userUID.hashCode),
+                numberStar.hashCode),
+            userName.hashCode),
+        publish.hashCode));
   }
 
   @override
@@ -182,7 +216,9 @@ class _$ScheduleJson extends ScheduleJson {
           ..add('cityAddress', cityAddress)
           ..add('priceFinal', priceFinal)
           ..add('userUID', userUID)
-          ..add('userName', userName))
+          ..add('numberStar', numberStar)
+          ..add('userName', userName)
+          ..add('publish', publish))
         .toString();
   }
 }
@@ -215,9 +251,17 @@ class ScheduleJsonBuilder
   String get userUID => _$this._userUID;
   set userUID(String userUID) => _$this._userUID = userUID;
 
+  int _numberStar;
+  int get numberStar => _$this._numberStar;
+  set numberStar(int numberStar) => _$this._numberStar = numberStar;
+
   String _userName;
   String get userName => _$this._userName;
   set userName(String userName) => _$this._userName = userName;
+
+  bool _publish;
+  bool get publish => _$this._publish;
+  set publish(bool publish) => _$this._publish = publish;
 
   ScheduleJsonBuilder();
 
@@ -229,7 +273,9 @@ class ScheduleJsonBuilder
       _cityAddress = _$v.cityAddress;
       _priceFinal = _$v.priceFinal;
       _userUID = _$v.userUID;
+      _numberStar = _$v.numberStar;
       _userName = _$v.userName;
+      _publish = _$v.publish;
       _$v = null;
     }
     return this;
@@ -258,7 +304,9 @@ class ScheduleJsonBuilder
             cityAddress: cityAddress,
             priceFinal: priceFinal,
             userUID: userUID,
-            userName: userName);
+            numberStar: numberStar,
+            userName: userName,
+            publish: publish);
     replace(_$result);
     return _$result;
   }

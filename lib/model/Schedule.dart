@@ -11,6 +11,8 @@ class Schedule {
   double priceFinal;
   String userName;
   String userUID;
+  int numberStar;
+  bool isPublish;
 
   Schedule.newInstance(){
     this.qtdDays = 1;
@@ -24,6 +26,8 @@ class Schedule {
     this.scheduleCod = scheduleJson.scheduleCod;
     this.userName = scheduleJson.userName;
     this.userUID = scheduleJson.userUID;
+    this.numberStar = scheduleJson.numberStar;
+    this.isPublish = scheduleJson.publish;
   }
 }
 

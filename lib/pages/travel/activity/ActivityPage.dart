@@ -8,7 +8,7 @@ import 'package:nice_travel/integration/AcitivityApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/pages/travel/activity/IconStyleActivity.dart';
-import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ShowToast.dart';
 import 'package:nice_travel/widgets/ValidateField.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';

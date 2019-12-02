@@ -17,6 +17,7 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+      model.signInSilently();
       return Scaffold(
         key: _scaffoldKey,
         body: MyScheduleList(model),

@@ -6,7 +6,7 @@ import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
-import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -52,14 +52,8 @@ class DaySchedulePage extends StatelessWidget {
 
   Widget citycardContainer(BuildContext context, {Widget card}) {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height - _heigthAppBar,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      height: MediaQuery.of(context).size.height - _heigthAppBar,
+      width: MediaQuery.of(context).size.width,
       color: Color(0xff758698),
       margin: EdgeInsets.only(top: _heigthAppBar),
       child: card,
@@ -69,13 +63,16 @@ class DaySchedulePage extends StatelessWidget {
   Widget imageAppBar(BuildContext context) {
     return Container(
         height: _heigthAppBar,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        child: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                cityNameTitle(),
+                priceScheduleSubTitle(),
+              ]),
         ),
         decoration: BoxDecoration(
           boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
@@ -94,16 +91,15 @@ class DaySchedulePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: Column(
-                children: <Widget>[
-                  cityNameTitle(),
-                  priceScheduleSubTitle(),
-                ],
-              ),
+            buildQtdStar(context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                buildRemoverButton(model, context),
+                buildPublishButton(model, context),
+                createIconAddDay(model, context),
+              ],
             ),
-            buildRemoverButton(model, context),
-            createIconAddDay(model, context),
           ],
         ),
       );
@@ -115,6 +111,7 @@ class DaySchedulePage extends StatelessWidget {
       '${trip.cityAddress}',
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
+        color: Colors.white,
         fontFamily: "Literata",
         fontSize: 30,
       ),
@@ -131,22 +128,16 @@ class DaySchedulePage extends StatelessWidget {
       onPressed: () {
         //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
         // caso seja ok, caso contrario deverá criar um novo cronograma.
-        validateLoginAction(
-            context,
-            model,
-            _scaffoldKey,
-                () => sendActivityTimelineWithNewDay(context));
+        validateLoginAction(context, model, _scaffoldKey,
+            () => sendActivityTimelineWithNewDay(context));
       },
     );
   }
 
-
-  buildButtons() {
-
-  }
+  buildButtons() {}
 
   Widget buildRemoverButton(UserModel model, BuildContext context) {
-    if (ableDelete(model)) {
+    if (isOwner(model)) {
       return IconButton(
         icon: Icon(
           Icons.delete,
@@ -154,8 +145,8 @@ class DaySchedulePage extends StatelessWidget {
           color: Colors.red,
         ),
         onPressed: () {
-          removerDialog(
-              context, "Deseja remover esse cronograma?", () => deleteAction(model, context));
+          removerDialog(context, "Deseja remover esse cronograma?",
+              () => deleteAction(model, context));
         },
       );
     }
@@ -163,7 +154,10 @@ class DaySchedulePage extends StatelessWidget {
     return Container();
   }
 
-  bool ableDelete(UserModel model) => trip.scheduleCod != null && model.isLoggedIn() && model.sessionUser.uid == trip.userUID;
+  bool isOwner(UserModel model) =>
+      trip.scheduleCod != null &&
+      model.isLoggedIn() &&
+      model.sessionUser.uid == trip.userUID;
 
   deleteAction(UserModel model, BuildContext context) {
     ScheduleApiConnection.instance.deleteSchedule(trip.scheduleCod);
@@ -181,11 +175,45 @@ class DaySchedulePage extends StatelessWidget {
     return Text(
       'Preço médio: R\$: ${getValueFormatted(trip.priceFinal)}',
       style: TextStyle(
+          color: Colors.white,
           fontFamily: "OpenSans",
           fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Colors.green),
+          fontWeight: FontWeight.bold),
     );
   }
 
+  buildPublishButton(UserModel model, BuildContext context) {
+    if (isOwner(model) && !trip.isPublish) {
+      return IconButton(
+        icon: Icon(
+          Icons.publish,
+          size: 40.0,
+          color: Colors.green,
+        ),
+        onPressed: () {
+          removerDialog(context, "Deseja tornar esse cronograma público?",
+              () => publishAction(model, context));
+        },
+      );
+    }
+
+    return Container();
+  }
+
+  publishAction(UserModel model, BuildContext context) {
+    ScheduleApiConnection.instance.publishSchedule(trip.scheduleCod);
+    Navigator.pop(context);
+    Navigator.pop(context);
+  }
+
+  Widget buildQtdStar(BuildContext context) {
+    return Text(
+      '${trip.numberStar} ⭐',
+      style: TextStyle(
+          color: Colors.black,
+          fontFamily: "OpenSans",
+          fontSize: 24,
+          fontWeight: FontWeight.bold),
+    );
+  }
 }

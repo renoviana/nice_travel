@@ -20,3 +20,23 @@ void removerDialog(BuildContext context, String title, Function onDelete) {
             onOkButtonPressed: () => Function.apply(onDelete, []),
           ));
 }
+
+void publishDialog(BuildContext context, String title, Function onPublish) {
+  showDialog(
+      context: context,
+      builder: (_) => AssetGiffyDialog(
+            image: new Image.asset("yes.gif"),
+            title: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+            ),
+            description: Text(
+              'Não será possível possível despublicar.',
+              textAlign: TextAlign.center,
+              style: TextStyle(),
+            ),
+            entryAnimation: EntryAnimation.BOTTOM_LEFT,
+            onOkButtonPressed: () => Function.apply(onPublish, []),
+          ));
+}

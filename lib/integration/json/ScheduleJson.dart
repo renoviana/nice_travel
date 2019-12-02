@@ -30,7 +30,13 @@ abstract class ScheduleJson
   String get userUID;
 
   @nullable
+  int get numberStar;
+
+  @nullable
   String get userName;
+
+  @nullable
+  bool get publish;
 
   ScheduleJson._();
 

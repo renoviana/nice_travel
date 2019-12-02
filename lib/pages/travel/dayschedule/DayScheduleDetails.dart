@@ -5,7 +5,7 @@ import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
-import 'package:nice_travel/widgets/RemoverDialog.dart';
+import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
 import 'package:scoped_model/scoped_model.dart';
 
