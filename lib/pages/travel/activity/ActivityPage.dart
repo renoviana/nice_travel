@@ -147,19 +147,22 @@ class _ActivityPageState extends State<ActivityPage> {
     showCircularProgress(context);
     ActivityApiConnection.instance.deleteActivity(_activity.id);
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (context) => ActivityTimeline(_scheduleDay)),
+        MaterialPageRoute(builder: (context) => ActivityTimeline(_scheduleDay)),
         ModalRoute.withName('/daySchedulePage'));
   }
 
   save(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       showCircularProgress(context);
-      ActivityApiConnection.instance.addActivity(_activity);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => ActivityTimeline(_scheduleDay)),
-          ModalRoute.withName('/daySchedulePage'));
+      ActivityApiConnection.instance.addActivity(_activity).then((_) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => ActivityTimeline(_scheduleDay)),
+                ModalRoute.withName('/daySchedulePage')),
+          }, onError: (message){
+        Navigator.pop(context);
+        showToastMessage(message, _scaffoldKey);
+      });
     } else {
       showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }

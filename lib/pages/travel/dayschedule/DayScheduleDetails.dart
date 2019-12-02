@@ -16,7 +16,8 @@ class DayScheduleDetails extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   DayScheduleDetails(this.scheduleDay, this.schedule, this.scaffoldKey,
-      {Key key, this.child}) : super(key: key);
+      {Key key, this.child})
+      : super(key: key);
 
   _DayScheduleDetailsState createState() => _DayScheduleDetailsState();
 }
@@ -42,25 +43,22 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
               ),
             ),
             trailing: MaterialButton(
-              child: Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-              minWidth: 60,
-              height: 100,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(60.0)),
-              onPressed: () =>
-                  validateLoginAction(
-                      context,
-                      model,
-                      widget.scaffoldKey,
-                          () =>
-                          removerDialog(
-                              context,
-                              'Deseja remover o dia ${widget.scheduleDay.day}?',
-                              deleteScheduleDay))
-            ),
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                minWidth: 60,
+                height: 100,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(60.0)),
+                onPressed: () => validateLoginAction(
+                    context,
+                    model,
+                    widget.scaffoldKey,
+                    () => removerDialog(
+                        context,
+                        'Deseja remover o dia ${widget.scheduleDay.day}?',
+                        deleteScheduleDay))),
             onTap: sendActivityTimeline,
           ),
         ),
@@ -69,9 +67,12 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   }
 
   deleteScheduleDay() {
-    ScheduleDayApiConnection.instance.deleteScheduleDay(widget.scheduleDay.id);
-    listScheduleDayBloc.loadSchedules(widget.schedule.scheduleCod);
-    Navigator.pop(context);
+    ScheduleDayApiConnection.instance
+        .deleteScheduleDay(widget.scheduleDay.id)
+        .then((_) => {
+              listScheduleDayBloc.loadSchedules(widget.schedule.scheduleCod),
+              Navigator.pop(context),
+            });
   }
 
   Future sendActivityTimeline() async {

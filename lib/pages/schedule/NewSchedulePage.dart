@@ -168,16 +168,15 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
     );
   }
 
-  save(BuildContext context, UserModel model) async{
+  save(BuildContext context, UserModel model) async {
     if (_formKey.currentState.validate() && _nameCity != "") {
       showCircularProgress(context);
-      await ScheduleApiConnection.instance.createSchedule(
-          _placeId,
-          _qtdDays,
-          model.sessionUser
-      );
-      Navigator.pop(context);
-      Navigator.pop(context);
+      ScheduleApiConnection.instance
+          .createSchedule(_placeId, _qtdDays, model.sessionUser)
+          .then((_) => {
+                Navigator.pop(context),
+                Navigator.pop(context),
+              });
     } else {
       showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }
