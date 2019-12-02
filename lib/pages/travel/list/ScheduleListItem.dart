@@ -40,18 +40,24 @@ class ScheduleListItem extends StatelessWidget {
                           height: 5,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              this.schedule.userName,
-                              style: TextStyle(
-                                  fontSize: 15,
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.person,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w900),
-                            )
+                                ),
+                                Text(
+                                  this.schedule.userName,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                              ],
+                            ),
+                            buildQtdStar(context),
                           ],
                         )
                       ]))
@@ -61,6 +67,16 @@ class ScheduleListItem extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => DaySchedulePage(this.schedule), settings: RouteSettings(name: "/daySchedulePage")));
       },
+    );
+  }
+
+  Widget buildQtdStar(BuildContext context) {
+    return Text(
+      '${schedule.numberStar} ⭐',
+      style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold),
     );
   }
 
