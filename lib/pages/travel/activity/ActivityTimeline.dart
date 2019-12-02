@@ -125,11 +125,10 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(formatarHoraToString(activity.startActivityDate),
+                  Text(
+                      "${formatarHoraToString(activity.startActivityDate)} - "
+                          "${formatarHoraToString(activity.finishActivityDate)}",
                       style: textTheme.caption),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
                   Flexible(
                     child: Text(
                       activity.nameOfPlace,
@@ -138,8 +137,13 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(
-                    height: 8.0,
+                  Flexible(
+                    child: Text(
+                      'R\$: ${getValueFormatted(activity.price)}',
+                      style: TextStyle(color: Colors.green, fontSize: 13),
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
