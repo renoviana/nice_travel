@@ -4,6 +4,7 @@ import 'package:nice_travel/integration/ApiConnection.dart';
 import 'package:nice_travel/integration/json/ScheduleJson.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/SessionUser.dart';
+import 'package:nice_travel/model/UserModel.dart';
 
 class ScheduleApiConnection {
   ScheduleApiConnection._() {
@@ -55,9 +56,9 @@ class ScheduleApiConnection {
     http.delete(url);
   }
 
-  Future<Response> voteTravelSchedule(int codSchedule) {
+  Future<Response> voteTravelSchedule(int codSchedule, UserModel model) {
     final url =
-        ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule";
+        ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule&userUID=${model.sessionUser.uid}";
     return http.post(url);
   }
 
