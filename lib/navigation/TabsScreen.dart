@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/login/SignIn.dart';
-import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/schedule/SchedulePage.dart';
 import 'package:nice_travel/pages/travel/TravelPage.dart';
 
@@ -52,21 +50,6 @@ class TabsScreenState extends State<TabsScreen> {
       ),
       body: SchedulePage(),
       drawer: CustomDrawer(_pageController),
-    );
-  }
-
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      buildShowSnackBarToLogin(BuildContext context, UserModel model) {
-    return _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: const Text('É necessário realizar login'),
-        action: SnackBarAction(
-            label: 'Login',
-            onPressed: () => {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SignIn(model)))
-                }),
-      ),
     );
   }
 

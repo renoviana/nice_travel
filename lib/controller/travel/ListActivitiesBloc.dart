@@ -7,6 +7,7 @@ class ListActivitiesBloc {
   var _listActivityBloc = BehaviorSubject<List<Activity>>.seeded(null);
 
   void loadActivity(int scheduleDayId) async {
+    listActivitiesBloc.setListActivity.add(null);
     List<Activity> lista =
         await ActivityApiConnection.instance.getActiviesByScheduleDay(scheduleDayId);
     setListActivity.add(lista);

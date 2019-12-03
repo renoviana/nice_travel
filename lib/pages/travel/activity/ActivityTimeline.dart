@@ -33,17 +33,15 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   Schedule _schedule;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _ActivityTimelineState(this._scheduleDay, this._scheduleCod, this._schedule) {
-    listActivitiesBloc.setListActivity.add(null);
-  }
+  _ActivityTimelineState(this._scheduleDay, this._scheduleCod, this._schedule);
 
   @override
   void initState() {
     super.initState();
-    print(this._scheduleDay);
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
+      listActivitiesBloc.setListActivity.add([]);
       newScheduleDay();
     }
   }

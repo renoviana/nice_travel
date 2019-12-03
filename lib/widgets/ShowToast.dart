@@ -8,6 +8,7 @@ import 'package:nice_travel/pages/travel/dayschedule/ScheduleDetailsPage.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 void showToastMessage(String message, GlobalKey<ScaffoldState> _scaffoldKey) {
+  _scaffoldKey.currentState.removeCurrentSnackBar();
   _scaffoldKey.currentState.showSnackBar(
     SnackBar(content: Text(message)),
   );
@@ -16,6 +17,7 @@ void showToastMessage(String message, GlobalKey<ScaffoldState> _scaffoldKey) {
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
     buildShowSnackBarToLogin(BuildContext context, UserModel model,
         GlobalKey<ScaffoldState> _scaffoldKey) {
+  _scaffoldKey.currentState.removeCurrentSnackBar();
   return _scaffoldKey.currentState.showSnackBar(
     SnackBar(
       content: const Text('É necessário realizar login'),
@@ -32,6 +34,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
     buildShowSnackBarToDuplicateSchedule(BuildContext context, UserModel model,
         Schedule schedule, GlobalKey<ScaffoldState> _scaffoldKey) {
+  _scaffoldKey.currentState.removeCurrentSnackBar();
   return _scaffoldKey.currentState.showSnackBar(
     SnackBar(
       content:

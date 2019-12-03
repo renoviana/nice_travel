@@ -187,8 +187,6 @@ class _DaySchedulePageState extends State<DaySchedulePage>
         ],
       ),
       onPressed: () {
-        //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
-        // caso seja ok, caso contrario deverá criar um novo cronograma.
         validateLoginAction(context, model, widget.trip, _scaffoldKey,
             () => sendActivityTimelineWithNewDay(context));
       },
@@ -313,12 +311,18 @@ class _DaySchedulePageState extends State<DaySchedulePage>
   }
 
   voteAction(UserModel model, BuildContext context) {
-    setState(() {
-      hasLiked = true;
-    });
+    updateLike();
     ScheduleApiConnection.instance
         .voteTravelSchedule(trip.scheduleCod, model)
         .then((voted) => votedAction(voted, context));
+  }
+
+  void updateLike() {
+      if(!hasLiked) {
+      setState(() {
+        hasLiked = true;
+      });
+    }
   }
 
   votedAction(Response voted, BuildContext context) {
