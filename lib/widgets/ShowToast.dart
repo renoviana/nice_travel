@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/login/SignIn.dart';
+import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
+import 'package:nice_travel/pages/travel/dayschedule/ScheduleDetailsPage.dart';
+import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 void showToastMessage(String message, GlobalKey<ScaffoldState> _scaffoldKey) {
   _scaffoldKey.currentState.showSnackBar(
@@ -23,4 +27,34 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
               }),
     ),
   );
+}
+
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+    buildShowSnackBarToDuplicateSchedule(BuildContext context, UserModel model,
+        Schedule schedule, GlobalKey<ScaffoldState> _scaffoldKey) {
+  return _scaffoldKey.currentState.showSnackBar(
+    SnackBar(
+      content:
+          const Text('Para alterar é necessário adicionar esse cronograma.'),
+      action: SnackBarAction(
+          label: 'Adicionar',
+          onPressed: () => _duplicateAction(context, model, schedule)),
+    ),
+  );
+}
+
+void _duplicateAction(
+    BuildContext context, UserModel model, Schedule schedule) {
+  showCircularProgress(context);
+  ScheduleApiConnection.instance
+      .duplicateSchedule(schedule.scheduleCod, model.sessionUser)
+      .then((scheduleCreated) =>
+          _navigateToSchedulePage(context, model, scheduleCreated));
+}
+
+void _navigateToSchedulePage(
+    BuildContext context, UserModel model, Schedule scheduleCreated) {
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => DaySchedulePage(scheduleCreated)),
+      ModalRoute.withName('/'));
 }

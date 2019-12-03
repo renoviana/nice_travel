@@ -15,23 +15,25 @@ import 'IconStyleActivity.dart';
 
 class ActivityTimeline extends StatefulWidget {
   ScheduleDay _scheduleDay;
+  Schedule _schedule;
   int _scheduleCod;
 
-  ActivityTimeline(this._scheduleDay);
+  ActivityTimeline(this._scheduleDay, this._schedule);
 
   ActivityTimeline.newInstance(this._scheduleCod);
 
   @override
   _ActivityTimelineState createState() =>
-      _ActivityTimelineState(this._scheduleDay, this._scheduleCod);
+      _ActivityTimelineState(this._scheduleDay, this._scheduleCod, this._schedule);
 }
 
 class _ActivityTimelineState extends State<ActivityTimeline> {
   ScheduleDay _scheduleDay;
   int _scheduleCod;
+  Schedule _schedule;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _ActivityTimelineState(this._scheduleDay, this._scheduleCod) {
+  _ActivityTimelineState(this._scheduleDay, this._scheduleCod, this._schedule) {
     listActivitiesBloc.setListActivity.add(null);
   }
 
@@ -72,7 +74,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                 ]),
                 actions: <Widget>[
                   IconButton(
-                    onPressed: () => validateLoginAction(context, model,
+                    onPressed: () => validateLoginAction(context, model, _schedule,
                         _scaffoldKey, () => sendToNewActivity(context)),
                     icon: Icon(Icons.add_circle_outline),
                   )
@@ -116,7 +118,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
     final textTheme = Theme.of(context).textTheme;
     return new TimelineModel(
         GestureDetector(
-          onTap: () => validateLoginAction(context, model, _scaffoldKey,
+          onTap: () => validateLoginAction(context, model, _schedule, _scaffoldKey,
               () => sendToEditActivity(context, activity)),
           child: Card(
             margin: EdgeInsets.symmetric(vertical: 16.0),
@@ -160,12 +162,12 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   sendToNewActivity(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
-            ActivityPage(Activity.newInstance(_scheduleDay.id), _scheduleDay)));
+            ActivityPage(Activity.newInstance(_scheduleDay.id), _scheduleDay, _schedule)));
   }
 
   sendToEditActivity(BuildContext context, Activity activity) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
-            ActivityPage(activity, _scheduleDay)));
+            ActivityPage(activity, _scheduleDay, _schedule)));
   }
 }

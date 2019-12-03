@@ -16,12 +16,13 @@ import 'package:nice_travel/widgets/showCircularProgress.dart';
 class ActivityPage extends StatefulWidget {
   final Activity _activity;
   final ScheduleDay _scheduleDay;
+  final Schedule _schedule;
 
-  ActivityPage(this._activity, this._scheduleDay);
+  ActivityPage(this._activity, this._scheduleDay, this._schedule);
 
   @override
   _ActivityPageState createState() =>
-      _ActivityPageState(_activity, _scheduleDay);
+      _ActivityPageState(_activity, _scheduleDay, _schedule);
 }
 
 class _ActivityPageState extends State<ActivityPage> {
@@ -29,12 +30,13 @@ class _ActivityPageState extends State<ActivityPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final ScheduleDay _scheduleDay;
+  final Schedule _schedule;
 
   MoneyMaskedTextController _moneyController;
   TextEditingController _nameController;
   TextEditingController _descriptionController;
 
-  _ActivityPageState(this._activity, this._scheduleDay);
+  _ActivityPageState(this._activity, this._scheduleDay, this._schedule);
 
   updateProductModelValue() {
     setState(() {
@@ -147,7 +149,7 @@ class _ActivityPageState extends State<ActivityPage> {
     showCircularProgress(context);
     ActivityApiConnection.instance.deleteActivity(_activity.id);
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => ActivityTimeline(_scheduleDay)),
+        MaterialPageRoute(builder: (context) => ActivityTimeline(_scheduleDay, _schedule)),
         ModalRoute.withName('/daySchedulePage'));
   }
 
@@ -157,7 +159,7 @@ class _ActivityPageState extends State<ActivityPage> {
       ActivityApiConnection.instance.addActivity(_activity).then((_) => {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (context) => ActivityTimeline(_scheduleDay)),
+                    builder: (context) => ActivityTimeline(_scheduleDay, _schedule)),
                 ModalRoute.withName('/daySchedulePage')),
           }, onError: (message){
         Navigator.pop(context);

@@ -42,7 +42,7 @@ abstract class ScheduleJson
 
   factory ScheduleJson([updates(ScheduleJsonBuilder b)]) = _$ScheduleJson;
 
-  List<Schedule> parseScheduleJsonToSchedule(String jsonToSchule) {
+  List<Schedule> parseScheduleJsonToSchedules(String jsonToSchule) {
     final parsed = json.jsonDecode(jsonToSchule);
 
     List<Schedule> schedules = new List();
@@ -52,5 +52,12 @@ abstract class ScheduleJson
       schedules.add(Schedule(deserializeWith));
     }
     return schedules;
+  }
+
+  Schedule parseScheduleJsonToSchedule(String jsonToSchule) {
+    final scheduleJson = json.jsonDecode(jsonToSchule);
+    var deserializeWith = standardSerializers.deserializeWith(
+        ScheduleJson.serializer, scheduleJson);
+    return Schedule(deserializeWith);
   }
 }

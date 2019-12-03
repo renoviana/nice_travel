@@ -50,6 +50,16 @@ class ScheduleApiConnection {
     return http.post(url);
   }
 
+  Future<Schedule> duplicateSchedule(
+      int codSchedule, SessionUser sessionUser) async {
+    final url = ApiConnection.URL_API +
+        "/schedule/duplicate?scheduleId=$codSchedule"
+            "&userUID=${sessionUser.uid}"
+            "&userEmail=${sessionUser.email}"
+            "&userName=${sessionUser.displayName}";
+    return _formatFutureToSchedule(await http.post(url));
+  }
+
   void deleteSchedule(int scheduleCod) {
     final url =
         ApiConnection.URL_API + "/schedule/delete?scheduleId=$scheduleCod";
@@ -57,21 +67,34 @@ class ScheduleApiConnection {
   }
 
   Future<Response> voteTravelSchedule(int codSchedule, UserModel model) {
-    final url =
-        ApiConnection.URL_API + "/schedule/vote?scheduleId=$codSchedule&userUID=${model.sessionUser.uid}";
+    final url = ApiConnection.URL_API +
+        "/schedule/vote?scheduleId=$codSchedule&userUID=${model.sessionUser.uid}";
     return http.post(url);
   }
 
   List<Schedule> _formatFutureToSchedules(Response response) {
     if (response.statusCode == 200) {
-      return _formatScheduleJson(response.body);
+      return _formatSchedulesJson(response.body);
     } else {
       print('${response.statusCode} - ${response.body}');
     }
     return [];
   }
 
-  List<Schedule> _formatScheduleJson(String json) {
+  List<Schedule> _formatSchedulesJson(String json) {
+    return ScheduleJson().parseScheduleJsonToSchedules(json);
+  }
+
+  Schedule _formatFutureToSchedule(Response response) {
+    if (response.statusCode == 200) {
+      return _formatScheduleJson(response.body);
+    } else {
+      print('${response.statusCode} - ${response.body}');
+    }
+    return null;
+  }
+
+  Schedule _formatScheduleJson(String json) {
     return ScheduleJson().parseScheduleJsonToSchedule(json);
   }
 }

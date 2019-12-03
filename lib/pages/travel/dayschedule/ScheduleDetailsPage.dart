@@ -121,7 +121,6 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       return Container(
         padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
         decoration: BoxDecoration(
-//          borderRadius: BorderRadius.circular(3.0),
           color: Colors.white,
           boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
         ),
@@ -182,7 +181,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       onPressed: () {
         //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
         // caso seja ok, caso contrario deverá criar um novo cronograma.
-        validateLoginAction(context, model, _scaffoldKey,
+        validateLoginAction(context, model, widget.trip, _scaffoldKey,
             () => sendActivityTimelineWithNewDay(context));
       },
     );

@@ -56,6 +56,7 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
                   onPressed: () => validateLoginAction(
                       context,
                       model,
+                      widget.schedule,
                       widget.scaffoldKey,
                       () => removerDialog(
                           context,
@@ -81,6 +82,6 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   Future sendActivityTimeline() async {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
-            ActivityTimeline(widget.scheduleDay)));
+            ActivityTimeline(widget.scheduleDay, widget.schedule)));
   }
 }

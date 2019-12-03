@@ -25,6 +25,7 @@ class _SchedulePageState extends State<SchedulePage> {
           onPressed: () => validateLoginAction(
               context,
               model,
+              null,
               _scaffoldKey,
               () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => NewSchedulePage()))),
