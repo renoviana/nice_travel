@@ -27,7 +27,7 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
       return Container(
-        padding: EdgeInsets.only(left: 12, right: 12, top: 5),
+        padding: EdgeInsets.only(left: 12, right: 12, top: 0),
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
