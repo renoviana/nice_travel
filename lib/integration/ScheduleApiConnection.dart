@@ -60,10 +60,10 @@ class ScheduleApiConnection {
     return _formatFutureToSchedule(await http.post(url));
   }
 
-  void deleteSchedule(int scheduleCod) {
+  Future<Response> deleteSchedule(int scheduleCod) {
     final url =
         ApiConnection.URL_API + "/schedule/delete?scheduleId=$scheduleCod";
-    http.delete(url);
+    return http.delete(url);
   }
 
   Future<Response> voteTravelSchedule(int codSchedule, UserModel model) {

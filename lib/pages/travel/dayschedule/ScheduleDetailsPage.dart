@@ -223,9 +223,12 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
       model.sessionUser.uid == trip.userUID;
 
   deleteAction(UserModel model, BuildContext context) {
-    ScheduleApiConnection.instance.deleteSchedule(trip.scheduleCod);
-    Navigator.pop(context);
-    Navigator.pop(context);
+    ScheduleApiConnection.instance
+        .deleteSchedule(trip.scheduleCod)
+        .then((_) => {
+              Navigator.pop(context),
+              Navigator.pop(context),
+            });
   }
 
   Future sendActivityTimelineWithNewDay(BuildContext context) async {
