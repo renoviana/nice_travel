@@ -12,7 +12,7 @@ void removerDialog(BuildContext context, String title, Function onDelete) {
               style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
             ),
             description: Text(
-              'Esse dia será apagado e não poderá ser revertido.',
+              'Essa ação não poderá ser revertida.',
               textAlign: TextAlign.center,
               style: TextStyle(),
             ),
