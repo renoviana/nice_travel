@@ -26,40 +26,43 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            title: Text(
-              "Dia  ${widget.scheduleDay.day}",
-              style: TextStyle(fontFamily: "Literata"),
-            ),
-            subtitle: Text(
-              "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.green,
-                fontFamily: "OpenSans",
+      return Container(
+        padding: EdgeInsets.only(left: 12, right: 12, top: 5),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: Text(
+                "Dia  ${widget.scheduleDay.day}",
+                style: TextStyle(fontFamily: "Literata"),
               ),
-            ),
-            trailing: MaterialButton(
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.red,
+              subtitle: Text(
+                "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.green,
+                  fontFamily: "OpenSans",
                 ),
-                minWidth: 60,
-                height: 100,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(60.0)),
-                onPressed: () => validateLoginAction(
-                    context,
-                    model,
-                    widget.scaffoldKey,
-                    () => removerDialog(
-                        context,
-                        'Deseja remover o dia ${widget.scheduleDay.day}?',
-                        deleteScheduleDay))),
-            onTap: sendActivityTimeline,
+              ),
+              trailing: MaterialButton(
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  minWidth: 60,
+                  height: 100,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(60.0)),
+                  onPressed: () => validateLoginAction(
+                      context,
+                      model,
+                      widget.scaffoldKey,
+                      () => removerDialog(
+                          context,
+                          'Deseja remover o dia ${widget.scheduleDay.day}?',
+                          deleteScheduleDay))),
+              onTap: sendActivityTimeline,
+            ),
           ),
         ),
       );

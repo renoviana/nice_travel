@@ -29,7 +29,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   _DaySchedulePageState(this.trip);
 
-  double _heigthAppBar = 280;
+  double _heigthAppBar = 240;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -41,20 +41,19 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
             children: <Widget>[
               Stack(
                 children: <Widget>[
+                  imageAppBar(context),
                   citycardContainer(context,
                       card: Container(
-                        padding: EdgeInsets.only(left: 12, right: 12, top: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.white, shape: BoxShape.rectangle),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             cityinfoWidget(),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
                             DayScheduleList(trip, _scaffoldKey),
                           ],
                         ),
                       )),
-                  imageAppBar(context),
                 ],
               ),
             ],
@@ -66,56 +65,71 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
     return Container(
       height: MediaQuery.of(context).size.height - _heigthAppBar,
       width: MediaQuery.of(context).size.width,
-      color: Color(0xff758698),
       margin: EdgeInsets.only(top: _heigthAppBar),
       child: card,
     );
   }
 
   Widget imageAppBar(BuildContext context) {
-    return Container(
-        height: _heigthAppBar,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    cityNameTitle(),
-                    priceScheduleSubTitle(),
-                  ]),
-            ),
-          ],
-        ),
-        decoration: BoxDecoration(
-          boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(1), BlendMode.dstATop),
-              image: CachedNetworkImageProvider(trip.imageUrl)),
-        ));
+    return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+      return Container(
+          height: _heigthAppBar,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      cityNameTitle(),
+                      priceScheduleSubTitle(),
+                    ]),
+              ),
+            ],
+          ),
+          decoration: BoxDecoration(
+            boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(1), BlendMode.dstATop),
+                image: CachedNetworkImageProvider(trip.imageUrl)),
+          ));
+    });
+  }
+
+  buildCurtirButton(UserModel model) {
+    if (isOwner(model) && !trip.isPublish) {
+      return BottomNavigationBarItem(
+          icon: Icon(
+            Icons.star,
+            color: Colors.yellow,
+          ),
+          title: new Text('Curtir'));
+    }
   }
 
   Widget cityinfoWidget() {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
       return Container(
-        padding: EdgeInsets.only(left: 5, right: 5),
+        padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
+        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.circular(3.0),
+          color: Colors.white,
+          boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             buildQtdStar(context),
             Wrap(
-              spacing: 10, // to apply margin horizontally
-              runSpacing: 10, // to apply margin vertically
               children: <Widget>[
                 buildVoteButton(model, context),
                 buildRemoverButton(model, context),
@@ -154,45 +168,43 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
   }
 
   Widget createIconAddDay(UserModel model, BuildContext context) {
-    return Column(
-      children: <Widget>[
-        IconButton(
-          icon: Icon(
+    return MaterialButton(
+      child: Column(
+        children: <Widget>[
+          Icon(
             Icons.add_circle,
             size: 40.0,
             color: Colors.blue,
           ),
-          onPressed: () {
-            //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
-            // caso seja ok, caso contrario deverá criar um novo cronograma.
-            validateLoginAction(context, model, _scaffoldKey,
-                () => sendActivityTimelineWithNewDay(context));
-          },
-        ),
-        textButton("Novo dia"),
-      ],
+          textButton("Novo dia"),
+        ],
+      ),
+      onPressed: () {
+        //TODO verificar se está logado, se estiver deverá verificar se o cronograma é da pessoa logada,
+        // caso seja ok, caso contrario deverá criar um novo cronograma.
+        validateLoginAction(context, model, _scaffoldKey,
+            () => sendActivityTimelineWithNewDay(context));
+      },
     );
   }
 
-  buildButtons() {}
-
   Widget buildRemoverButton(UserModel model, BuildContext context) {
     if (isOwner(model)) {
-      return Column(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
+      return MaterialButton(
+        child: Column(
+          children: <Widget>[
+            Icon(
               Icons.delete,
               size: 40.0,
               color: Colors.red,
             ),
-            onPressed: () {
-              removerDialog(context, "Deseja remover esse cronograma?",
-                  () => deleteAction(model, context));
-            },
-          ),
-          textButton("Remover"),
-        ],
+            textButton("Remover"),
+          ],
+        ),
+        onPressed: () {
+          removerDialog(context, "Deseja remover esse cronograma?",
+              () => deleteAction(model, context));
+        },
       );
     }
 
@@ -201,7 +213,8 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   Text textButton(String text) => Text(
         text,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
         textAlign: TextAlign.center,
       );
 
@@ -224,21 +237,21 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   buildPublishButton(UserModel model, BuildContext context) {
     if (isOwner(model) && !trip.isPublish) {
-      return Column(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
+      return MaterialButton(
+        child: Column(
+          children: <Widget>[
+            Icon(
               Icons.publish,
               size: 40.0,
               color: Colors.green,
             ),
-            onPressed: () {
-              removerDialog(context, "Deseja tornar esse cronograma público?",
-                  () => publishAction(model, context));
-            },
-          ),
-          textButton("Publicar"),
-        ],
+            textButton("Publicar"),
+          ],
+        ),
+        onPressed: () {
+          removerDialog(context, "Deseja tornar esse cronograma público?",
+              () => publishAction(model, context));
+        },
       );
     }
 
@@ -269,19 +282,19 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   buildVoteButton(UserModel model, BuildContext context) {
     if (!isOwner(model) && model.isLoggedIn()) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-              icon: Icon(
+      return MaterialButton(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
                 Icons.star,
                 size: 40.0,
                 color: Colors.yellow,
               ),
-              onPressed: () => voteAction(model, context)),
-          textButton("Curtir"),
-        ],
-      );
+              textButton("Curtir"),
+            ],
+          ),
+          onPressed: () => voteAction(model, context));
     }
     return Container();
   }
@@ -301,8 +314,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           "Obrigado pelo voto, o seu voto foi computado.", _scaffoldKey);
     } else {
       showToastMessage(
-          "Obrigado pelo voto, mas seu voto já foi computado.",
-          _scaffoldKey);
+          "Obrigado pelo voto, mas seu voto já foi computado.", _scaffoldKey);
     }
   }
 }

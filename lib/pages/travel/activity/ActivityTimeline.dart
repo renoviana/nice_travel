@@ -38,6 +38,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   @override
   void initState() {
     super.initState();
+    print(this._scheduleDay);
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
@@ -45,12 +46,14 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
     }
   }
 
-  newScheduleDay() async {
-    var scheduleDay =
-        await ScheduleDayApiConnection.instance.addScheduleDay(_scheduleCod);
-    setState(() {
-      _scheduleDay = scheduleDay;
-    });
+  newScheduleDay() {
+    ScheduleDayApiConnection.instance
+        .addScheduleDay(_scheduleCod)
+        .then((scheduleDay) => {
+              setState(() {
+                _scheduleDay = scheduleDay;
+              }),
+            });
   }
 
   @override
@@ -98,7 +101,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                           "Nenhuma atividade cadastrada ainda :(",
                           style: TextStyle(
                               fontSize: 19, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         )),
                       );
                     }
@@ -127,7 +130,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                 children: <Widget>[
                   Text(
                       "${formatarHoraToString(activity.startActivityDate)} - "
-                          "${formatarHoraToString(activity.finishActivityDate)}",
+                      "${formatarHoraToString(activity.finishActivityDate)}",
                       style: textTheme.caption),
                   Flexible(
                     child: Text(
@@ -162,6 +165,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
 
   sendToEditActivity(BuildContext context, Activity activity) {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => ActivityPage(activity, _scheduleDay)));
+        builder: (BuildContext context) =>
+            ActivityPage(activity, _scheduleDay)));
   }
 }
