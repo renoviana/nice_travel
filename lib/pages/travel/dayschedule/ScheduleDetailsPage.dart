@@ -24,13 +24,32 @@ class DaySchedulePage extends StatefulWidget {
   _DaySchedulePageState createState() => _DaySchedulePageState(this.trip);
 }
 
-class _DaySchedulePageState extends State<DaySchedulePage> {
+class _DaySchedulePageState extends State<DaySchedulePage>
+    with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final Schedule trip;
+  double _heigthAppBar = 240;
+  bool hasLiked = false;
+  AnimationController _controller;
+  Animation<Color> animation;
 
   _DaySchedulePageState(this.trip);
 
-  double _heigthAppBar = 240;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    animation = ColorTween(
+      begin: Colors.yellow,
+      end: Colors.grey,
+    ).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,17 +122,6 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
                 image: CachedNetworkImageProvider(trip.imageUrl)),
           ));
     });
-  }
-
-  buildCurtirButton(UserModel model) {
-    if (isOwner(model) && !trip.isPublish) {
-      return BottomNavigationBarItem(
-          icon: Icon(
-            Icons.star,
-            color: Colors.yellow,
-          ),
-          title: new Text('Curtir'));
-    }
   }
 
   Widget cityinfoWidget() {
@@ -251,7 +259,7 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
           ],
         ),
         onPressed: () {
-          removerDialog(context, "Deseja tornar esse cronograma público?",
+          publishDialog(context, "Deseja tornar esse cronograma público?",
               () => publishAction(model, context));
         },
       );
@@ -284,24 +292,30 @@ class _DaySchedulePageState extends State<DaySchedulePage> {
 
   buildVoteButton(UserModel model, BuildContext context) {
     if (!isOwner(model) && model.isLoggedIn()) {
-      return MaterialButton(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.star,
-                size: 40.0,
-                color: Colors.yellow,
+      return AnimatedOpacity(
+          child: MaterialButton(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.star,
+                    size: 40.0,
+                    color: Colors.yellow,
+                  ),
+                  textButton("Curtir"),
+                ],
               ),
-              textButton("Curtir"),
-            ],
-          ),
-          onPressed: () => voteAction(model, context));
+              onPressed: () => voteAction(model, context)),
+          duration: Duration(seconds: 1),
+          opacity: hasLiked ? 0.4 : 1.0);
     }
     return Container();
   }
 
   voteAction(UserModel model, BuildContext context) {
+    setState(() {
+      hasLiked = true;
+    });
     ScheduleApiConnection.instance
         .voteTravelSchedule(trip.scheduleCod, model)
         .then((voted) => votedAction(voted, context));
