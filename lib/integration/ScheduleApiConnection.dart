@@ -97,4 +97,10 @@ class ScheduleApiConnection {
   Schedule _formatScheduleJson(String json) {
     return ScheduleJson().parseScheduleJsonToSchedule(json);
   }
+
+  Future<Response> payment(String token, String userUID) {
+    final url = ApiConnection.URL_API +
+        "/payment?token=$token&userUID=$userUID";
+    return http.post(url);
+  }
 }

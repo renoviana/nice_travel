@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nice_travel/stripe.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'model/UserModel.dart';
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModel<UserModel>(
         model: UserModel(),
-        child: buildScopedModelDescendant());
+        child: teste());
+  }
+
+  teste() {
+    return Stripe();
   }
 
   ScopedModelDescendant<UserModel> buildScopedModelDescendant() {
