@@ -27,6 +27,11 @@ class ScheduleDayApiConnection {
     return _formatFutureToScheduleDay(await http.post(url));
   }
 
+  Future<Response> reorderDays(int from, int to) async {
+    final url = ApiConnection.URL_API + "/scheduleDay/reorder?scheduleDayIdFrom=$from&scheduleDayIdTo=$to";
+    return await http.post(url);
+  }
+
   List<ScheduleDay> _formatFutureToSchedulesDay(Response response) {
     if (response.statusCode == 200) {
       return _formatSchedulesDayJson(response.body);
@@ -50,4 +55,5 @@ class ScheduleDayApiConnection {
   ScheduleDay _formatScheduleDayJson(String json) {
     return ScheduleDayJson().parseScheduleDayJsonToSchedule(json);
   }
+
 }
