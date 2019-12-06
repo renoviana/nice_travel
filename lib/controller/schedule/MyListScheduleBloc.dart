@@ -1,20 +1,33 @@
+import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MyListScheduleBloc {
-  var _listScheduleBloc = BehaviorSubject<List<Schedule>>.seeded(null);
+  var _listScheduleBloc =
+      BehaviorSubject<ApiResponse<List<Schedule>>>.seeded(null);
 
   void loadSchedules(String userUID) async {
-    setListSchedule.add(null);
-    List<Schedule> lista =
-        await ScheduleApiConnection.instance.getSchedulesByUserUID(userUID);
-    setListSchedule.add(lista);
+    setListSchedule.add(ApiResponse.loading());
+    try {
+      List<Schedule> lista =
+          await ScheduleApiConnection.instance.getSchedulesByUserUID(userUID);
+      setListSchedule.add(ApiResponse.completed(lista));
+    } catch (e) {
+      print(e);
+      setListSchedule.add(ApiResponse.error(e.toString()));
+    }
   }
 
-  Stream<List<Schedule>> get getListSchedule => _listScheduleBloc.stream;
+  Stream<ApiResponse<List<Schedule>>> get getListSchedule =>
+      _listScheduleBloc.stream;
 
-  Sink<List<Schedule>> get setListSchedule => _listScheduleBloc.sink;
+  Sink<ApiResponse<List<Schedule>>> get setListSchedule =>
+      _listScheduleBloc.sink;
+
+  void clearList() {
+    setListSchedule.add(ApiResponse.completed([]));
+  }
 }
 
 final myListScheduleBloc = new MyListScheduleBloc();

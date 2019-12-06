@@ -21,17 +21,13 @@ void main() {
   test('Test create schedule ', () async {
     final response =
         await ScheduleApiConnection.instance.createSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2, new SessionUser("joão", "joao@mail", "123", "123"));
-    expect(response.statusCode, 200);
-    final jsonString = response.body;
     String mockReturn =
         """{"qtdDays":2,"imageUrl":"https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV","nameCity":"ChIJrTLr-GyuEmsRBfy61i59si0","scheduleCod":1,"priceFinal":null}""";
-    expect(mockReturn, jsonString);
+    expect(mockReturn, response);
   });
 
   test('Test publish schedule ', () async {
     final response = await ScheduleApiConnection.instance.publishSchedule(1);
-    expect(response.statusCode, 200);
-    final jsonString = response.body;
-    expect("true", jsonString);
+    expect("true", response);
   });
 }

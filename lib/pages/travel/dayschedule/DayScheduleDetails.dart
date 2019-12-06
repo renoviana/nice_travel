@@ -7,6 +7,7 @@ import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
+import 'package:nice_travel/widgets/showCircularProgress.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class DayScheduleDetails extends StatefulWidget {
@@ -71,10 +72,12 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
   }
 
   deleteScheduleDay() {
+    showCircularProgress(context);
     ScheduleDayApiConnection.instance
         .deleteScheduleDay(widget.scheduleDay.id)
         .then((_) => {
               listScheduleDayBloc.loadSchedules(widget.schedule.scheduleCod),
+              Navigator.pop(context),
               Navigator.pop(context),
             });
   }

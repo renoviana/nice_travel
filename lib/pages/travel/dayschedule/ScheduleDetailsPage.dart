@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/src/response.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
@@ -11,6 +10,7 @@ import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ShowToast.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
+import 'package:nice_travel/widgets/showCircularProgress.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'DayScheduleList.dart';
@@ -229,9 +229,11 @@ class _DaySchedulePageState extends State<DaySchedulePage>
       model.sessionUser.uid == trip.userUID;
 
   deleteAction(UserModel model, BuildContext context) {
+    showCircularProgress(context);
     ScheduleApiConnection.instance
         .deleteSchedule(trip.scheduleCod)
         .then((_) => {
+              Navigator.pop(context),
               Navigator.pop(context),
               Navigator.pop(context),
             });
@@ -325,8 +327,9 @@ class _DaySchedulePageState extends State<DaySchedulePage>
     }
   }
 
-  votedAction(Response voted, BuildContext context) {
-    if (voted.body == "true") {
+  votedAction(String voted, BuildContext context) {
+    print(voted);
+    if (voted == "true") {
       setState(() {
         trip.numberStar += 1;
       });

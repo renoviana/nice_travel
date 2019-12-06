@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/travel/ListActivitiesBloc.dart';
+import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
+import 'package:nice_travel/widgets/ErrorConnection.dart';
+import 'package:nice_travel/widgets/Loading.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:timeline_list/timeline.dart';
@@ -23,8 +26,8 @@ class ActivityTimeline extends StatefulWidget {
   ActivityTimeline.newInstance(this._scheduleCod);
 
   @override
-  _ActivityTimelineState createState() =>
-      _ActivityTimelineState(this._scheduleDay, this._scheduleCod, this._schedule);
+  _ActivityTimelineState createState() => _ActivityTimelineState(
+      this._scheduleDay, this._scheduleCod, this._schedule);
 }
 
 class _ActivityTimelineState extends State<ActivityTimeline> {
@@ -38,22 +41,26 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
   @override
   void initState() {
     super.initState();
+    if (this._scheduleDay == null) {
+      newScheduleDay();
+    }
+    loadList();
+  }
+
+  loadList() {
     if (this._scheduleDay != null) {
       listActivitiesBloc.loadActivity(_scheduleDay.id);
     } else {
-      listActivitiesBloc.setListActivity.add([]);
-      newScheduleDay();
+      listActivitiesBloc.clearList();
     }
   }
 
   newScheduleDay() {
     ScheduleDayApiConnection.instance
         .addScheduleDay(_scheduleCod)
-        .then((scheduleDay) => {
-              setState(() {
-                _scheduleDay = scheduleDay;
-              }),
-            });
+        .then((scheduleDay) => setState(() {
+              _scheduleDay = scheduleDay;
+            }));
   }
 
   @override
@@ -72,52 +79,75 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                 ]),
                 actions: <Widget>[
                   IconButton(
-                    onPressed: () => validateLoginAction(context, model, _schedule,
-                        _scaffoldKey, () => sendToNewActivity(context)),
+                    onPressed: () => validateLoginAction(
+                        context,
+                        model,
+                        _schedule,
+                        _scaffoldKey,
+                        () => sendToNewActivity(context)),
                     icon: Icon(Icons.add_circle_outline),
                   )
                 ],
               ),
-              body: StreamBuilder<List<Activity>>(
+              body: StreamBuilder<ApiResponse<List<Activity>>>(
                   stream: listActivitiesBloc.getListActivity,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Container(
-                        child: Center(child: CircularProgressIndicator()),
-                        color: Colors.white,
-                      );
-                    } else if (snapshot.data.length > 0)
-                      return Timeline.builder(
-                        position: TimelinePosition.Left,
-                        itemBuilder: (ctx, i) {
-                          return createTimeLine(ctx, i, snapshot, model);
-                        },
-                        itemCount: snapshot.data.length,
-                      );
-                    else {
-                      return new Container(
-                        child: Center(
-                            child: Text(
-                          "Nenhuma atividade cadastrada ainda :(",
-                          style: TextStyle(
-                              fontSize: 19, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )),
-                      );
+                      return Loading();
+                    } else {
+                      switch (snapshot.data.status) {
+                        case Status.LOADING:
+                          return Loading(
+                            loadingMessage: snapshot.data.message,
+                          );
+                          break;
+                        case Status.COMPLETED:
+                          return buildList(snapshot.data, model);
+                          break;
+                        case Status.ERROR:
+                          return ErrorConnection(
+                            errorMessage: snapshot.data.message,
+                            onRetryPressed: () => loadList(),
+                          );
+                          break;
+                      }
+                      return Container();
                     }
                   }),
             );
           });
   }
 
+  StatelessWidget buildList(
+      ApiResponse<List<Activity>> snapshot, UserModel model) {
+    if (snapshot.data.length > 0)
+      return Timeline.builder(
+        position: TimelinePosition.Left,
+        itemBuilder: (ctx, i) {
+          return createTimeLine(ctx, i, snapshot, model);
+        },
+        itemCount: snapshot.data.length,
+      );
+    else {
+      return new Container(
+        child: Center(
+            child: Text(
+          "Nenhuma atividade cadastrada ainda :(",
+          style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        )),
+      );
+    }
+  }
+
   TimelineModel createTimeLine(BuildContext context, int i,
-      AsyncSnapshot<List<Activity>> snapshot, UserModel model) {
+      ApiResponse<List<Activity>> snapshot, UserModel model) {
     var activity = snapshot.data[i];
     final textTheme = Theme.of(context).textTheme;
     return new TimelineModel(
         GestureDetector(
-          onTap: () => validateLoginAction(context, model, _schedule, _scaffoldKey,
-              () => sendToEditActivity(context, activity)),
+          onTap: () => validateLoginAction(context, model, _schedule,
+              _scaffoldKey, () => sendToEditActivity(context, activity)),
           child: Card(
             margin: EdgeInsets.symmetric(vertical: 16.0),
             shape: RoundedRectangleBorder(
@@ -159,8 +189,8 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
 
   sendToNewActivity(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            ActivityPage(Activity.newInstance(_scheduleDay.id), _scheduleDay, _schedule)));
+        builder: (BuildContext context) => ActivityPage(
+            Activity.newInstance(_scheduleDay.id), _scheduleDay, _schedule)));
   }
 
   sendToEditActivity(BuildContext context, Activity activity) {
