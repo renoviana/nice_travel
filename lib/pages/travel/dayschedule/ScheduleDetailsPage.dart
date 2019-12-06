@@ -313,7 +313,6 @@ class _DaySchedulePageState extends State<DaySchedulePage>
   }
 
   voteAction(UserModel model, BuildContext context) {
-    updateLike();
     ScheduleApiConnection.instance
         .voteTravelSchedule(trip.scheduleCod, model)
         .then((voted) => votedAction(voted, context));
@@ -328,7 +327,7 @@ class _DaySchedulePageState extends State<DaySchedulePage>
   }
 
   votedAction(String voted, BuildContext context) {
-    print(voted);
+    updateLike();
     if (voted == "true") {
       setState(() {
         trip.numberStar += 1;
