@@ -58,6 +58,6 @@ void _duplicateAction(
 void _navigateToSchedulePage(
     BuildContext context, UserModel model, Schedule scheduleCreated) {
   Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => DaySchedulePage(scheduleCreated)),
+      MaterialPageRoute(builder: (context) => DaySchedulePage(scheduleCreated), settings: RouteSettings(name: "/daySchedulePage")),
       ModalRoute.withName('/'));
 }
