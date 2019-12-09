@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nice_travel/widgets/NiceTravelIcons.dart';
 
 enum Style {
   RESTAURANT,
@@ -16,8 +17,6 @@ enum Style {
 List<String> getStyleDescription(){
    return Style.values.map((s) => s.toString().replaceAll("Style.", "").replaceAll("_", " ")).toList();
 }
-
-const icons = 'NiceTravelIcons';
 
 class IconStyleActivity {
   Icon icon;
@@ -48,7 +47,7 @@ class IconStyleActivity {
         color = Colors.pinkAccent;
         break;
       case Style.SWIMMING:
-          icon = Icon(const IconData(0xe838, fontFamily: icons));
+          icon = Icon(NiceTravelIcons.swimming);
     color = Colors.blue;
         break;
       case Style.PARK:
@@ -56,15 +55,15 @@ class IconStyleActivity {
         color = Colors.green;
         break;
       case Style.CHURCH:
-        icon = Icon(const IconData(0xe800, fontFamily: icons));
+        icon = Icon(NiceTravelIcons.home);
         color = Colors.yellow;
         break;
       case Style.SPORT:
-        icon = Icon(const IconData(0xf1e3, fontFamily: icons));
+        icon = Icon(NiceTravelIcons.soccer_ball);
         color = Colors.lightGreen;
         break;
       case Style.OTHER:
-        icon = Icon(Icons.forward);
+        icon = Icon(Icons.extension);
         color = Colors.black26;
         break;
     }

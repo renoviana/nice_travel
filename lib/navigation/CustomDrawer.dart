@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/login/SignIn.dart';
 import 'package:nice_travel/model/UserModel.dart';
+import 'package:nice_travel/widgets/NiceTravelIcons.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'DrawerTile.dart';
@@ -22,8 +23,7 @@ class CustomDrawer extends StatelessWidget {
         );
 
     return Drawer(
-      child: ScopedModelDescendant<UserModel>(
-          builder: (context, child, model) {
+      child: ScopedModelDescendant<UserModel>(builder: (context, child, model) {
         return Stack(
           children: <Widget>[
             _buildDrawerBack(),
@@ -32,24 +32,19 @@ class CustomDrawer extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(bottom: 8.0),
-                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
                   height: 170.0,
                   child: Stack(
                     children: <Widget>[
-                      Positioned(
-                        top: 8.0,
-                        left: 0.0,
-                        child: Text(
-                          "Alugaqui!",
-                          style: TextStyle(
-                              fontSize: 34.0, fontWeight: FontWeight.bold),
-                        ),
+                      Center(
+                        child: Image.asset("logo.png"),
                       ),
                       buildSignInButton(context, model)
                     ],
                   ),
                 ),
-                Divider(),
+                Divider(
+                  height: 20,
+                ),
                 createDrawerTiles(model),
               ],
             )
@@ -71,13 +66,7 @@ class CustomDrawer extends StatelessWidget {
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
           GestureDetector(
-            child: Text(
-              !model.isLoggedIn() ? "Entrar >" : "Sair <",
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold),
-            ),
+            child: buildLoginButton(model, context),
             onTap: () {
               if (!model.isLoggedIn()) {
                 Navigator.of(context).push(
@@ -92,23 +81,52 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+  Widget buildLoginButton(UserModel model, BuildContext context) {
+    if (!model.isLoggedIn()) {
+      return Row(
+        children: <Widget>[
+          Text(
+            "Entrar ",
+            style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold),
+          ),
+          Icon(NiceTravelIcons.login, size: 16, color: Theme.of(context).primaryColor,)
+        ],
+      );
+    }
+    return Row(
+      children: <Widget>[
+        Text(
+          "Sair ",
+          style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold),
+        ),
+        Icon(NiceTravelIcons.logout, size: 16, color: Theme.of(context).primaryColor,)
+      ],
+    );
+  }
+
   Widget createDrawerTiles(UserModel model) {
     return new FutureBuilder<List<TabModel>>(
-        future: TabModel.getTabModels(model),
-        builder: (context, elements) {
-          if(elements.hasData){
-            List<Widget> drawerTiles = [];
-            elements.data.forEach((tab) => {
-            drawerTiles.add(DrawerTile(
-                tab.icon, tab.name, pageController, tab.pageId, tab.qtd))
-            });
-            return Column(
-              children: drawerTiles,
-            );
-          } else {
-            return Container();
-          }
-        },
+      future: TabModel.getTabModels(model),
+      builder: (context, elements) {
+        if (elements.hasData) {
+          List<Widget> drawerTiles = [];
+          elements.data.forEach((tab) => {
+                drawerTiles.add(DrawerTile(
+                    tab.icon, tab.name, pageController, tab.pageId, tab.qtd))
+              });
+          return Column(
+            children: drawerTiles,
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }

@@ -200,7 +200,7 @@ class _ActivityPageState extends State<ActivityPage> {
       controller: _nameController,
       validator: validateRequiredField,
       decoration: InputDecoration(
-          labelText: "Nome",
+          labelText: "Atividade",
           labelStyle: TextStyle(color: Colors.black),
           border: OutlineInputBorder()),
       style: TextStyle(color: Colors.black, fontSize: 18.0),
