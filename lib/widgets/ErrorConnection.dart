@@ -19,13 +19,13 @@ class ErrorConnection extends StatelessWidget {
             errorMessage,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.lightGreen,
+              color: Colors.redAccent,
               fontSize: 18,
             ),
           ),
           SizedBox(height: 8),
           RaisedButton(
-            color: Colors.lightGreen,
+            color: Theme.of(context).accentColor,
             child: Text('Tentar novamente', style: TextStyle(color: Colors.white)),
             onPressed: onRetryPressed,
           )

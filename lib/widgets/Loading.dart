@@ -16,13 +16,13 @@ class Loading extends StatelessWidget {
             loadingMessage,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.lightGreen,
+              color: Theme.of(context).textSelectionColor,
               fontSize: 24,
             ),
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreen),
+            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
           ),
         ],
       ),
