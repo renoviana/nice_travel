@@ -3,6 +3,8 @@ import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../BlocHelper.dart';
+
 class MyListScheduleBloc {
   var _listScheduleBloc =
       BehaviorSubject<ApiResponse<List<Schedule>>>.seeded(null);
@@ -14,8 +16,7 @@ class MyListScheduleBloc {
           await ScheduleApiConnection.instance.getSchedulesByUserUID(userUID);
       setListSchedule.add(ApiResponse.completed(lista));
     } catch (e) {
-      print(e);
-      setListSchedule.add(ApiResponse.error(e.toString()));
+      setListSchedule.add(ApiResponse.error(BlocHelper.getErrorMessage(e)));
     }
   }
 
