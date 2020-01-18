@@ -14,60 +14,66 @@ enum Style {
   OTHER,
 }
 
-List<String> getStyleDescription(){
-   return Style.values.map((s) => s.toString().replaceAll("Style.", "").replaceAll("_", " ")).toList();
+List<String> getStyleDescription() {
+  return Style.values
+      .map((s) => s.toString().replaceAll("Style.", "").replaceAll("_", " "))
+      .toList();
 }
 
 class IconStyleActivity {
   Icon icon;
   Color color;
+  bool withColor = false;
 
-  IconStyleActivity(String styleActivity) {
-    Style style = Style.values.firstWhere((s) => s.toString().replaceAll("_", " ").toLowerCase()
+  IconStyleActivity(String styleActivity, {this.withColor = false}) {
+    Style style = Style.values.firstWhere((s) => s
+        .toString()
+        .replaceAll("_", " ")
+        .toLowerCase()
         .contains(styleActivity.toLowerCase()));
-    switch (style){
+    switch (style) {
       case Style.BAR:
-        icon = Icon(Icons.local_bar);
         color = Colors.deepPurpleAccent;
+        icon = Icon(Icons.local_bar, color: updateIconColor());
         break;
       case Style.RESTAURANT:
-        icon = Icon(Icons.restaurant);
         color = Colors.orange;
+        icon = Icon(Icons.restaurant, color: updateIconColor());
         break;
       case Style.MUSEUM:
-        icon = Icon(Icons.account_balance);
         color = Colors.brown;
+        icon = Icon(Icons.account_balance, color: updateIconColor());
         break;
       case Style.SHOP:
-        icon = Icon(Icons.shopping_cart);
         color = Colors.purple;
+        icon = Icon(Icons.shopping_cart, color: updateIconColor());
         break;
       case Style.HISTORICAL_MONUMENT:
-        icon = Icon(Icons.camera_alt);
         color = Colors.pinkAccent;
+        icon = Icon(Icons.camera_alt, color: updateIconColor());
         break;
       case Style.SWIMMING:
-          icon = Icon(NiceTravelIcons.swimming);
-    color = Colors.blue;
+        color = Colors.blue;
+        icon = Icon(NiceTravelIcons.swimming, color: updateIconColor());
         break;
       case Style.PARK:
-        icon = Icon(Icons.directions_bike);
         color = Colors.green;
+        icon = Icon(Icons.directions_bike, color: updateIconColor());
         break;
       case Style.CHURCH:
-        icon = Icon(NiceTravelIcons.home);
         color = Colors.yellow;
+        icon = Icon(NiceTravelIcons.home, color: updateIconColor());
         break;
       case Style.SPORT:
-        icon = Icon(NiceTravelIcons.soccer_ball);
         color = Colors.lightGreen;
+        icon = Icon(NiceTravelIcons.soccer_ball, color: updateIconColor());
         break;
       case Style.OTHER:
-        icon = Icon(Icons.extension);
         color = Colors.black26;
+        icon = Icon(Icons.extension, color: updateIconColor());
         break;
     }
   }
 
-
+  Color updateIconColor() => this.withColor ? color : Colors.black;
 }

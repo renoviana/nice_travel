@@ -14,7 +14,7 @@ class Schedule {
   int numberStar;
   bool isPublish;
 
-  Schedule.newInstance(){
+  Schedule.newInstance() {
     this.qtdDays = 1;
   }
 
@@ -35,11 +35,15 @@ class ScheduleDay {
   int day;
   double priceDay;
   int id;
+  int qtdActivities;
+  String typeFirstActivity;
 
   ScheduleDay(ScheduleDayJson scheduleDayJson) {
     this.day = scheduleDayJson.day;
     this.priceDay = scheduleDayJson.priceDay;
     this.id = scheduleDayJson.id;
+    this.qtdActivities = scheduleDayJson.qtdActivities;
+    this.typeFirstActivity = scheduleDayJson.typeFirstActivity;
   }
 }
 
@@ -68,8 +72,8 @@ class Activity {
     this.idScheduleDay = idScheduleDay;
     this.price = 0.0;
     this.styleActivity = "OTHER";
-    this.startActivityDate = DateTime(1,1,2000);
-    this.finishActivityDate = DateTime(1,1,2000);
+    this.startActivityDate = DateTime(1, 1, 2000);
+    this.finishActivityDate = DateTime(1, 1, 2000);
     this.description = '';
     this.nameOfPlace = '';
   }

@@ -4,6 +4,7 @@ import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/common/activity/ActivityTimeline.dart';
+import 'package:nice_travel/pages/common/activity/IconStyleActivity.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';
@@ -34,36 +35,8 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               leading: buildLeadingIcon(),
-              title: Text(
-                "${widget.scheduleDay.day}º Dia",
-                style: TextStyle(fontFamily: "Literata"),
-              ),
-              subtitle: Text(
-                "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.green,
-                  fontFamily: "OpenSans",
-                ),
-              ),
-              trailing: MaterialButton(
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  minWidth: 60,
-                  height: 100,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(60.0)),
-                  onPressed: () => validateLoginAction(
-                      context,
-                      model,
-                      widget.schedule,
-                      widget.scaffoldKey,
-                      () => removerDialog(
-                          context,
-                          'Deseja remover o dia ${widget.scheduleDay.day}?',
-                          deleteScheduleDay))),
+              title: _buildTitle(),
+              trailing: _buildRemoveButton(context, model),
               onTap: sendActivityTimeline,
             ),
           ),
@@ -72,11 +45,70 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
     });
   }
 
+  MaterialButton _buildRemoveButton(BuildContext context, UserModel model) {
+    return MaterialButton(
+        child: Icon(
+          Icons.delete,
+          color: Colors.red,
+        ),
+        minWidth: 60,
+        height: 100,
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(60.0)),
+        onPressed: () => validateLoginAction(
+            context,
+            model,
+            widget.schedule,
+            widget.scaffoldKey,
+            () => removerDialog(
+                context,
+                'Deseja remover o dia ${widget.scheduleDay.day}?',
+                deleteScheduleDay)));
+  }
+
+  Text _buildPriceSubtitle() {
+    return Text(
+      "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
+      style: TextStyle(
+        fontSize: 14,
+        color: Colors.green,
+        fontFamily: "OpenSans",
+      ),
+    );
+  }
+
+  Widget _buildTitle() {
+    return Column(
+      children: <Widget>[
+        _buildDayText(),
+        _buildActivitiesCount(),
+        _buildPriceSubtitle(),
+      ],
+    );
+  }
+
+  Text _buildActivitiesCount() {
+    return Text(
+      "${widget.scheduleDay.qtdActivities} Atividades",
+      style: TextStyle(fontFamily: "Literata"),
+    );
+  }
+
+  Text _buildDayText() {
+    return Text(
+      "${widget.scheduleDay.day}º Dia",
+      style: TextStyle(fontFamily: "Literata", fontWeight: FontWeight.bold),
+    );
+  }
+
   Widget buildLeadingIcon() {
-   return Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: Icon(Icons.attach_money, color: Colors.green, size: 25,),
-   );
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: widget.scheduleDay.typeFirstActivity != null
+            ? IconStyleActivity(widget.scheduleDay.typeFirstActivity,
+                    withColor: true)
+                .icon
+            : IconStyleActivity(Style.OTHER.toString(), withColor: true).icon);
   }
 
   deleteScheduleDay() {

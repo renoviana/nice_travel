@@ -21,6 +21,12 @@ abstract class ScheduleDayJson
   @nullable
   int get id;
 
+  @nullable
+  int get qtdActivities;
+
+  @nullable
+  String get typeFirstActivity;
+
   ScheduleDayJson._();
 
   factory ScheduleDayJson([updates(ScheduleDayJsonBuilder b)]) =

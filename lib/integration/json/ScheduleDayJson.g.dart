@@ -38,6 +38,18 @@ class _$ScheduleDayJsonSerializer
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(int)));
     }
+    if (object.qtdActivities != null) {
+      result
+        ..add('qtdActivities')
+        ..add(serializers.serialize(object.qtdActivities,
+            specifiedType: const FullType(int)));
+    }
+    if (object.typeFirstActivity != null) {
+      result
+        ..add('typeFirstActivity')
+        ..add(serializers.serialize(object.typeFirstActivity,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -65,6 +77,14 @@ class _$ScheduleDayJsonSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'qtdActivities':
+          result.qtdActivities = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'typeFirstActivity':
+          result.typeFirstActivity = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -79,11 +99,21 @@ class _$ScheduleDayJson extends ScheduleDayJson {
   final int day;
   @override
   final int id;
+  @override
+  final int qtdActivities;
+  @override
+  final String typeFirstActivity;
 
   factory _$ScheduleDayJson([void Function(ScheduleDayJsonBuilder) updates]) =>
       (new ScheduleDayJsonBuilder()..update(updates)).build();
 
-  _$ScheduleDayJson._({this.priceDay, this.day, this.id}) : super._();
+  _$ScheduleDayJson._(
+      {this.priceDay,
+      this.day,
+      this.id,
+      this.qtdActivities,
+      this.typeFirstActivity})
+      : super._();
 
   @override
   ScheduleDayJson rebuild(void Function(ScheduleDayJsonBuilder) updates) =>
@@ -99,12 +129,17 @@ class _$ScheduleDayJson extends ScheduleDayJson {
     return other is ScheduleDayJson &&
         priceDay == other.priceDay &&
         day == other.day &&
-        id == other.id;
+        id == other.id &&
+        qtdActivities == other.qtdActivities &&
+        typeFirstActivity == other.typeFirstActivity;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, priceDay.hashCode), day.hashCode), id.hashCode));
+    return $jf($jc(
+        $jc($jc($jc($jc(0, priceDay.hashCode), day.hashCode), id.hashCode),
+            qtdActivities.hashCode),
+        typeFirstActivity.hashCode));
   }
 
   @override
@@ -112,7 +147,9 @@ class _$ScheduleDayJson extends ScheduleDayJson {
     return (newBuiltValueToStringHelper('ScheduleDayJson')
           ..add('priceDay', priceDay)
           ..add('day', day)
-          ..add('id', id))
+          ..add('id', id)
+          ..add('qtdActivities', qtdActivities)
+          ..add('typeFirstActivity', typeFirstActivity))
         .toString();
   }
 }
@@ -133,6 +170,15 @@ class ScheduleDayJsonBuilder
   int get id => _$this._id;
   set id(int id) => _$this._id = id;
 
+  int _qtdActivities;
+  int get qtdActivities => _$this._qtdActivities;
+  set qtdActivities(int qtdActivities) => _$this._qtdActivities = qtdActivities;
+
+  String _typeFirstActivity;
+  String get typeFirstActivity => _$this._typeFirstActivity;
+  set typeFirstActivity(String typeFirstActivity) =>
+      _$this._typeFirstActivity = typeFirstActivity;
+
   ScheduleDayJsonBuilder();
 
   ScheduleDayJsonBuilder get _$this {
@@ -140,6 +186,8 @@ class ScheduleDayJsonBuilder
       _priceDay = _$v.priceDay;
       _day = _$v.day;
       _id = _$v.id;
+      _qtdActivities = _$v.qtdActivities;
+      _typeFirstActivity = _$v.typeFirstActivity;
       _$v = null;
     }
     return this;
@@ -160,8 +208,13 @@ class ScheduleDayJsonBuilder
 
   @override
   _$ScheduleDayJson build() {
-    final _$result =
-        _$v ?? new _$ScheduleDayJson._(priceDay: priceDay, day: day, id: id);
+    final _$result = _$v ??
+        new _$ScheduleDayJson._(
+            priceDay: priceDay,
+            day: day,
+            id: id,
+            qtdActivities: qtdActivities,
+            typeFirstActivity: typeFirstActivity);
     replace(_$result);
     return _$result;
   }
