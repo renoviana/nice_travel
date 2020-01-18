@@ -33,14 +33,15 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
+              leading: buildLeadingIcon(),
               title: Text(
-                "Dia  ${widget.scheduleDay.day}",
+                "${widget.scheduleDay.day}º Dia",
                 style: TextStyle(fontFamily: "Literata"),
               ),
               subtitle: Text(
                 "R\$: ${getValueFormatted(widget.scheduleDay.priceDay)}",
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   color: Colors.green,
                   fontFamily: "OpenSans",
                 ),
@@ -69,6 +70,13 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
         ),
       );
     });
+  }
+
+  Widget buildLeadingIcon() {
+   return Padding(
+     padding: const EdgeInsets.all(8.0),
+     child: Icon(Icons.attach_money, color: Colors.green, size: 25,),
+   );
   }
 
   deleteScheduleDay() {
