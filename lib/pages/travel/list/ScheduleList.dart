@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/travel/list/ScheduleListItem.dart';
+import 'package:nice_travel/pages/common/ScheduleListItem.dart';
 import 'package:nice_travel/widgets/ErrorConnection.dart';
 import 'package:nice_travel/widgets/Loading.dart';
 class ScheduleList extends StatelessWidget {

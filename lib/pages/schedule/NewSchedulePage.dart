@@ -6,7 +6,7 @@ import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/travel/card/AutoCompleteField.dart';
+import 'package:nice_travel/pages/common/card/AutoCompleteField.dart';
 import 'package:nice_travel/widgets/ShowToast.dart';
 import 'package:nice_travel/widgets/ValidateField.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';

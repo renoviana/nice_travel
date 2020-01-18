@@ -4,7 +4,7 @@ import 'package:nice_travel/controller/travel/ListDayScheduleBloc.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/pages/travel/dayschedule/DayScheduleDetails.dart';
+import 'package:nice_travel/pages/common/dayschedule/DayScheduleDetails.dart';
 import 'package:nice_travel/widgets/ErrorConnection.dart';
 import 'package:nice_travel/widgets/Loading.dart';
 

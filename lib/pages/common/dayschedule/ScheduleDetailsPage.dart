@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/travel/dayschedule/ButtonBarScheduleDay.dart';
+import 'package:nice_travel/pages/common/dayschedule/ButtonBarScheduleDay.dart';
 import 'package:nice_travel/util/FormatUtil.dart';
 import 'package:nice_travel/widgets/CustomBoxShadow.dart';
 import 'package:scoped_model/scoped_model.dart';

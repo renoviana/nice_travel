@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/travel/activity/ActivityTimeline.dart';
+import 'package:nice_travel/pages/common/activity/ActivityTimeline.dart';
 import 'package:nice_travel/widgets/ModalDialog.dart';
 import 'package:nice_travel/widgets/ShowToast.dart';
 import 'package:nice_travel/widgets/ValidateLoginAction.dart';

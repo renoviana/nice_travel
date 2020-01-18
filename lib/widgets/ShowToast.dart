@@ -4,7 +4,7 @@ import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/login/SignIn.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/travel/dayschedule/ScheduleDetailsPage.dart';
+import 'package:nice_travel/pages/common/dayschedule/ScheduleDetailsPage.dart';
 import 'package:nice_travel/widgets/showCircularProgress.dart';
 
 void showToastMessage(String message, GlobalKey<ScaffoldState> _scaffoldKey) {
@@ -41,21 +41,21 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
           const Text('Para alterar é necessário adicionar esse cronograma.'),
       action: SnackBarAction(
           label: 'Adicionar',
-          onPressed: () => _duplicateAction(context, model, schedule)),
+          onPressed: () => _duplicate(context, model, schedule)),
     ),
   );
 }
 
-void _duplicateAction(
+void _duplicate(
     BuildContext context, UserModel model, Schedule schedule) {
   showCircularProgress(context);
   ScheduleApiConnection.instance
       .duplicateSchedule(schedule.scheduleCod, model.sessionUser)
       .then((scheduleCreated) =>
-          _navigateToSchedulePage(context, model, scheduleCreated));
+          _navigateToDaySchedulePage(context, model, scheduleCreated));
 }
 
-void _navigateToSchedulePage(
+void _navigateToDaySchedulePage(
     BuildContext context, UserModel model, Schedule scheduleCreated) {
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => DaySchedulePage(scheduleCreated), settings: RouteSettings(name: "/daySchedulePage")),

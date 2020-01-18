@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
-import 'package:nice_travel/pages/travel/card/AutoCompleteField.dart';
+import 'package:nice_travel/pages/common/card/AutoCompleteField.dart';
 
 class ScheduleCard extends StatelessWidget {
 
