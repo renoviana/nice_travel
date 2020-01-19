@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
@@ -85,36 +86,46 @@ class _DaySchedulePageState extends State<DaySchedulePage>
 
   Widget imageAppBar(BuildContext context) {
     return ScopedModelDescendant<UserModel>(builder: (context, child, model) {
-      return Container(
-          height: _heigthAppBar,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      cityNameTitle(),
-                      priceScheduleSubTitle(),
-                    ]),
-              ),
-            ],
-          ),
-          decoration: BoxDecoration(
-            boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(1), BlendMode.dstATop),
-                image: CachedNetworkImageProvider(trip.imageUrl)),
-          ));
+      return CarouselSlider.builder(
+        itemCount: trip.imagesUrl.length,
+        height: 240,
+        aspectRatio: 16 / 9,
+        viewportFraction: 0.8,
+        autoPlay: true,
+        pauseAutoPlayOnTouch: Duration(seconds: 10),
+        enlargeCenterPage: true,
+        itemBuilder: (BuildContext context, int itemIndex) => Container(
+            margin: EdgeInsets.symmetric(horizontal:3.0),
+            height: _heigthAppBar,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        cityNameTitle(),
+                        priceScheduleSubTitle(),
+                      ]),
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(
+              boxShadow: [CustomWidgets.buildBoxShadow(3.0)],
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(1), BlendMode.dstATop),
+                  image: CachedNetworkImageProvider(trip.imagesUrl[itemIndex])),
+            )),
+      );
     });
   }
 

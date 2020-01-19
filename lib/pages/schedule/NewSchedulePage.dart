@@ -51,7 +51,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
                 autoCompleteBloc.setCityInputStatus.add(true);
               },
             )),
-        () => changeCity());
+            () => changeCity());
     _field = autoCompleteField.field;
     _qtdDaysController = new TextEditingController();
     _qtdDaysController.addListener(updateProductModelValue);
@@ -138,7 +138,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
         height: 45,
         //Wrap with Material
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
         elevation: 12.0,
         color: Colors.blue,
         clipBehavior: Clip.antiAlias,
@@ -173,12 +173,23 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
       showCircularProgress(context);
       ScheduleApiConnection.instance
           .createSchedule(_placeId, _qtdDays, model.sessionUser)
-          .then((_) => {
-                Navigator.pop(context),
-                Navigator.pop(context),
-              });
+          .then((_) => _afterSuccessSave())
+          .catchError((error) => _showErrorMessage(error));
     } else {
       showToastMessage("É necessário preencher todos os campos", _scaffoldKey);
     }
+  }
+
+  _showErrorMessage(error) {
+    Navigator.pop(context);
+    print(error);
+    showToastMessage('Erro ao tentar salvar esse crongrama. '
+        '\nPor favor, tente mais tarde.', _scaffoldKey);
+
+  }
+
+  _afterSuccessSave() {
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 }

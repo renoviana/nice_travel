@@ -95,6 +95,6 @@ class ScheduleListItem extends StatelessWidget {
         fit: BoxFit.cover,
         colorFilter: new ColorFilter.mode(
             Colors.white.withOpacity(0.8), BlendMode.dstATop),
-        image: CachedNetworkImageProvider(this.schedule.imageUrl));
+        image: CachedNetworkImageProvider(this.schedule.firstImage));
   }
 }

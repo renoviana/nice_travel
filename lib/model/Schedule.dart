@@ -6,7 +6,7 @@ import 'package:nice_travel/util/FormatUtil.dart';
 class Schedule {
   int scheduleCod;
   int qtdDays;
-  String imageUrl;
+  List<String> imagesUrl = [];
   String cityAddress;
   double priceFinal;
   String userName;
@@ -18,9 +18,10 @@ class Schedule {
     this.qtdDays = 1;
   }
 
+  get firstImage => imagesUrl != null ? imagesUrl.first : '';
+
   Schedule(ScheduleJson scheduleJson) {
     this.qtdDays = scheduleJson.qtdDays;
-    this.imageUrl = scheduleJson.imageUrl;
     this.cityAddress = scheduleJson.cityAddress;
     this.priceFinal = scheduleJson.priceFinal;
     this.scheduleCod = scheduleJson.scheduleCod;
