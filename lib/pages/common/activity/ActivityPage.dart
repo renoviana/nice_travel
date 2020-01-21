@@ -286,16 +286,16 @@ class _ActivityPageState extends State<ActivityPage> {
           border: OutlineInputBorder()),
       initialValue: _activity.styleActivity.toUpperCase(),
       hint: Text('Select Gender'),
-      onChanged: (tp) => _activity.styleActivity = tp,
+      onChanged: (tp) => _activity.styleActivity = tp.styleLabel,
       validators: [FormBuilderValidators.required()],
       items: getStyleDescription()
           .map((tp) => DropdownMenuItem(
-              value: tp,
+              value: tp.styleLabel,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  IconStyleActivity(tp).icon,
-                  Text("$tp"),
+                  IconStyleActivity(tp.styleLabel).icon,
+                  Text("${tp.portugueseLabel}"),
                 ],
               )))
           .toList(),
