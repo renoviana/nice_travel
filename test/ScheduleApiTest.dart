@@ -6,28 +6,58 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nice_travel/integration/ScheduleApiConnection.dart';
-import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/model/SessionUser.dart';
+import 'package:nice_travel/integration/json/ScheduleJson.dart';
 
 void main() {
-  test('Test get schedule by city name', () async {
-    List<Schedule> schedules =
-        await ScheduleApiConnection.instance.getScheduleByCityPlaceID("Salvador", sizeElements: 1);
-    String salvador = "Salvador";
-    expect(schedules.first.cityAddress, salvador);
+  test('Test parse Json to Schedules', () async {
+
+    var json = '['
+        '{"qtdDays":3,'
+        '"imagesUrl":["https://maps.googleapis.com/maps/api/place/photo?maxwidth=700&photoreference=CmRaAAAApZaFWraXjWYszVV4FFasUKauO3pcBJ_7d7OnzX_yeH8Fsi_yplT9Uh6IFUeY4HyvHfW_pp_MgSUAX9NgdiO0jZl4fEn52HdAuJ_Ccakbtg2FYEYdmQBcdSY-uXPMmvjnEhDYTQ73KBSQo6GMVCgtb1VHGhR1dQqEAGax5cpEsZHOIdEmQqg5Ig&key=AIzaSyC9b4oUjYYnSj5jLqdUidl4Wdy1cEskoJI"],'
+        '"cityAddress":"Cocos, BA, 47680-000, Brazil",'
+        '"scheduleCod":26,'
+        '"priceFinal":9.99,'
+        '"userUID":"123456",'
+        '"userName": "Thiago",'
+        '"numberStar":1,'
+        '"publish":true},'
+        '{"qtdDays":5,'
+        '"imagesUrl":["https://maps.googleapis.com/maps/api/place/photo?maxwidth=700&photoreference=CmRaAAAApZaFWraXjWYszVV4FFasUKauO3pcBJ_7d7OnzX_yeH8Fsi_yplT9Uh6IFUeY4HyvHfW_pp_MgSUAX9NgdiO0jZl4fEn52HdAuJ_Ccakbtg2FYEYdmQBcdSY-uXPMmvjnEhDYTQ73KBSQo6GMVCgtb1VHGhR1dQqEAGax5cpEsZHOIdEmQqg5Ig&key=AIzaSyC9b4oUjYYnSj5jLqdUidl4Wdy1cEskoJI"],'
+        '"cityAddress":"Cocos, BA, 47680-000, Brazil",'
+        '"scheduleCod":27,'
+        '"priceFinal":10.99,'
+        '"userUID":"123456",'
+        '"userName": "Thiago",'
+        '"numberStar":1,'
+        '"publish":true}'
+        ''
+        ']';
+    var scheduleList = ScheduleJson().parseScheduleJsonToSchedules(json);
+
+    expect(scheduleList.length, 2);
+    expect(scheduleList[0], isNot(scheduleList[1]));
   });
 
-  test('Test create schedule ', () async {
-    final response =
-        await ScheduleApiConnection.instance.createSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2, new SessionUser("joão", "joao@mail", "123", "123"));
-    String mockReturn =
-        """{"qtdDays":2,"imageUrl":"https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV","nameCity":"ChIJrTLr-GyuEmsRBfy61i59si0","scheduleCod":1,"priceFinal":null}""";
-    expect(mockReturn, response);
-  });
+  test('Test parse Json to Schedule', () async {
+    var json = '{"qtdDays":3,'
+        '"imagesUrl":["https://maps.googleapis.com/maps/api/place/photo?maxwidth=700&photoreference=CmRaAAAApZaFWraXjWYszVV4FFasUKauO3pcBJ_7d7OnzX_yeH8Fsi_yplT9Uh6IFUeY4HyvHfW_pp_MgSUAX9NgdiO0jZl4fEn52HdAuJ_Ccakbtg2FYEYdmQBcdSY-uXPMmvjnEhDYTQ73KBSQo6GMVCgtb1VHGhR1dQqEAGax5cpEsZHOIdEmQqg5Ig&key=AIzaSyC9b4oUjYYnSj5jLqdUidl4Wdy1cEskoJI"],'
+        '"cityAddress":"Cocos, BA, 47680-000, Brazil",'
+        '"scheduleCod":26,'
+        '"priceFinal":9.99,'
+        '"userUID":"123456",'
+        '"userName": "Thiago",'
+        '"numberStar":1,'
+        '"publish":true}';
+    var schedule = ScheduleJson().parseScheduleJsonToSchedule(json);
 
-  test('Test publish schedule ', () async {
-    final response = await ScheduleApiConnection.instance.publishSchedule(1);
-    expect("true", response);
+    expect(schedule.qtdDays, 3);
+    expect(schedule.imagesUrl[0], contains('googleapis'));
+    expect(schedule.cityAddress, 'Cocos, BA, 47680-000, Brazil');
+    expect(schedule.scheduleCod, 26);
+    expect(schedule.priceFinal, 9.99);
+    expect(schedule.userUID, '123456');
+    expect(schedule.userName, 'Thiago');
+    expect(schedule.numberStar, 1);
+    expect(schedule.isPublish, true);
   });
 }
