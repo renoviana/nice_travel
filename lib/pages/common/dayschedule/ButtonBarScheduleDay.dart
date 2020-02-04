@@ -134,6 +134,7 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
   Widget buildRemoverButton(UserModel model, BuildContext context) {
     if (isOwner(model)) {
       return MaterialButton(
+        key: Key('remover_schedule_day'),
         child: Column(
           children: <Widget>[
             Icon(
@@ -190,6 +191,7 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
 
   Widget createIconAddDay(UserModel model, BuildContext context) {
     return MaterialButton(
+      key: Key("add_schedule_day"),
       child: Column(
         children: <Widget>[
           Icon(

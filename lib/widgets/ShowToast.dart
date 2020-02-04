@@ -40,6 +40,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
       content:
           const Text('Para alterar é necessário adicionar esse cronograma.'),
       action: SnackBarAction(
+          key: Key('adicionar_snackbar'),
           label: 'Adicionar',
           onPressed: () => _duplicate(context, model, schedule)),
     ),
