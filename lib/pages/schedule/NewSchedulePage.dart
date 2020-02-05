@@ -118,7 +118,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
                   runSpacing: 20,
                   runAlignment: WrapAlignment.start,
                   children: <Widget>[
-                    Container(child: _field),
+                    Container(key: Key("new_schedule_name_field"), child: _field),
                     _buildQtdDaysText(),
                   ],
                 ),
@@ -135,6 +135,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
     return Padding(
       padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
       child: MaterialButton(
+        key: Key('save_new_schedule'),
         height: 45,
         //Wrap with Material
         shape:
@@ -154,6 +155,7 @@ class _NewSchedulePageState extends State<NewSchedulePage> {
 
   _buildQtdDaysText() {
     return new TextFormField(
+      key: Key("new_schedule_day_field"),
       validator: validateRequiredField,
       controller: _qtdDaysController,
       maxLength: 2,

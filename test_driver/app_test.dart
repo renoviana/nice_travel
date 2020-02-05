@@ -24,14 +24,28 @@ void main() {
       final menuButton = find.byValueKey("menu_button");
       final cronogramasButton = find.byValueKey("DrawerTile_1");
       final newScheduleButton = find.byValueKey("new_schedule_button");
+      final scheduleNameField = find.byValueKey("new_schedule_name_field");
+      final autocompleteField = find.byValueKey("autocomplete_field_07fd9f6c6674a7c95962aa56a701da7cb752f98b");
+      final dayField = find.byValueKey("new_schedule_day_field");
+      final saveNewSchedule = find.byValueKey("save_new_schedule");
 
 
       await tapWithDelay(driver, menuButton );
       await tapWithDelay(driver, cronogramasButton );
       await tapWithDelay(driver, newScheduleButton );
+      await enterText(driver, scheduleNameField, "Salvador");
+      await tapWithDelay(driver, autocompleteField );
+      await enterText(driver, dayField, "3");
+      await tapWithDelay(driver, saveNewSchedule );
       sleep(const Duration(seconds: 5));
     });
   });
+}
+
+Future enterText(FlutterDriver driver, SerializableFinder scheduleNameField, String text) async {
+  await tapWithDelay(driver, scheduleNameField);
+  driver.enterText(text);
+  sleep(const Duration(seconds: 2));
 }
 
 Future testReplicateSchedule(FlutterDriver driver) async {

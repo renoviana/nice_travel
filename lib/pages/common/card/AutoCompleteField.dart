@@ -74,6 +74,7 @@ class AutoCompleteField {
   Widget itemBuilder(BuildContext context, GooglePlacesModel suggestion) {
     return Visibility(
       child: new ListTile(
+        key: Key('autocomplete_field_${suggestion.id}'),
         title: Text(suggestion.description),
 //       trailing: Text(suggestion.terms[1].value),
       ),
