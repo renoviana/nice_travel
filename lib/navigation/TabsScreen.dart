@@ -11,7 +11,8 @@ class TabsScreen extends StatefulWidget {
 
 class TabsScreenState extends State<TabsScreen> {
   final _pageController = PageController();
-  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  var _scaffoldViagemKey = new GlobalKey<ScaffoldState>();
+  var _scaffoldCronogramaKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +20,18 @@ class TabsScreenState extends State<TabsScreen> {
       controller: _pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        buildViagem(),
-        buildCronograma(),
+        buildViagem(context),
+        buildCronograma(context),
       ],
     );
   }
 
-  Scaffold buildViagem() {
+  Scaffold buildViagem(BuildContext context) {
     return Scaffold(
+      key: _scaffoldViagemKey,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        leading: _buildMenuLeadingButton(context),
         title: Text("Nice Travel"),
         actions: <Widget>[
           IconButton(
@@ -42,15 +45,30 @@ class TabsScreenState extends State<TabsScreen> {
     );
   }
 
-  Scaffold buildCronograma() {
+  void _handleDrawerButton(BuildContext context) => _scaffoldViagemKey.currentState != null
+      ? _scaffoldViagemKey.currentState?.openDrawer()
+      : _scaffoldCronogramaKey.currentState?.openDrawer();
+
+  Scaffold buildCronograma(BuildContext context) {
     return Scaffold(
+      key: _scaffoldCronogramaKey,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        leading: _buildMenuLeadingButton(context),
         title: Text("Nice Travel"),
       ),
       body: SchedulePage(),
       drawer: CustomDrawer(_pageController),
     );
+  }
+
+  IconButton _buildMenuLeadingButton(BuildContext context) {
+    return IconButton(
+        key: Key("menu_button"),
+        icon: const Icon(Icons.menu),
+        onPressed: () => _handleDrawerButton(context),
+        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+      );
   }
 
 }

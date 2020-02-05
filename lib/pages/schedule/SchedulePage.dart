@@ -22,6 +22,7 @@ class _SchedulePageState extends State<SchedulePage> {
         key: _scaffoldKey,
         body: MyScheduleList(model),
         floatingActionButton: FloatingActionButton(
+          key: Key("new_schedule_button"),
           onPressed: () => validateLoginAction(
               context,
               model,

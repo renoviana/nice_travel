@@ -4,41 +4,42 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  isPresent(SerializableFinder byValueKey, FlutterDriver driver,
-      {Duration timeout = const Duration(seconds: 1)}) async {
-    try {
-      await driver.waitFor(byValueKey, timeout: timeout);
-      return true;
-    } catch (exception) {
-      return false;
+  FlutterDriver driver;
+
+  setUpAll(() async {
+    driver = await FlutterDriver.connect();
+  });
+
+  tearDownAll(() async {
+    if (driver != null) {
+      driver.close();
     }
-  }
+  });
 
+//  testReplicateSchedule(driver);
+
+
+  group('Test new Schedule Day', () {
+    test('new Schedule Day', () async {
+      final menuButton = find.byValueKey("menu_button");
+      final cronogramasButton = find.byValueKey("DrawerTile_1");
+      final newScheduleButton = find.byValueKey("new_schedule_button");
+
+
+      await tapWithDelay(driver, menuButton );
+      await tapWithDelay(driver, cronogramasButton );
+      await tapWithDelay(driver, newScheduleButton );
+      sleep(const Duration(seconds: 5));
+    });
+  });
+}
+
+Future testReplicateSchedule(FlutterDriver driver) async {
   group('Test Replicate Schedule', () {
-    // First, define the Finders and use them to locate widgets from the
-    // test suite. Note: the Strings provided to the `byValueKey` method must
-    // be the same as the Strings we used for the Keys in step 1.
-
-    FlutterDriver driver;
-
-
-    // Connect to the Flutter driver before running any tests.
-    setUpAll(() async {
-      driver = await FlutterDriver.connect();
-      driver.requestData("UserModel.newInstance");
-    });
-
-    // Close the connection to the driver after the tests have completed.
-    tearDownAll(() async {
-      if (driver != null) {
-        driver.close();
-      }
-    });
-
     test('show Schedule List', () async {
       final scheduleList = find.byType("ScheduleList");
       final cityScheduleItem = find.text("Cocos, BA, 47680-000, Brazil");
-      expect(await isPresent(scheduleList, driver), isTrue);
+      await verifyIfPresent(driver, scheduleList);
       await tapWithDelay(driver, cityScheduleItem);
     });
 
@@ -48,8 +49,8 @@ void main() {
       final addDayButton = find.byValueKey("add_schedule_day");
       final adicionarButton = find.byValueKey("adicionar_snackbar");
 
-      expect(await isPresent(daySchedulePage, driver), isTrue);
-      expect(await isPresent(buttonBarScheduleDay, driver), isTrue);
+      await verifyIfPresent(driver, daySchedulePage);
+      await verifyIfPresent(driver, buttonBarScheduleDay);
 
       await tapWithDelay(driver, addDayButton);
       await tapWithDelay(driver, adicionarButton);
@@ -61,19 +62,33 @@ void main() {
       final removeButton = find.byValueKey("remover_schedule_day");
       final removerModalButton = find.text("OK");
 
-      expect(await isPresent(daySchedulePage, driver), isTrue);
-      expect(await isPresent(buttonBarScheduleDay, driver), isTrue);
+      await verifyIfPresent(driver, daySchedulePage);
+      await verifyIfPresent(driver, buttonBarScheduleDay);
 
       await tapWithDelay(driver, removeButton);
-      driver.waitFor(removerModalButton);
       await tapWithDelay(driver, removerModalButton);
     });
-
   });
 }
 
+isPresent(SerializableFinder finder, FlutterDriver driver,
+    {Duration timeout = const Duration(seconds: 2)}) async {
+  try {
+    await driver.waitFor(finder, timeout: timeout);
+    return true;
+  } catch (exception) {
+    print('Erro ao buscar o elemento: ${finder.finderType}');
+    return false;
+  }
+}
+
+Future verifyIfPresent(
+    FlutterDriver driver, SerializableFinder scheduleList) async {
+  expect(await isPresent(scheduleList, driver), isTrue);
+}
+
 tapWithDelay(FlutterDriver driver, SerializableFinder button) async {
-  driver.waitFor(button);
+  expect(await isPresent(button, driver), isTrue);
   await driver.tap(button);
   sleep(const Duration(seconds: 1));
 }

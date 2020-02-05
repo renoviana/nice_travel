@@ -116,10 +116,8 @@ class CustomDrawer extends StatelessWidget {
       builder: (context, elements) {
         if (elements.hasData) {
           List<Widget> drawerTiles = [];
-          elements.data.forEach((tab) => {
-                drawerTiles.add(DrawerTile(
-                    tab.icon, tab.name, pageController, tab.pageId, tab.qtd))
-              });
+          elements.data.forEach((tab) =>
+                drawerTiles.add(drawerTile(tab)));
           return Column(
             children: drawerTiles,
           );
@@ -128,5 +126,14 @@ class CustomDrawer extends StatelessWidget {
         }
       },
     );
+  }
+
+  DrawerTile drawerTile(TabModel tab) {
+    return DrawerTile(tab.icon,
+                  tab.name,
+                  pageController,
+                  tab.pageId,
+                  tab.qtd,
+              key: Key("DrawerTile_${tab.pageId}"));
   }
 }

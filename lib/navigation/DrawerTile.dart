@@ -7,7 +7,7 @@ class DrawerTile extends StatelessWidget {
   final int page;
   final int qtd;
 
-  DrawerTile(this.icon, this.text, this.controller, this.page, this.qtd);
+  const DrawerTile(this.icon, this.text, this.controller, this.page, this.qtd, { Key key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
