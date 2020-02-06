@@ -52,7 +52,7 @@ class DayScheduleList extends StatelessWidget {
         items: snapshot.data,
         itemExtent: 105.0,
         builder: (context, item) {
-          return DayScheduleDetails(item, _schedule, _scaffoldKey);
+          return DayScheduleDetails( item, _schedule, _scaffoldKey, key: Key("day_details_${item.day}"));
         },
         onItemReorder: (from, to) {
           var idFrom = snapshot.data[from].id;

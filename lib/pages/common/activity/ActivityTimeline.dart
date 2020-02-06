@@ -79,6 +79,7 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
                 ]),
                 actions: <Widget>[
                   IconButton(
+                    key: Key("new_activity"),
                     onPressed: () => validateLoginAction(
                         context,
                         model,

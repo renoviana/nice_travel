@@ -53,6 +53,7 @@ class MyScheduleList extends StatelessWidget {
 
   ListView buildList(ApiResponse<List<Schedule>> snapshot) {
      return ListView.builder(
+       key: Key("my_schedule_list"),
       itemBuilder: (BuildContext context, int index) {
         return ScheduleListItem(snapshot.data[index]);
       },

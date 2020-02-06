@@ -83,6 +83,7 @@ class _ActivityPageState extends State<ActivityPage> {
       ),
       body: builtActivity(),
       floatingActionButton: FloatingActionButton(
+        key: Key("save_activity_button"),
         onPressed: () => save(context),
         child: Icon(Icons.save),
         backgroundColor: Colors.blue,
@@ -183,6 +184,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   Widget _builtDescriptionText() {
     return TextFormField(
+      key: Key("description_text"),
       controller: _descriptionController,
       maxLines: 10,
       validator: validateRequiredField,
@@ -197,6 +199,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   Widget _builtNameText() {
     return TextFormField(
+      key: Key("activity_name_text"),
       controller: _nameController,
       validator: validateRequiredField,
       decoration: InputDecoration(
@@ -210,6 +213,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   _builtPriceText() {
     return TextField(
+      key: Key("price_text"),
         textAlign: TextAlign.justify,
         decoration: InputDecoration(
             labelText: "Preço diário",
@@ -225,6 +229,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   _builtTimeInicio() {
     return DateTimeField(
+      key: Key("date_start_text"),
       readOnly: true,
       decoration: InputDecoration(
           labelText: 'Início da atividade',
@@ -246,6 +251,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   _builtTimeFim() {
     return DateTimeField(
+      key: Key("date_end_text"),
       readOnly: true,
       decoration: InputDecoration(
           labelText: 'Fim da atividade',
@@ -279,6 +285,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   _builtStyleActivity() {
     return FormBuilderDropdown(
+      key: Key("style_dropdown"),
       attribute: "atividade",
       decoration: InputDecoration(
           labelText: 'Tipo da atividade',
