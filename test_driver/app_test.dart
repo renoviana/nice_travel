@@ -61,6 +61,11 @@ void main() {
       await createNewActivity(driver);
       sleepEndTest(duration: 3);
     });
+
+    test('delete Activity', () async {
+      await deleteActivityByName(driver, "Café da manhã");
+      sleepEndTest(duration: 3);
+    });
   });
 }
 

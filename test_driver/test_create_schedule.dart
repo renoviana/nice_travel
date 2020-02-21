@@ -1,4 +1,3 @@
-
 import 'package:flutter_driver/flutter_driver.dart';
 
 import 'test_util.dart';
@@ -39,10 +38,10 @@ Future goToScheduleDayDetail(FlutterDriver driver) async {
   final cityScheduleItem = find.text("Salvador, State of Bahia, Brazil");
 
   await verifyIfPresent(driver, myScheduleList);
-  await driver.scrollUntilVisible(myScheduleList,cityScheduleItem, dyScroll: -400.0);
+  await driver.scrollUntilVisible(myScheduleList, cityScheduleItem,
+      dyScroll: -400.0);
   await tapWithDelay(driver, cityScheduleItem);
 }
-
 
 Future createNewActivity(FlutterDriver driver) async {
   final newActivityButton = find.byValueKey("new_activity");
@@ -57,14 +56,27 @@ Future createNewActivity(FlutterDriver driver) async {
   final saveActivityButton = find.byValueKey("save_activity_button");
 
   await tapWithDelay(driver, newActivityButton);
-  await enterText(driver, activityNameText , "Café da manhã");
-  await enterText(driver, priceText , "30.0");
+  await enterText(driver, activityNameText, "Café da manhã");
+  await enterText(driver, priceText, "30.0");
   await tapWithDelay(driver, dateEndText);
   await tapWithDelay(driver, okDate);
   await tapWithDelay(driver, dateStartText);
   await tapWithDelay(driver, okDate);
   await tapWithDelay(driver, styleDropdown);
   await tapWithDelay(driver, restauranteSelect);
-  await enterText(driver, descriptionText , "Café da manhã no hotel.");
+  await enterText(driver, descriptionText, "Café da manhã no hotel.");
   await tapWithDelay(driver, saveActivityButton);
+}
+
+Future deleteActivityByName(FlutterDriver driver, String nameActivity) async {
+  final activity = find.text(nameActivity);
+  await tapWithDelay(driver, activity);
+
+  final activityScroll = find.byValueKey("new_acitivy_scroll");
+  final deleteActivityButton = find.byValueKey("delete_activity_button");
+  await driver.scrollUntilVisible(activityScroll, deleteActivityButton,
+      dyScroll: -400.0);
+  final removerModalButton = find.text("OK");
+  await tapWithDelay(driver, deleteActivityButton);
+  await tapWithDelay(driver, removerModalButton);
 }

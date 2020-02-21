@@ -93,6 +93,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   builtActivity() {
     return SingleChildScrollView(
+      key: Key("new_acitivy_scroll"),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -126,6 +127,7 @@ class _ActivityPageState extends State<ActivityPage> {
       return Padding(
         padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
         child: MaterialButton(
+          key: Key('delete_activity_button'),
           height: 45,
           //Wrap with Material
           shape:
@@ -293,7 +295,7 @@ class _ActivityPageState extends State<ActivityPage> {
           border: OutlineInputBorder()),
       initialValue: _activity.styleActivity.toUpperCase(),
       hint: Text('Select Gender'),
-      onChanged: (tp) => _activity.styleActivity = tp.styleLabel,
+      onChanged: (tp) => _activity.styleActivity = tp,
       validators: [FormBuilderValidators.required()],
       items: getStyleDescription()
           .map((tp) => DropdownMenuItem(
