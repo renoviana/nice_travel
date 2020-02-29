@@ -27,6 +27,12 @@ Future addNewScheduleDay(FlutterDriver driver) async {
   await tapWithDelay(driver, addDayButton);
 }
 
+Future goBackScheduleList(FlutterDriver driver) async {
+  final backButton = find.byValueKey("schedule_back_button_3");
+
+  await tapWithDelay(driver, backButton, timeout: Duration(seconds: 6));
+}
+
 
 Future goBackScheduleDay(FlutterDriver driver) async {
   final backButton = find.byValueKey("activity_timeline_back_button");

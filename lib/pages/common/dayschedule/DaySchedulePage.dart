@@ -103,6 +103,11 @@ class _DaySchedulePageState extends State<DaySchedulePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AppBar(
+                  leading: new IconButton(
+                    key: Key("schedule_back_button_$itemIndex"),
+                    icon: new Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                 ),

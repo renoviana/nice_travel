@@ -18,27 +18,27 @@ void main() {
     }
   });
 
-  group('Test Replicate Schedule -> ', () {
-    test('show Schedule List', () async {
-      await showScheduleList(driver);
-      sleepEndTest();
-    });
-
-    test('duplicate Schedule', () async {
-      await duplicateScheduleDay(driver);
-      sleepEndTest();
-    });
-
-    test('remove Schedule ', () async {
-      await removeSchedule(driver);
-      sleepEndTest();
-    });
-
-    sleepEndTest(duration: 2);
-  });
+//  group('Test Replicate Schedule -> ', () {
+//    test('show Schedule List', () async {
+//      await showScheduleList(driver);
+//      sleepEndTest();
+//    });
+//
+//    test('duplicate Schedule', () async {
+//      await duplicateScheduleDay(driver);
+//      sleepEndTest();
+//    });
+//
+//    test('remove Schedule ', () async {
+//      await removeSchedule(driver);
+//      sleepEndTest();
+//    });
+//
+//    sleepEndTest(duration: 2);
+//  });
 
   group('Test new Schedule -> ', () {
-    test('go to my Schedule', () async {
+    test('go to my Schedule List ', () async {
       await goToMySchedule(driver);
       sleepEndTest();
     });
@@ -55,6 +55,11 @@ void main() {
 
     test('publish Schedule', () async {
       await publishSchedule(driver);
+      sleepEndTest();
+    });
+
+    test('go back schedule List', () async {
+      await goBackScheduleList(driver);
       sleepEndTest();
     });
 
@@ -77,6 +82,17 @@ void main() {
       await addNewScheduleDay(driver);
       sleepEndTest();
     });
+
+    test('go back Schedule Day', () async {
+      await goBackScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    test('go back schedule List', () async {
+      await goBackScheduleList(driver);
+      sleepEndTest();
+    });
+
 
     sleepEndTest(duration: 3);
 

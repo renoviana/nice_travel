@@ -21,13 +21,13 @@ Future verifyIfPresent(
   expect(await isPresent(scheduleList, driver), isTrue);
 }
 
-tapWithDelay(FlutterDriver driver, SerializableFinder button) async {
-  expect(await isPresent(button, driver), isTrue);
-  await driver.tap(button);
+tapWithDelay(FlutterDriver driver, SerializableFinder button, {Duration timeout: const Duration(seconds: 1)}) async {
+  expect(await isPresent(button, driver, timeout: timeout), isTrue, );
+  await driver.tap(button, timeout: timeout);
   sleep(const Duration(seconds: 1));
 }
 
-void sleepEndTest({int duration = 1}) {
+void sleepEndTest({int duration = 2}) {
   sleep(Duration(seconds: duration));
 }
 
