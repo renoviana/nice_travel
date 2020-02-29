@@ -287,7 +287,7 @@ class _ActivityPageState extends State<ActivityPage> {
 
   _builtStyleActivity() {
     return FormBuilderDropdown(
-      key: Key("style_dropdown"),
+//      key: Key("style_dropdown"),
       attribute: "atividade",
       decoration: InputDecoration(
           labelText: 'Tipo da atividade',

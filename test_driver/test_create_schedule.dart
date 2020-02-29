@@ -2,7 +2,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 
 import 'test_util.dart';
 
-Future goToMyScheduleDay(FlutterDriver driver) async {
+Future goToMySchedule(FlutterDriver driver) async {
   final menuButton = find.byValueKey("menu_button");
   final cronogramasButton = find.byValueKey("DrawerTile_1");
   await tapWithDelay(driver, menuButton);
@@ -10,7 +10,7 @@ Future goToMyScheduleDay(FlutterDriver driver) async {
   sleepEndTest();
 }
 
-Future testNewScheduleDay(FlutterDriver driver) async {
+Future testNewSchedule(FlutterDriver driver) async {
   final newScheduleButton = find.byValueKey("new_schedule_button");
   final scheduleNameField = find.byValueKey("new_schedule_name_field");
   final autocompleteField = find.byValueKey(
@@ -25,6 +25,7 @@ Future testNewScheduleDay(FlutterDriver driver) async {
   await tapWithDelay(driver, saveNewSchedule);
 }
 
+
 Future goToActivityDay(FlutterDriver driver) async {
   final daySchedulePage = find.byType("DaySchedulePage");
   final dayDetails = find.byValueKey("day_details_1");
@@ -33,7 +34,7 @@ Future goToActivityDay(FlutterDriver driver) async {
   await tapWithDelay(driver, dayDetails);
 }
 
-Future goToScheduleDayDetail(FlutterDriver driver) async {
+Future goToScheduleDetail(FlutterDriver driver) async {
   final myScheduleList = find.byValueKey("my_schedule_list");
   final cityScheduleItem = find.text("Salvador, State of Bahia, Brazil");
 
@@ -43,6 +44,15 @@ Future goToScheduleDayDetail(FlutterDriver driver) async {
   await tapWithDelay(driver, cityScheduleItem);
 }
 
+Future publishSchedule(FlutterDriver driver) async {
+  final publishButton = find.byValueKey("publish_schedule_button");
+  await tapWithDelay(driver, publishButton);
+  final title = find.text("Deseja tornar esse cronograma público?");
+  final okModalButton = find.text("OK");
+  await verifyIfPresent(driver, title);
+  await tapWithDelay(driver, okModalButton);
+}
+
 Future createNewActivity(FlutterDriver driver) async {
   final newActivityButton = find.byValueKey("new_activity");
   final activityNameText = find.byValueKey("activity_name_text");
@@ -50,7 +60,7 @@ Future createNewActivity(FlutterDriver driver) async {
   final dateEndText = find.byValueKey("date_end_text");
   final dateStartText = find.byValueKey("date_start_text");
   final okDate = find.text("OK");
-  final styleDropdown = find.byValueKey("style_dropdown");
+  final styleDropdown = find.byType("FormBuilderDropdown");
   final restauranteSelect = find.text("Restaurante");
   final descriptionText = find.byValueKey("description_text");
   final saveActivityButton = find.byValueKey("save_activity_button");
@@ -74,9 +84,12 @@ Future deleteActivityByName(FlutterDriver driver, String nameActivity) async {
 
   final activityScroll = find.byValueKey("new_acitivy_scroll");
   final deleteActivityButton = find.byValueKey("delete_activity_button");
+  final title = find.text("Deseja remover essa atividade?");
+
   await driver.scrollUntilVisible(activityScroll, deleteActivityButton,
       dyScroll: -400.0);
   final removerModalButton = find.text("OK");
   await tapWithDelay(driver, deleteActivityButton);
+  await verifyIfPresent(driver, title);
   await tapWithDelay(driver, removerModalButton);
 }

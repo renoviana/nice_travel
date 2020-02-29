@@ -1,4 +1,5 @@
 
+
 import 'dart:io';
 
 import 'package:flutter_driver/flutter_driver.dart';
@@ -26,7 +27,7 @@ tapWithDelay(FlutterDriver driver, SerializableFinder button) async {
   sleep(const Duration(seconds: 1));
 }
 
-void sleepEndTest({int duration = 2}) {
+void sleepEndTest({int duration = 1}) {
   sleep(Duration(seconds: duration));
 }
 

@@ -1,7 +1,7 @@
-
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import 'test_copy_schedule.dart';
 import 'test_create_schedule.dart';
 import 'test_util.dart';
 
@@ -18,37 +18,78 @@ void main() {
     }
   });
 
-
-//  group('Test Replicate Schedule', () {
-//    test('show Schedule List', () async {
-//      await showScheduleList(driver);
-//      sleepEndTest(duration: 1);
-//    });
-//
-//    test('duplicate Schedule Day', () async {
-//      await duplicateScheduleDay(driver);
-//      sleepEndTest(duration: 1);
-//    });
-//
-//    test('remove Schedule Day', () async {
-//      await removeScheduleDay(driver);
-//    });
-//    sleepEndTest(duration: 2);
-//  });
-
-  group('Test new Schedule Day', () {
-    test('go to my Schedule day', () async {
-      await goToMyScheduleDay(driver);
+  group('Test Replicate Schedule -> ', () {
+    test('show Schedule List', () async {
+      await showScheduleList(driver);
       sleepEndTest();
     });
 
-//    test('create new Schedule Day', () async {
-//      await testNewScheduleDay(driver);
-//      sleepEndTest();
-//    });
+    test('duplicate Schedule', () async {
+      await duplicateScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    test('remove Schedule ', () async {
+      await removeSchedule(driver);
+      sleepEndTest();
+    });
+
+    sleepEndTest(duration: 2);
+  });
+
+  group('Test new Schedule -> ', () {
+    test('go to my Schedule', () async {
+      await goToMySchedule(driver);
+      sleepEndTest();
+    });
+
+    test('create new Schedule', () async {
+      await testNewSchedule(driver);
+      sleepEndTest();
+    });
+
+    test('go to Schedule Detail', () async {
+      await goToScheduleDetail(driver);
+      sleepEndTest();
+    });
+
+    test('publish Schedule', () async {
+      await publishSchedule(driver);
+      sleepEndTest();
+    });
+
+    sleepEndTest(duration: 3);
+
+  });
+
+  group('Test new Schedule Day -> ', () {
+    test('go to my Schedule', () async {
+      await goToMySchedule(driver);
+      sleepEndTest();
+    });
+
+    test('go to Schedule Detail', () async {
+      await goToScheduleDetail(driver);
+      sleepEndTest();
+    });
+
+    test('create new Schedule Day', () async {
+      await addNewScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    sleepEndTest(duration: 3);
+
+  });
+
+  group('Test new Activity -> ', () {
+    test('go to my Schedule', () async {
+      await goToMySchedule(driver);
+      sleepEndTest();
+    });
 
     test('go to Schedule Day Detail', () async {
-      await goToScheduleDayDetail(driver);
+      await goToScheduleDetail(driver);
       sleepEndTest();
     });
 
@@ -59,15 +100,33 @@ void main() {
 
     test('create Activity Timeline', () async {
       await createNewActivity(driver);
-      sleepEndTest(duration: 3);
     });
+    sleepEndTest(duration: 3);
+
+  });
+
+  group('Delete all -> ', () {
 
     test('delete Activity', () async {
       await deleteActivityByName(driver, "Café da manhã");
-      sleepEndTest(duration: 3);
+      sleepEndTest();
     });
+
+    test('go back Schedule Day', () async {
+      await goBackScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    test('remove Schedule Day', () async {
+      await removeScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    test('remove Schedule', () async {
+      await removeSchedule(driver);
+      sleepEndTest();
+    });
+
+    sleepEndTest(duration: 3);
   });
 }
-
-
-

@@ -74,6 +74,11 @@ class _ActivityTimelineState extends State<ActivityTimeline> {
             return Scaffold(
               key: _scaffoldKey,
               appBar: AppBar(
+                  leading: new IconButton(
+                    key: Key("activity_timeline_back_button"),
+                    icon: new Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                 title: Row(children: [
                   new Text('${_scheduleDay.day}º Dia '),
                 ]),

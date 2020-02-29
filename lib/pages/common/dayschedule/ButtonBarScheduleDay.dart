@@ -111,6 +111,7 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
   buildPublishButton(UserModel model, BuildContext context) {
     if (isOwner(model) && !_trip.isPublish) {
       return MaterialButton(
+        key: Key("publish_schedule_button"),
         child: Column(
           children: <Widget>[
             Icon(
@@ -134,7 +135,7 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
   Widget buildRemoverButton(UserModel model, BuildContext context) {
     if (isOwner(model)) {
       return MaterialButton(
-        key: Key('remover_schedule_day'),
+        key: Key('remover_schedule'),
         child: Column(
           children: <Widget>[
             Icon(

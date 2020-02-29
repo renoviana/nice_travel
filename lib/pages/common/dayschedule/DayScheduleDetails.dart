@@ -47,6 +47,7 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
 
   MaterialButton _buildRemoveButton(BuildContext context, UserModel model) {
     return MaterialButton(
+      key: Key("remover_schedule_day_${widget.scheduleDay.day}"),
         child: Icon(
           Icons.delete,
           color: Colors.red,
