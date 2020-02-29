@@ -18,24 +18,24 @@ void main() {
     }
   });
 
-//  group('Test Replicate Schedule -> ', () {
-//    test('show Schedule List', () async {
-//      await showScheduleList(driver);
-//      sleepEndTest();
-//    });
-//
-//    test('duplicate Schedule', () async {
-//      await duplicateScheduleDay(driver);
-//      sleepEndTest();
-//    });
-//
-//    test('remove Schedule ', () async {
-//      await removeSchedule(driver);
-//      sleepEndTest();
-//    });
-//
-//    sleepEndTest(duration: 2);
-//  });
+  group('Test Replicate Schedule -> ', () {
+    test('show Schedule List', () async {
+      await showScheduleList(driver);
+      sleepEndTest();
+    });
+
+    test('duplicate Schedule', () async {
+      await duplicateScheduleDay(driver);
+      sleepEndTest();
+    });
+
+    test('remove Schedule ', () async {
+      await removeSchedule(driver);
+      sleepEndTest();
+    });
+
+    sleepEndTest(duration: 2);
+  });
 
   group('Test new Schedule -> ', () {
     test('go to my Schedule List ', () async {
