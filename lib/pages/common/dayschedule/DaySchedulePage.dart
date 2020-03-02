@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/common/dayschedule/ButtonBarScheduleDay.dart';
@@ -158,13 +159,15 @@ class _DaySchedulePageState extends State<DaySchedulePage>
   }
 
   Widget priceScheduleSubTitle() {
-    return Text(
-      'Preço médio: R\$: ${getValueFormatted(trip.priceFinal)}',
-      style: TextStyle(
-          color: Colors.white,
-          fontFamily: "OpenSans",
-          fontSize: 14,
-          fontWeight: FontWeight.bold),
+    return Observer(
+      builder:(_) =>  Text(
+        'Preço médio: R\$: ${getValueFormatted(trip.priceFinal)}',
+        style: TextStyle(
+            color: Colors.white,
+            fontFamily: "OpenSans",
+            fontSize: 14,
+            fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

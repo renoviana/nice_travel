@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nice_travel/controller/travel/ListDayScheduleBloc.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/ScheduleDay.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/pages/common/activity/ActivityTimeline.dart';
 import 'package:nice_travel/pages/common/activity/IconStyleActivity.dart';

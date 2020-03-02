@@ -1,6 +1,6 @@
 import 'package:nice_travel/integration/ApiConnectionHelper.dart';
 import 'package:nice_travel/integration/json/ScheduleDayJson.dart';
-import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/ScheduleDay.dart';
 
 class ScheduleDayApiConnection {
   ScheduleDayApiConnection._();

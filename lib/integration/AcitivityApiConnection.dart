@@ -1,4 +1,4 @@
-import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/Acitivty.dart';
 
 import 'ApiConnectionHelper.dart';
 import 'json/ActivityJson.dart';

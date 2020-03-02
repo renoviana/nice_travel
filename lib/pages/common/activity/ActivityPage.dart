@@ -5,7 +5,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
 import 'package:nice_travel/integration/AcitivityApiConnection.dart';
+import 'package:nice_travel/model/Acitivty.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/ScheduleDay.dart';
 import 'package:nice_travel/pages/common/activity/ActivityTimeline.dart';
 import 'package:nice_travel/pages/common/activity/IconStyleActivity.dart';
 import 'package:nice_travel/widgets/ModalDialog.dart';
@@ -39,6 +41,8 @@ class _ActivityPageState extends State<ActivityPage> {
   _ActivityPageState(this._activity, this._scheduleDay, this._schedule);
 
   updateProductModelValue() {
+    var priceFinalUpdated= _schedule.priceFinal  - _activity.price + _moneyController.numberValue;
+    _schedule.updatePrice(priceFinalUpdated);
     setState(() {
       _activity.price = _moneyController.numberValue;
       _activity.nameOfPlace = _nameController.text;

@@ -1,7 +1,7 @@
 import 'package:nice_travel/controller/BlocHelper.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
-import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/ScheduleDay.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListScheduleDayBloc {
