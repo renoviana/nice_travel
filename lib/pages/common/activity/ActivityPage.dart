@@ -154,26 +154,22 @@ class _ActivityPageState extends State<ActivityPage> {
 
   deleteAction() {
     showCircularProgress(context);
-    ActivityApiConnection.instance.deleteActivity(_activity.id).then((_) => {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) =>
-                      ActivityTimeline(_scheduleDay, _schedule)),
-              ModalRoute.withName('/daySchedulePage')),
-        });
+    ActivityApiConnection.instance.deleteActivity(_activity.id).then((_) => navigatoToActivityTimeLine());
+  }
+
+  Future navigatoToActivityTimeLine() async {
+    return Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) =>
+                    ActivityTimeline(_scheduleDay, _schedule)),
+            ModalRoute.withName('/daySchedulePage'));
   }
 
   save(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       showCircularProgress(context);
       ActivityApiConnection.instance.addActivity(_activity).then(
-          (_) => {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ActivityTimeline(_scheduleDay, _schedule)),
-                    ModalRoute.withName('/daySchedulePage')),
-              }, onError: (message) {
+          (_) => navigatoToActivityTimeLine(), onError: (message) {
         Navigator.pop(context);
         showToastMessage(message, _scaffoldKey);
       });

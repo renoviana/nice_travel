@@ -17,7 +17,8 @@ class ButtonBarScheduleDay extends StatefulWidget {
   ButtonBarScheduleDay(this._trip, this._scaffoldKey);
 
   @override
-  _ButtonBarScheduleDayState createState() => _ButtonBarScheduleDayState(_trip, _scaffoldKey);
+  _ButtonBarScheduleDayState createState() =>
+      _ButtonBarScheduleDayState(_trip, _scaffoldKey);
 }
 
 class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
@@ -159,12 +160,14 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
   publishAction(UserModel model, BuildContext context) {
     ScheduleApiConnection.instance
         .publishSchedule(_trip.scheduleCod)
-        .then((_) => {
-              Navigator.pop(context),
-              setState(() {
-                _trip.isPublish = true;
-              })
-            });
+        .then((_) => popAndPublishSchedule(context));
+  }
+
+  popAndPublishSchedule(BuildContext context) {
+    Navigator.pop(context);
+    setState(() {
+      _trip.isPublish = true;
+    });
   }
 
   Text textButton(String text) => Text(
@@ -183,11 +186,13 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
     showCircularProgress(context);
     ScheduleApiConnection.instance
         .deleteSchedule(_trip.scheduleCod)
-        .then((_) => {
-              Navigator.pop(context),
-              Navigator.pop(context),
-              Navigator.pop(context),
-            });
+        .then((_) => popToPage(context));
+  }
+
+  popToPage(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   Widget createIconAddDay(UserModel model, BuildContext context) {
@@ -210,11 +215,9 @@ class _ButtonBarScheduleDayState extends State<ButtonBarScheduleDay> {
     );
   }
 
-
   Future sendActivityTimelineWithNewDay(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) =>
             ActivityTimeline.newInstance(_trip.scheduleCod)));
   }
-
 }

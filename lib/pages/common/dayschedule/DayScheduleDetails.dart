@@ -48,7 +48,7 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
 
   MaterialButton _buildRemoveButton(BuildContext context, UserModel model) {
     return MaterialButton(
-      key: Key("remover_schedule_day_${widget.scheduleDay.day}"),
+        key: Key("remover_schedule_day_${widget.scheduleDay.day}"),
         child: Icon(
           Icons.delete,
           color: Colors.red,
@@ -117,11 +117,13 @@ class _DayScheduleDetailsState extends State<DayScheduleDetails> {
     showCircularProgress(context);
     ScheduleDayApiConnection.instance
         .deleteScheduleDay(widget.scheduleDay.id)
-        .then((_) => {
-              listScheduleDayBloc.loadSchedules(widget.schedule.scheduleCod),
-              Navigator.pop(context),
-              Navigator.pop(context),
-            });
+        .then((_) => popAfterDeleteSchedule());
+  }
+
+  popAfterDeleteSchedule() {
+    listScheduleDayBloc.loadSchedules(widget.schedule.scheduleCod);
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   Future sendActivityTimeline() async {
