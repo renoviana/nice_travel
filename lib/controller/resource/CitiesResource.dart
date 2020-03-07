@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:nice_travel/model/CityModel.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/model/api.dart';
 

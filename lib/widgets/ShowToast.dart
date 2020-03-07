@@ -23,12 +23,14 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
       content: const Text('É necessário realizar login'),
       action: SnackBarAction(
           label: 'Login',
-          onPressed: () => {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SignIn(model)))
-              }),
+          onPressed: () => navigatoToSignIn(context, model)),
     ),
   );
+}
+
+Future navigatoToSignIn(BuildContext context, UserModel model) {
+  return Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SignIn(model)));
 }
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
