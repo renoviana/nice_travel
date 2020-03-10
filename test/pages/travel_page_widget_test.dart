@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nice_travel/app_module.dart';
-import 'package:nice_travel/module/travel/page/TravelPage.dart';
-import 'package:nice_travel/module/travel/widget/card/ScheduleCard.dart';
-import 'package:nice_travel/module/travel/widget/list/ScheduleList.dart';
+import 'package:nice_travel/module/travel/travel_page.dart';
+import 'package:nice_travel/module/travel/widget/card/schedule_card.dart';
+import 'package:nice_travel/module/travel/widget/list/schedule_list.dart';
 void main() {
 
   setUpAll(() {

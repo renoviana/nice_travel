@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'main.dart';
 import 'main_controller.dart';
 import 'module/tabs/tabs_controller.dart';
-import 'module/travel/travel_controller.dart';
+import 'module/travel/controller/travel_controller.dart';
 
 class AppModule extends MainModule {
 

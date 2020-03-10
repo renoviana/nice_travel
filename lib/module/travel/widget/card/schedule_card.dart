@@ -1,33 +1,36 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
-import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
+import 'package:nice_travel/module/travel/controller/travel_controller.dart';
 import 'package:nice_travel/widgets/AutoCompleteField.dart';
 
 class ScheduleCard extends StatelessWidget {
   AutoCompleteTextField<GooglePlacesModel> _field;
-  AutoCompleteField autoCompleteField;
+  AutoCompleteField _autoCompleteField;
+
+  final travelController = Modular.get<TravelController>();
 
   ScheduleCard() {
-    autoCompleteField = new AutoCompleteField(
+    _autoCompleteField = new AutoCompleteField(
         InputDecoration(
             hintText: "Vai para onde?",
             suffixIcon: IconButton(
               icon: Icon(Icons.clear),
               onPressed: () {
-                autoCompleteField.field.clear();
-                autoCompleteField.clearPlaceID();
+                _autoCompleteField.field.clear();
+                _autoCompleteField.clearPlaceID();
                 updateSchedules();
                 autoCompleteBloc.setCityInputStatus.add(true);
               },
             )),
         () => updateSchedules());
-    _field = autoCompleteField.field;
+    _field = _autoCompleteField.field;
   }
 
   void updateSchedules() {
-    listScheduleBloc.loadSchedules(autoCompleteField.getPlaceId());
+    travelController.loadSchedules(_autoCompleteField.getPlaceId());
   }
 
   @override

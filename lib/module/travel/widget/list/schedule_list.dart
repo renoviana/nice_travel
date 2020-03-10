@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/controller/travel/ListScheduleBloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/module/travel/controller/travel_controller.dart';
 import 'package:nice_travel/widgets/ErrorConnectionWidget.dart';
 import 'package:nice_travel/widgets/LoadingWidget.dart';
 import 'package:nice_travel/widgets/schedule/ScheduleListItem.dart';
 class ScheduleList extends StatelessWidget {
 
+  final travelController = Modular.get<TravelController>();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ApiResponse<List<Schedule>>>(
-        stream: listScheduleBloc.getListSchedule,
+        stream: travelController.getListSchedule(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Loading();
@@ -27,7 +30,7 @@ class ScheduleList extends StatelessWidget {
               case Status.ERROR:
                 return ErrorConnection(
                   errorMessage: snapshot.data.message,
-                  onRetryPressed: () => listScheduleBloc.loadSchedules(null),
+                  onRetryPressed: () => travelController.initializeSchedules(),
                 );
                 break;
             }

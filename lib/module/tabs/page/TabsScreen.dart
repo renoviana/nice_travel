@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/module/schedule/page/SchedulePage.dart';
-import 'package:nice_travel/module/travel/page/TravelPage.dart';
+import 'package:nice_travel/module/travel/travel_page.dart';
 
 import '../tabs_controller.dart';
 import '../widget/CustomDrawer.dart';
