@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nice_travel/app_module.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'model/UserModel.dart';
-import 'navigation/TabsScreen.dart';
+import 'module/tabs/page/TabsScreen.dart';
 
 void main({bool testMode = false}) {
-  runApp(MyApp(testMode));
+  runApp(ModularApp(module: AppModule()));
 }
 
-class MyApp extends StatelessWidget {
-  final bool testMode;
-  MyApp(this.testMode);
+class MainPage extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
     return ScopedModel<UserModel>(
-        model: testMode ? UserModel.mockLogin() : UserModel.newInstance(),
+//        model: testMode ? UserModel.mockLogin() : UserModel.newInstance(),
+        model: UserModel.mockLogin(),
         child: buildScopedModelDescendant());
   }
 

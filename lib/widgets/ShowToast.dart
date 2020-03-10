@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
-import 'package:nice_travel/login/SignIn.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/pages/common/dayschedule/DaySchedulePage.dart';
-import 'package:nice_travel/widgets/showCircularProgress.dart';
+import 'package:nice_travel/module/day_schedule/page/DaySchedulePage.dart';
+import 'package:nice_travel/module/login/SignIn.dart';
+import 'package:nice_travel/util/showCircularProgress.dart';
 
 void showToastMessage(String message, GlobalKey<ScaffoldState> _scaffoldKey) {
   _scaffoldKey.currentState.removeCurrentSnackBar();
