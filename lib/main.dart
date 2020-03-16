@@ -4,7 +4,7 @@ import 'package:nice_travel/app_module.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'model/UserModel.dart';
-import 'module/tabs/page/TabsScreen.dart';
+import 'module/tabs/tabs_screen.dart';
 
 void main({bool testMode = false}) {
   runApp(ModularApp(module: AppModule()));

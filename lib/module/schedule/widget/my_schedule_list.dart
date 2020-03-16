@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/controller/schedule/MyListScheduleBloc.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/model/Schedule.dart';
-import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/widgets/ErrorConnectionWidget.dart';
 import 'package:nice_travel/widgets/LoadingWidget.dart';
 import 'package:nice_travel/widgets/schedule/ScheduleListItem.dart';
 
+import '../controller/schedule_controller.dart';
+
 class MyScheduleList extends StatelessWidget {
-  final UserModel _model;
+  final _scheduleController = Modular.get<ScheduleController>();
 
-  MyScheduleList(this._model){
-    loadList();
-  }
-
-  void loadList() {
-    if (_model.isLoggedIn()) {
-      myListScheduleBloc.loadSchedules(_model.sessionUser.uid);
-    } else {
-      myListScheduleBloc.clearList();
-    }
+  MyScheduleList(){
+    _scheduleController.initializeMySchedules();
   }
 
   @override
@@ -42,7 +36,7 @@ class MyScheduleList extends StatelessWidget {
               case Status.ERROR:
                 return ErrorConnection(
                   errorMessage: snapshot.data.message,
-                  onRetryPressed: () => loadList(),
+                  onRetryPressed: () => _scheduleController.initializeMySchedules(),
                 );
                 break;
             }

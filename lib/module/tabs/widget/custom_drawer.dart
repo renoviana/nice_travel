@@ -4,8 +4,8 @@ import 'package:nice_travel/module/login/SignIn.dart';
 import 'package:nice_travel/util/NiceTravelIcons.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'DrawerTile.dart';
-import 'TabModel.dart';
+import 'drawer_tile.dart';
+import 'tab_model.dart';
 
 class CustomDrawer extends StatelessWidget {
 

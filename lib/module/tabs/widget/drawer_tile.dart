@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../tabs_controller.dart';
+import '../controller/tabs_controller.dart';
 
 class DrawerTile extends StatelessWidget {
   final IconData icon;
