@@ -1,25 +1,21 @@
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
-import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/Acitivty.dart';
 
-import 'ApiConnection.dart';
+import 'ApiConnectionHelper.dart';
 import 'json/ActivityJson.dart';
 
 class ActivityApiConnection {
-  ActivityApiConnection._() {
-    print('Calling ActivityApiConnection');
-  }
+  ActivityApiConnection._();
 
   static final ActivityApiConnection instance = new ActivityApiConnection._();
 
   Future<List<Activity>> getActiviesByScheduleDay(int scheduleDayId) async {
     final url =
-        ApiConnection.URL_API + "/activity?scheduleDayId=$scheduleDayId";
-    return _formatFutureToActivities(await http.get(url));
+        ApiConnectionHelper.URL_API + "/activity?scheduleDayId=$scheduleDayId";
+    return _formatFutureToActivities(await ApiConnectionHelper.get(url));
   }
 
   Future<Activity> addActivity(Activity activity) async {
-    final url = ApiConnection.URL_API +
+    final url = ApiConnectionHelper.URL_API +
         "/activity/add?"
             "description=${activity.description}"
             "&nameOfPlace=${activity.nameOfPlace}"
@@ -29,34 +25,25 @@ class ActivityApiConnection {
             "&styleActivity=${activity.styleActivity}"
             "&idScheduleDay=${activity.idScheduleDay}"
             "${activity.id != null ? "&id=${activity.id}" : ""}";
-    return _formatFutureToActivity(
-        await http.post(ApiConnection.encodeFull(url)));
+    return _formatFutureToActivity(await ApiConnectionHelper.post(url));
   }
 
-  Future<Response> deleteActivity(int activityId) async {
+  Future<dynamic> deleteActivity(int activityId) async {
     final url =
-        ApiConnection.URL_API + "/activity/delete?activityId=$activityId";
-    return await http.delete(url);
+        ApiConnectionHelper.URL_API + "/activity/delete?activityId=$activityId";
+    return await ApiConnectionHelper.delete(url);
   }
 
-  List<Activity> _formatFutureToActivities(Response response) {
-    if (response.statusCode == 200) {
-      return _formatActivitiesJson(response.body);
-    }
-    return [];
+  List<Activity> _formatFutureToActivities(String response) {
+    return _formatActivitiesJson(response);
   }
 
   List<Activity> _formatActivitiesJson(String json) {
     return ActivityJson().parseActivityJsonToActivities(json);
   }
 
-  Activity _formatFutureToActivity(Response response) {
-    if (response.statusCode == 200) {
-      return _formatActivityJson(response.body);
-    } else {
-      print('${response.statusCode} - ${response.body}');
-    }
-    return null;
+  Activity _formatFutureToActivity(String response) {
+    return _formatActivityJson(response);
   }
 
   Activity _formatActivityJson(String json) {

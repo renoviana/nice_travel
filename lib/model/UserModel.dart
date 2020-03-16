@@ -10,7 +10,14 @@ class UserModel extends Model {
   SessionUser sessionUser;
   String tokenMessage;
 
-//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  //  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+
+  UserModel.newInstance();
+
+  UserModel.mockLogin(){
+    this.sessionUser = new SessionUser("Thiago","thiagobomfim1995@gmail.com", "ImEQrrQkeseYvPAwaqx0TFWj4CL2", null);
+  }
 
   updateUserTokenMessage() async {
     if (tokenMessage == null) {
@@ -39,7 +46,7 @@ class UserModel extends Model {
   }
 
   bool isLoggedIn() {
-    return _firebaseUser != null;
+    return sessionUser != null;
   }
 
   void signInSilently() async {
@@ -64,4 +71,7 @@ class UserModel extends Model {
     sessionUser.tokenMessage = tokenMessage;
     return sessionUser;
   }
+
 }
+
+

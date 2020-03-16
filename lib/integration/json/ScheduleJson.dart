@@ -18,9 +18,6 @@ abstract class ScheduleJson
   int get qtdDays;
 
   @nullable
-  String get imageUrl;
-
-  @nullable
   String get cityAddress;
 
   @nullable
@@ -47,17 +44,22 @@ abstract class ScheduleJson
 
     List<Schedule> schedules = new List();
     for (var scheduleJson in parsed) {
-      var deserializeWith = standardSerializers.deserializeWith(
-          ScheduleJson.serializer, scheduleJson);
-      schedules.add(Schedule(deserializeWith));
+      var schedule = _parseScheduleJsonToSchedule(scheduleJson);
+      schedules.add(schedule);
     }
     return schedules;
   }
 
   Schedule parseScheduleJsonToSchedule(String jsonToSchule) {
     final scheduleJson = json.jsonDecode(jsonToSchule);
+    return _parseScheduleJsonToSchedule(scheduleJson);
+  }
+
+  Schedule _parseScheduleJsonToSchedule(scheduleJson) {
     var deserializeWith = standardSerializers.deserializeWith(
         ScheduleJson.serializer, scheduleJson);
-    return Schedule(deserializeWith);
+    Schedule schedule = Schedule(deserializeWith);
+    schedule.imagesUrl = List<String>.from(scheduleJson['imagesUrl']);
+    return schedule;
   }
 }

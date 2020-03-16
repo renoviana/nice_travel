@@ -3,7 +3,7 @@ import 'dart:convert' as json;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:nice_travel/integration/json/serializers.dart';
-import 'package:nice_travel/model/Schedule.dart';
+import 'package:nice_travel/model/ScheduleDay.dart';
 
 part 'ScheduleDayJson.g.dart';
 
@@ -20,6 +20,12 @@ abstract class ScheduleDayJson
 
   @nullable
   int get id;
+
+  @nullable
+  int get qtdActivities;
+
+  @nullable
+  String get typeFirstActivity;
 
   ScheduleDayJson._();
 
