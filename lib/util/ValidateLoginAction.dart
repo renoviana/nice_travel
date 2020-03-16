@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/widgets/show_toast.dart';
 
 validateLoginAction(BuildContext context, UserModel model, Schedule schedule,
     GlobalKey<ScaffoldState> _scaffoldKey, Function function) {

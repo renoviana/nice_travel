@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/module/travel/controller/travel_controller.dart';
-import 'package:nice_travel/widgets/AutoCompleteField.dart';
+import 'package:nice_travel/widgets/auto_complete_field.dart';
 
 class ScheduleCard extends StatelessWidget {
   AutoCompleteTextField<GooglePlacesModel> _field;

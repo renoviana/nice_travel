@@ -10,10 +10,10 @@ import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/ScheduleDay.dart';
 import 'package:nice_travel/module/acitivity/widget/ActivityTimeline.dart';
 import 'package:nice_travel/module/acitivity/widget/IconStyleActivity.dart';
-import 'package:nice_travel/util/ModalDialog.dart';
-import 'package:nice_travel/util/ValidateField.dart';
-import 'package:nice_travel/util/showCircularProgress.dart';
-import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/util/modal_dialog.dart';
+import 'package:nice_travel/util/show_circular_progress.dart';
+import 'package:nice_travel/util/validate_field.dart';
+import 'package:nice_travel/widgets/show_toast.dart';
 
 class ActivityPage extends StatefulWidget {
   final Activity _activity;

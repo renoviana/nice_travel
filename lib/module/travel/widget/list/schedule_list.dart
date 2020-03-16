@@ -3,9 +3,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nice_travel/integration/ApiResponse.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/module/travel/controller/travel_controller.dart';
-import 'package:nice_travel/widgets/ErrorConnectionWidget.dart';
-import 'package:nice_travel/widgets/LoadingWidget.dart';
-import 'package:nice_travel/widgets/schedule/ScheduleListItem.dart';
+import 'package:nice_travel/widgets/error_connection_widget.dart';
+import 'package:nice_travel/widgets/loading_widget.dart';
+import 'package:nice_travel/widgets/schedule/schedule_list_item.dart';
 class ScheduleList extends StatelessWidget {
 
   final travelController = Modular.get<TravelController>();

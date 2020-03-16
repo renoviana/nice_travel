@@ -4,7 +4,7 @@ import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/util/ValidateLoginAction.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import '../new_schedule/NewSchedulePage.dart';
+import '../new_schedule/new_schedule_page.dart';
 import 'controller/schedule_controller.dart';
 import 'widget/my_schedule_list.dart';
 

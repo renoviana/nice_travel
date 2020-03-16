@@ -7,8 +7,8 @@ import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/module/day_schedule/widget/ButtonBarScheduleDay.dart';
 import 'package:nice_travel/module/day_schedule/widget/list/DayScheduleList.dart';
-import 'package:nice_travel/util/CustomBoxShadow.dart';
-import 'package:nice_travel/util/FormatUtil.dart';
+import 'package:nice_travel/util/custom_box_shadow.dart';
+import 'package:nice_travel/util/format_util.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class DaySchedulePage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/module/login/SignIn.dart';
-import 'package:nice_travel/util/NiceTravelIcons.dart';
+import 'package:nice_travel/module/login/sign_in.dart';
+import 'package:nice_travel/util/nice_travel_icons.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'drawer_tile.dart';

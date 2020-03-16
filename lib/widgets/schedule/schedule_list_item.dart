@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/module/day_schedule/page/DaySchedulePage.dart';
-import 'package:nice_travel/util/CustomBoxShadow.dart';
+import 'package:nice_travel/util/custom_box_shadow.dart';
 
 class ScheduleListItem extends StatelessWidget {
   final Schedule schedule;

@@ -6,8 +6,8 @@ import 'package:nice_travel/integration/ScheduleDayApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/ScheduleDay.dart';
 import 'package:nice_travel/module/day_schedule/widget/list/DayScheduleDetails.dart';
-import 'package:nice_travel/widgets/ErrorConnectionWidget.dart';
-import 'package:nice_travel/widgets/LoadingWidget.dart';
+import 'package:nice_travel/widgets/error_connection_widget.dart';
+import 'package:nice_travel/widgets/loading_widget.dart';
 
 class DayScheduleList extends StatelessWidget {
   final Schedule _schedule;

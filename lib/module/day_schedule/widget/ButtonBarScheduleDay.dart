@@ -4,10 +4,10 @@ import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/Schedule.dart';
 import 'package:nice_travel/model/UserModel.dart';
 import 'package:nice_travel/module/acitivity/widget/ActivityTimeline.dart';
-import 'package:nice_travel/util/ModalDialog.dart';
 import 'package:nice_travel/util/ValidateLoginAction.dart';
-import 'package:nice_travel/util/showCircularProgress.dart';
-import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/util/modal_dialog.dart';
+import 'package:nice_travel/util/show_circular_progress.dart';
+import 'package:nice_travel/widgets/show_toast.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ButtonBarScheduleDay extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nice_travel/util/NiceTravelIcons.dart';
+import 'package:nice_travel/util/nice_travel_icons.dart';
 
 enum Style {
   RESTAURANT,

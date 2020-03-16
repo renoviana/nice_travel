@@ -6,10 +6,10 @@ import 'package:nice_travel/controller/AutoCompleteBloc.dart';
 import 'package:nice_travel/integration/ScheduleApiConnection.dart';
 import 'package:nice_travel/model/PlacesModel.dart';
 import 'package:nice_travel/model/UserModel.dart';
-import 'package:nice_travel/util/ValidateField.dart';
-import 'package:nice_travel/util/showCircularProgress.dart';
-import 'package:nice_travel/widgets/AutoCompleteField.dart';
-import 'package:nice_travel/widgets/ShowToast.dart';
+import 'package:nice_travel/util/show_circular_progress.dart';
+import 'package:nice_travel/util/validate_field.dart';
+import 'package:nice_travel/widgets/auto_complete_field.dart';
+import 'package:nice_travel/widgets/show_toast.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class NewSchedulePage extends StatefulWidget {

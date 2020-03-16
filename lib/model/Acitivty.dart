@@ -1,6 +1,6 @@
 
 import 'package:nice_travel/integration/json/ActivityJson.dart';
-import 'package:nice_travel/util/FormatUtil.dart';
+import 'package:nice_travel/util/format_util.dart';
 
 class Activity {
   String description;
